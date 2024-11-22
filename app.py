@@ -44,22 +44,23 @@ async def handler(websocket):
                 await websocket.send(json.dumps(response))
                 continue
 
+            response = {
+                "type": "play",
+                "player": player,
+                "column": column,
+                "row": row,
+            }
+            await websocket.send(json.dumps(response))
+
             if game.last_player_won:
                 response = {
                     "type": "win",
                     "player": player,
                 }
-            else:
-                response = {
-                    "type": "play",
-                    "player": player,
-                    "column": column,
-                    "row": row,
-                }
+                await websocket.send(json.dumps(response))
+
             player = next(turns)
             logging.debug(f"Next player is up: {player}")
-
-        await websocket.send(json.dumps(response))
 
 
 async def main():
