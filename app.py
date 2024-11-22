@@ -8,14 +8,13 @@ import secrets
 
 
 from websockets.asyncio.client import connect
-from websockets.asyncio.server import serve
+from websockets.asyncio.server import broadcast, serve
 from websockets.exceptions import ConnectionClosedOK
 
 from connect4 import PLAYER1, PLAYER2, Connect4
 
 
 logging.basicConfig(format="%(message)s", level=logging.DEBUG)
-
 
 # global dict to manage connections for players connected to a game;
 # keyed on game_id, values are sets of websocket connections
@@ -127,6 +126,7 @@ def destroy_game(game_id):
 
 
 def leave_game(websocket, game_id):
+    # i'm really not sure this is necessary given the behavior of destroy_game
     game, connections = lookup_game(game_id)
     try:
         connections.remove(websocket)
@@ -204,7 +204,7 @@ async def join_game(websocket, game_id):
         await play(websocket, game_id, PLAYER2)
     finally:
         logging.debug(f"{PLAYER2} leaving game {game_id}")
-        leave_game(game_id)
+        leave_game(websocket, game_id)
 
 
 async def play(websocket, game_id, player):
@@ -227,23 +227,23 @@ async def play(websocket, game_id, player):
             logging.debug(f"player {player} plays col {column}")
             row = game.play(player, column)
         except (ValueError, KeyError) as exc:
-            await error(str(exc))
+            await error(websocket, str(exc))
             continue
 
-        response = {
+        play_event = {
             "type": "play",
             "player": player,
             "column": column,
             "row": row,
         }
-        await websocket.send(json.dumps(response))
+        broadcast(connections, json.dumps(play_event))
 
         if game.last_player_won:
-            response = {
+            win_event = {
                 "type": "win",
                 "player": player,
             }
-            await websocket.send(json.dumps(response))
+            broadcast(connections, json.dumps(win_event))
 
 
 async def handler(websocket):
@@ -263,7 +263,7 @@ async def handler(websocket):
         else:
             await join_game(websocket, game_id)
     else:
-        await error(f"Unknown event type {event_type}")
+        await error(websocket, f"Unknown event type {event_type}")
 
 
 async def main():
