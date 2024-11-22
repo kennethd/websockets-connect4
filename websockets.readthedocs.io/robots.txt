@@ -1,0 +1,57 @@
+User-agent: *
+
+Disallow: /en/9.0.2/ # Hidden version
+
+Disallow: /en/9.0.1/ # Hidden version
+
+Disallow: /en/9.0/ # Hidden version
+
+Disallow: /en/8.1/ # Hidden version
+
+Disallow: /en/8.0.2/ # Hidden version
+
+Disallow: /en/8.0.1/ # Hidden version
+
+Disallow: /en/8.0/ # Hidden version
+
+Disallow: /en/7.0/ # Hidden version
+
+Disallow: /en/6.0/ # Hidden version
+
+Disallow: /en/5.0.1/ # Hidden version
+
+Disallow: /en/5.0/ # Hidden version
+
+Disallow: /en/4.0.1/ # Hidden version
+
+Disallow: /en/4.0/ # Hidden version
+
+Disallow: /en/3.4/ # Hidden version
+
+Disallow: /en/3.3/ # Hidden version
+
+Disallow: /en/3.2/ # Hidden version
+
+Disallow: /en/3.1/ # Hidden version
+
+Disallow: /en/3.0/ # Hidden version
+
+Disallow: /en/2.7/ # Hidden version
+
+Disallow: /en/2.6/ # Hidden version
+
+Disallow: /en/2.5/ # Hidden version
+
+Disallow: /en/2.4/ # Hidden version
+
+Disallow: /en/2.3/ # Hidden version
+
+Disallow: /en/2.2/ # Hidden version
+
+Disallow: /en/2.1/ # Hidden version
+
+Disallow: /en/2.0/ # Hidden version
+
+Disallow: /en/1.0/ # Hidden version
+
+Sitemap: https://websockets.readthedocs.io/sitemap.xml

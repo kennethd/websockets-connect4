@@ -1,0 +1,1124 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Part 1 - Send & receive" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="intro/tutorial1.html" />
+<meta property="og:site_name" content="websockets" />
+<meta property="og:description" content="In this tutorial, you’re going to build a web-based Connect Four game. The web removes the constraint of being in the same room for playing a game. Two players can connect over of the Internet, reg..." />
+<meta name="description" content="In this tutorial, you’re going to build a web-based Connect Four game. The web removes the constraint of being in the same room for playing a game. Two players can connect over of the Internet, reg..." />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Part 2 - Route &amp; broadcast" href="tutorial2.html" /><link rel="prev" title="Getting started" href="index.html" />
+
+    <link rel="shortcut icon" href="../_static/favicon.ico"/><!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
+        <title>Part 1 - Send &amp; receive - websockets 14.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css%3Fv=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css%3Fv=354aac6f.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css%3Fv=76b2166b.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css%3Fv=4c969af8.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css%3Fv=302659d7.css" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  --color-brand-primary: #306998;
+  --color-brand-content: #0b487a;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --color-brand-primary: #ffd43bcc;
+  --color-brand-content: #ffd43bd9;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --color-brand-primary: #ffd43bcc;
+  --color-brand-content: #ffd43bd9;
+  
+      }
+    }
+  }
+</style><script async type="text/javascript" src="../../../_/static/javascript/readthedocs-addons.js"></script><meta name="readthedocs-project-slug" content="websockets" /><meta name="readthedocs-version-slug" content="stable" /><meta name="readthedocs-resolver-filename" content="/intro/tutorial1.html" /><meta name="readthedocs-http-status" content="200" /></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="tutorial1.html#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">websockets 14.1 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../_static/websockets.svg" alt="Logo"/>
+  </div>
+  
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Getting started</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Getting started</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="tutorial1.html#">Part 1 - Send &amp; receive</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial2.html">Part 2 - Route &amp; broadcast</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial3.html">Part 3 - Deploy to the web</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../howto/index.html">How-to guides</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of How-to guides</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../howto/quickstart.html">Quick start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/upgrade.html">Upgrade to the new <code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code> implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/cheatsheet.html">Cheat sheet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/patterns.html">Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/autoreload.html">Reload on code changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/django.html">Integrate with Django</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/extensions.html">Write an extension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/render.html">Deploy to Render</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/fly.html">Deploy to Fly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/heroku.html">Deploy to Heroku</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/kubernetes.html">Deploy to Kubernetes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/supervisor.html">Deploy with Supervisor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/nginx.html">Deploy behind nginx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/haproxy.html">Deploy behind HAProxy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/sansio.html">Integrate the Sans-I/O layer</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../faq/index.html">Frequently asked questions</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Frequently asked questions</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../faq/server.html">Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/client.html">Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/common.html">Both sides</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/asyncio.html">Using asyncio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/misc.html">Miscellaneous</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../reference/index.html">API reference</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of API reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reference/features.html">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/asyncio/server.html">Server (new <code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/asyncio/client.html">Client (new <code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/sync/server.html">Server (<code class="xref py py-mod docutils literal notranslate"><span class="pre">threading</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/sync/client.html">Client (<code class="xref py py-mod docutils literal notranslate"><span class="pre">threading</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/sansio/server.html">Server (Sans-I/O)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/sansio/client.html">Client (Sans-I/O)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/legacy/server.html">Server (legacy <code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/legacy/client.html">Client (legacy <code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/extensions.html">Extensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/datastructures.html">Data structures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/exceptions.html">Exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/types.html">Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/variables.html">Environment variables</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../topics/index.html">Topic guides</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of Topic guides</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../topics/deployment.html">Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../topics/logging.html">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../topics/authentication.html">Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../topics/broadcast.html">Broadcasting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../topics/compression.html">Compression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../topics/keepalive.html">Keepalive and latency</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../topics/memory.html">Memory and buffers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../topics/security.html">Security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../topics/performance.html">Performance</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../project/index.html">About websockets</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of About websockets</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../project/changelog.html">Changelog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../project/contributing.html">Contributing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../project/sponsoring.html">Sponsoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../project/tidelift.html">For enterprise</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../project/support.html">Getting support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../project/license.html">License</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="tutorial1.html#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          
+
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="part-1-send-receive">
+<h1>Part 1 - Send &amp; receive<a class="headerlink" href="tutorial1.html#part-1-send-receive" title="Link to this heading">¶</a></h1>
+<p>In this tutorial, you’re going to build a web-based <a class="reference external" href="https://en.wikipedia.org/wiki/Connect_Four">Connect Four</a> game.</p>
+<p>The web removes the constraint of being in the same room for playing a game.
+Two players can connect over of the Internet, regardless of where they are,
+and play in their browsers.</p>
+<p>When a player makes a move, it should be reflected immediately on both sides.
+This is difficult to implement over HTTP due to the request-response style of
+the protocol.</p>
+<p>Indeed, there is no good way to be notified when the other player makes a
+move. Workarounds such as polling or long-polling introduce significant
+overhead.</p>
+<p>Enter <a class="reference external" href="https://websockets.readthedocs.io/en/stable/intro/websocket">WebSocket</a>.</p>
+<p>The WebSocket protocol provides two-way communication between a browser and a
+server over a persistent connection. That’s exactly what you need to exchange
+moves between players, via a server.</p>
+<div class="admonition-this-is-the-first-part-of-the-tutorial admonition">
+<p class="admonition-title">This is the first part of the tutorial.</p>
+<ul class="simple">
+<li><p>In this <a class="reference internal" href="tutorial1.html#"><span class="doc">first part</span></a>, you will create a server and
+connect one browser; you can play if you share the same browser.</p></li>
+<li><p>In the <a class="reference internal" href="tutorial2.html"><span class="doc">second part</span></a>, you will connect a second
+browser; you can play from different browsers on a local network.</p></li>
+<li><p>In the <a class="reference internal" href="tutorial3.html"><span class="doc">third part</span></a>, you will deploy the game to the
+web; you can play from any browser connected to the Internet.</p></li>
+</ul>
+</div>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="tutorial1.html#prerequisites" title="Link to this heading">¶</a></h2>
+<p>This tutorial assumes basic knowledge of Python and JavaScript.</p>
+<p>If you’re comfortable with <a class="reference external" href="https://docs.python.org/3/tutorial/venv.html" title="(in Python v3.13)"><span class="xref std std-doc">virtual environments</span></a>,
+you can use one for this tutorial. Else, don’t worry: websockets doesn’t have
+any dependencies; it shouldn’t create trouble in the default environment.</p>
+<p>If you haven’t installed websockets yet, do it now:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip<span class="w"> </span>install<span class="w"> </span>websockets
+</pre></div>
+</div>
+<p>Confirm that websockets is installed:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python<span class="w"> </span>-m<span class="w"> </span>websockets<span class="w"> </span>--version
+</pre></div>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">This tutorial is written for websockets 14.1.</p>
+<p>If you installed another version, you should switch to the corresponding
+version of the documentation.</p>
+</div>
+</section>
+<section id="download-the-starter-kit">
+<h2>Download the starter kit<a class="headerlink" href="tutorial1.html#download-the-starter-kit" title="Link to this heading">¶</a></h2>
+<p>Create a directory and download these three files:
+<a class="reference download internal" download="" href="../_downloads/0a64a74790b923f7a434d52ffb8ee439/connect4.js"><code class="xref download docutils literal notranslate"><span class="pre">connect4.js</span></code></a>,
+<a class="reference download internal" download="" href="../_downloads/7befac290d5b5a8e50fffd4c01f743a4/connect4.css"><code class="xref download docutils literal notranslate"><span class="pre">connect4.css</span></code></a>,
+and <a class="reference download internal" download="" href="../_downloads/732ee336610fa8eabb776a1f391337fc/connect4.py"><code class="xref download docutils literal notranslate"><span class="pre">connect4.py</span></code></a>.</p>
+<p>The JavaScript module, along with the CSS file, provides a web-based user
+interface. Here’s its API.</p>
+<dl class="js data" id="module-connect4">
+<dt class="sig sig-object js" id="connect4.PLAYER1">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">connect4</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">PLAYER1</span></span></span><a class="headerlink" href="tutorial1.html#connect4.PLAYER1" title="Link to this definition">¶</a></dt>
+<dd><p>Color of the first player.</p>
+</dd></dl>
+
+<dl class="js data">
+<dt class="sig sig-object js" id="connect4.PLAYER2">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">connect4</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">PLAYER2</span></span></span><a class="headerlink" href="tutorial1.html#connect4.PLAYER2" title="Link to this definition">¶</a></dt>
+<dd><p>Color of the second player.</p>
+</dd></dl>
+
+<dl class="js function">
+<dt class="sig sig-object js" id="connect4.createBoard">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">connect4</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">createBoard</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">board</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="tutorial1.html#connect4.createBoard" title="Link to this definition">¶</a></dt>
+<dd><p>Draw a board.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>board</strong> – DOM element containing the board; must be initially empty.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="js function">
+<dt class="sig sig-object js" id="connect4.playMove">
+<span class="sig-prename descclassname"><span class="n"><span class="pre">connect4</span></span><span class="p"><span class="pre">.</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">playMove</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">board</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">player</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="tutorial1.html#connect4.playMove" title="Link to this definition">¶</a></dt>
+<dd><p>Play a move.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>board</strong> – DOM element containing the board.</p></li>
+<li><p><strong>player</strong> – <a class="reference internal" href="tutorial1.html#connect4.PLAYER1" title="connect4.PLAYER1"><code class="xref js js-data docutils literal notranslate"><span class="pre">PLAYER1</span></code></a> or <a class="reference internal" href="tutorial1.html#connect4.PLAYER2" title="connect4.PLAYER2"><code class="xref js js-data docutils literal notranslate"><span class="pre">PLAYER2</span></code></a>.</p></li>
+<li><p><strong>column</strong> – between <code class="docutils literal notranslate"><span class="pre">0</span></code> and <code class="docutils literal notranslate"><span class="pre">6</span></code>.</p></li>
+<li><p><strong>row</strong> – between <code class="docutils literal notranslate"><span class="pre">0</span></code> and <code class="docutils literal notranslate"><span class="pre">5</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>The Python module provides a class to record moves and tell when a player
+wins. Here’s its API.</p>
+<dl class="py data" id="module-0">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-prename descclassname"><span class="pre">connect4.</span></span><span class="sig-name descname"><span class="pre">PLAYER1</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&quot;red&quot;</span></em><a class="headerlink" href="tutorial1.html#id0" title="Link to this definition">¶</a></dt>
+<dd><p>Color of the first player.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="id1">
+<span class="sig-prename descclassname"><span class="pre">connect4.</span></span><span class="sig-name descname"><span class="pre">PLAYER2</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&quot;yellow&quot;</span></em><a class="headerlink" href="tutorial1.html#id1" title="Link to this definition">¶</a></dt>
+<dd><p>Color of the second player.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="connect4.Connect4">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">connect4.</span></span><span class="sig-name descname"><span class="pre">Connect4</span></span><a class="headerlink" href="tutorial1.html#connect4.Connect4" title="Link to this definition">¶</a></dt>
+<dd><p>A Connect Four game.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="connect4.Connect4.play">
+<span class="sig-name descname"><span class="pre">play</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="tutorial1.html#connect4.Connect4.play" title="Link to this definition">¶</a></dt>
+<dd><p>Play a move.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>player</strong> – <a class="reference internal" href="tutorial1.html#id0" title="connect4.PLAYER1"><code class="xref py py-data docutils literal notranslate"><span class="pre">PLAYER1</span></code></a> or <a class="reference internal" href="tutorial1.html#id1" title="connect4.PLAYER2"><code class="xref py py-data docutils literal notranslate"><span class="pre">PLAYER2</span></code></a>.</p></li>
+<li><p><strong>column</strong> – between <code class="docutils literal notranslate"><span class="pre">0</span></code> and <code class="docutils literal notranslate"><span class="pre">6</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Row where the checker lands, between <code class="docutils literal notranslate"><span class="pre">0</span></code> and <code class="docutils literal notranslate"><span class="pre">5</span></code>.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – if the move is illegal.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="connect4.Connect4.moves">
+<span class="sig-name descname"><span class="pre">moves</span></span><a class="headerlink" href="tutorial1.html#connect4.Connect4.moves" title="Link to this definition">¶</a></dt>
+<dd><p>List of moves played during this game, as <code class="docutils literal notranslate"><span class="pre">(player,</span> <span class="pre">column,</span> <span class="pre">row)</span></code>
+tuples.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="connect4.Connect4.winner">
+<span class="sig-name descname"><span class="pre">winner</span></span><a class="headerlink" href="tutorial1.html#connect4.Connect4.winner" title="Link to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="tutorial1.html#id0" title="connect4.PLAYER1"><code class="xref py py-data docutils literal notranslate"><span class="pre">PLAYER1</span></code></a> or <a class="reference internal" href="tutorial1.html#id1" title="connect4.PLAYER2"><code class="xref py py-data docutils literal notranslate"><span class="pre">PLAYER2</span></code></a> if they
+won; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a> if the game is still ongoing.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="bootstrap-the-web-ui">
+<h2>Bootstrap the web UI<a class="headerlink" href="tutorial1.html#bootstrap-the-web-ui" title="Link to this heading">¶</a></h2>
+<p>Create an <code class="docutils literal notranslate"><span class="pre">index.html</span></code> file next to <code class="docutils literal notranslate"><span class="pre">connect4.js</span></code> and <code class="docutils literal notranslate"><span class="pre">connect4.css</span></code>
+with this content:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;en&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Connect Four<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;board&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;main.js&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;module&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>This HTML page contains an empty <code class="docutils literal notranslate"><span class="pre">&lt;div&gt;</span></code> element where you will draw the
+Connect Four board. It loads a <code class="docutils literal notranslate"><span class="pre">main.js</span></code> script where you will write all
+your JavaScript code.</p>
+<p>Create a <code class="docutils literal notranslate"><span class="pre">main.js</span></code> file next to <code class="docutils literal notranslate"><span class="pre">index.html</span></code>. In this script, when the
+page loads, draw the board:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">createBoard</span><span class="p">,</span><span class="w"> </span><span class="nx">playMove</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;./connect4.js&quot;</span><span class="p">;</span>
+
+<span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;DOMContentLoaded&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// Initialize the UI.</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">board</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;.board&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">createBoard</span><span class="p">(</span><span class="nx">board</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>Open a shell, navigate to the directory containing these files, and start an
+HTTP server:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python<span class="w"> </span>-m<span class="w"> </span>http.server
+</pre></div>
+</div>
+<p>Open <a class="reference external" href="http://localhost:8000/">http://localhost:8000/</a> in a web browser. The page displays an empty board
+with seven columns and six rows. You will play moves in this board later.</p>
+</section>
+<section id="bootstrap-the-server">
+<h2>Bootstrap the server<a class="headerlink" href="tutorial1.html#bootstrap-the-server" title="Link to this heading">¶</a></h2>
+<p>Create an <code class="docutils literal notranslate"><span class="pre">app.py</span></code> file next to <code class="docutils literal notranslate"><span class="pre">connect4.py</span></code> with this content:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="kn">import</span> <span class="nn">asyncio</span>
+
+<span class="kn">from</span> <span class="nn">websockets.asyncio.server</span> <span class="kn">import</span> <span class="n">serve</span>
+
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">handler</span><span class="p">(</span><span class="n">websocket</span><span class="p">):</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="k">await</span> <span class="n">websocket</span><span class="o">.</span><span class="n">recv</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">serve</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="mi">8001</span><span class="p">):</span>
+        <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_running_loop</span><span class="p">()</span><span class="o">.</span><span class="n">create_future</span><span class="p">()</span>  <span class="c1"># run forever</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>The entry point of this program is <code class="docutils literal notranslate"><span class="pre">asyncio.run(main())</span></code>. It creates an
+asyncio event loop, runs the <code class="docutils literal notranslate"><span class="pre">main()</span></code> coroutine, and shuts down the loop.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">main()</span></code> coroutine calls <a class="reference internal" href="../reference/asyncio/server.html#websockets.asyncio.server.serve" title="websockets.asyncio.server.serve"><code class="xref py py-func docutils literal notranslate"><span class="pre">serve()</span></code></a> to start a
+websockets server. <a class="reference internal" href="../reference/asyncio/server.html#websockets.asyncio.server.serve" title="websockets.asyncio.server.serve"><code class="xref py py-func docutils literal notranslate"><span class="pre">serve()</span></code></a> takes three positional
+arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">handler</span></code> is a coroutine that manages a connection. When a client
+connects, websockets calls <code class="docutils literal notranslate"><span class="pre">handler</span></code> with the connection in argument.
+When <code class="docutils literal notranslate"><span class="pre">handler</span></code> terminates, websockets closes the connection.</p></li>
+<li><p>The second argument defines the network interfaces where the server can be
+reached. Here, the server listens on all interfaces, so that other devices
+on the same local network can connect.</p></li>
+<li><p>The third argument is the port on which the server listens.</p></li>
+</ul>
+<p>Invoking <a class="reference internal" href="../reference/asyncio/server.html#websockets.asyncio.server.serve" title="websockets.asyncio.server.serve"><code class="xref py py-func docutils literal notranslate"><span class="pre">serve()</span></code></a> as an asynchronous context manager, in an
+<code class="docutils literal notranslate"><span class="pre">async</span> <span class="pre">with</span></code> block, ensures that the server shuts down properly when
+terminating the program.</p>
+<p>For each connection, the <code class="docutils literal notranslate"><span class="pre">handler()</span></code> coroutine runs an infinite loop that
+receives messages from the browser and prints them.</p>
+<p>Open a shell, navigate to the directory containing <code class="docutils literal notranslate"><span class="pre">app.py</span></code>, and start the
+server:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python<span class="w"> </span>app.py
+</pre></div>
+</div>
+<p>This doesn’t display anything. Hopefully the WebSocket server is running.
+Let’s make sure that it works. You cannot test the WebSocket server with a
+web browser like you tested the HTTP server. However, you can test it with
+websockets’ interactive client.</p>
+<p>Open another shell and run this command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python<span class="w"> </span>-m<span class="w"> </span>websockets<span class="w"> </span>ws://localhost:8001/
+</pre></div>
+</div>
+<p>You get a prompt. Type a message and press “Enter”. Switch to the shell where
+the server is running and check that the server received the message. Good!</p>
+<p>Exit the interactive client with Ctrl-C or Ctrl-D.</p>
+<p>Now, if you look at the console where you started the server, you can see the
+stack trace of an exception:</p>
+<div class="highlight-pytb notranslate"><div class="highlight"><pre><span></span><span class="x">connection handler failed</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="w">  </span><span class="c">...</span>
+  File <span class="nb">&quot;app.py&quot;</span>, line <span class="m">22</span>, in <span class="n">handler</span>
+<span class="w">    </span><span class="n">message</span> <span class="o">=</span> <span class="k">await</span> <span class="n">websocket</span><span class="o">.</span><span class="n">recv</span><span class="p">()</span>
+<span class="w">  </span><span class="c">...</span>
+<span class="gr">websockets.exceptions.ConnectionClosedOK</span>: <span class="n">received 1000 (OK); then sent 1000 (OK)</span>
+</pre></div>
+</div>
+<p>Indeed, the server was waiting for the next message with
+<a class="reference internal" href="../reference/asyncio/server.html#websockets.asyncio.server.ServerConnection.recv" title="websockets.asyncio.server.ServerConnection.recv"><code class="xref py py-meth docutils literal notranslate"><span class="pre">recv()</span></code></a> when the client disconnected.
+When this happens, websockets raises a <a class="reference internal" href="../reference/exceptions.html#websockets.exceptions.ConnectionClosedOK" title="websockets.exceptions.ConnectionClosedOK"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ConnectionClosedOK</span></code></a>
+exception to let you know that you won’t receive another message on this
+connection.</p>
+<p>This exception creates noise in the server logs, making it more difficult to
+spot real errors when you add functionality to the server. Catch it in the
+<code class="docutils literal notranslate"><span class="pre">handler()</span></code> coroutine:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">websockets.exceptions</span> <span class="kn">import</span> <span class="n">ConnectionClosedOK</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">handler</span><span class="p">(</span><span class="n">websocket</span><span class="p">):</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="k">await</span> <span class="n">websocket</span><span class="o">.</span><span class="n">recv</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">ConnectionClosedOK</span><span class="p">:</span>
+            <span class="k">break</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Stop the server with Ctrl-C and start it again:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python<span class="w"> </span>app.py
+</pre></div>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">You must restart the WebSocket server when you make changes.</p>
+<p>The WebSocket server loads the Python code in <code class="docutils literal notranslate"><span class="pre">app.py</span></code> then serves every
+WebSocket request with this version of the code. As a consequence,
+changes to <code class="docutils literal notranslate"><span class="pre">app.py</span></code> aren’t visible until you restart the server.</p>
+<p>This is unlike the HTTP server that you started earlier with <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span>
+<span class="pre">http.server</span></code>. For every request, this HTTP server reads the target file
+and sends it. That’s why changes are immediately visible.</p>
+<p>It is possible to <a class="reference internal" href="../howto/autoreload.html"><span class="doc">restart the WebSocket server automatically</span></a> but this isn’t necessary for this tutorial.</p>
+</div>
+<p>Try connecting and disconnecting the interactive client again.
+The <a class="reference internal" href="../reference/exceptions.html#websockets.exceptions.ConnectionClosedOK" title="websockets.exceptions.ConnectionClosedOK"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ConnectionClosedOK</span></code></a> exception doesn’t appear anymore.</p>
+<p>This pattern is so common that websockets provides a shortcut for iterating
+over messages received on the connection until the client disconnects:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">async</span> <span class="k">def</span> <span class="nf">handler</span><span class="p">(</span><span class="n">websocket</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">for</span> <span class="n">message</span> <span class="ow">in</span> <span class="n">websocket</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Restart the server and check with the interactive client that its behavior
+didn’t change.</p>
+<p>At this point, you bootstrapped a web application and a WebSocket server.
+Let’s connect them.</p>
+</section>
+<section id="transmit-from-browser-to-server">
+<h2>Transmit from browser to server<a class="headerlink" href="tutorial1.html#transmit-from-browser-to-server" title="Link to this heading">¶</a></h2>
+<p>In JavaScript, you open a WebSocket connection as follows:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">websocket</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">WebSocket</span><span class="p">(</span><span class="s2">&quot;ws://localhost:8001/&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Before you exchange messages with the server, you need to decide their format.
+There is no universal convention for this.</p>
+<p>Let’s use JSON objects with a <code class="docutils literal notranslate"><span class="pre">type</span></code> key identifying the type of the event
+and the rest of the object containing properties of the event.</p>
+<p>Here’s an event describing a move in the middle slot of the board:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">event</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;play&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">column</span><span class="o">:</span><span class="w"> </span><span class="mf">3</span><span class="p">};</span>
+</pre></div>
+</div>
+<p>Here’s how to serialize this event to JSON and send it to the server:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">websocket</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">event</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>Now you have all the building blocks to send moves to the server.</p>
+<p>Add this function to <code class="docutils literal notranslate"><span class="pre">main.js</span></code>:</p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">sendMoves</span><span class="p">(</span><span class="nx">board</span><span class="p">,</span><span class="w"> </span><span class="nx">websocket</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// When clicking a column, send a &quot;play&quot; event for a move in that column.</span>
+<span class="w">  </span><span class="nx">board</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">({</span><span class="w"> </span><span class="nx">target</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">column</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">target</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">column</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// Ignore clicks outside a column.</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">column</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="kc">undefined</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">return</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">event</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;play&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">column</span><span class="o">:</span><span class="w"> </span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">column</span><span class="p">,</span><span class="w"> </span><span class="mf">10</span><span class="p">),</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">    </span><span class="nx">websocket</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">event</span><span class="p">));</span>
+<span class="w">  </span><span class="p">});</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">sendMoves()</span></code> registers a listener for <code class="docutils literal notranslate"><span class="pre">click</span></code> events on the board. The
+listener figures out which column was clicked, builds a  event of type
+<code class="docutils literal notranslate"><span class="pre">&quot;play&quot;</span></code>, serializes it, and sends it to the server.</p>
+<p>Modify the initialization to open the WebSocket connection and call the
+<code class="docutils literal notranslate"><span class="pre">sendMoves()</span></code> function:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;DOMContentLoaded&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// Initialize the UI.</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">board</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;.board&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">createBoard</span><span class="p">(</span><span class="nx">board</span><span class="p">);</span>
+<span class="w">  </span><span class="c1">// Open the WebSocket connection and register event handlers.</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">websocket</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">WebSocket</span><span class="p">(</span><span class="s2">&quot;ws://localhost:8001/&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">sendMoves</span><span class="p">(</span><span class="nx">board</span><span class="p">,</span><span class="w"> </span><span class="nx">websocket</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>Check that the HTTP server and the WebSocket server are still running. If you
+stopped them, here are the commands to start them again:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python<span class="w"> </span>-m<span class="w"> </span>http.server
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python<span class="w"> </span>app.py
+</pre></div>
+</div>
+<p>Refresh <a class="reference external" href="http://localhost:8000/">http://localhost:8000/</a> in your web browser. Click various columns in
+the board. The server receives messages with the expected column number.</p>
+<p>There isn’t any feedback in the board because you haven’t implemented that
+yet. Let’s do it.</p>
+</section>
+<section id="transmit-from-server-to-browser">
+<h2>Transmit from server to browser<a class="headerlink" href="tutorial1.html#transmit-from-server-to-browser" title="Link to this heading">¶</a></h2>
+<p>In JavaScript, you receive WebSocket messages by listening to <code class="docutils literal notranslate"><span class="pre">message</span></code>
+events. Here’s how to receive a message from the server and deserialize it
+from JSON:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">websocket</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">({</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">event</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+<span class="w">  </span><span class="c1">// do something with event</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>You’re going to need three types of messages from the server to the browser:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;play&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">player</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;red&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">column</span><span class="o">:</span><span class="w"> </span><span class="mf">3</span><span class="p">,</span><span class="w"> </span><span class="nx">row</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">}</span>
+<span class="p">{</span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;win&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">player</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;red&quot;</span><span class="p">}</span>
+<span class="p">{</span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;error&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">message</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;This slot is full.&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>The JavaScript code receiving these messages will dispatch events depending on
+their type and take appropriate action. For example, it will react to an
+event of type <code class="docutils literal notranslate"><span class="pre">&quot;play&quot;</span></code> by displaying the move on the board with
+the <a class="reference internal" href="tutorial1.html#connect4.playMove" title="connect4.playMove"><code class="xref js js-func docutils literal notranslate"><span class="pre">playMove()</span></code></a> function.</p>
+<p>Add this function to <code class="docutils literal notranslate"><span class="pre">main.js</span></code>:</p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">showMessage</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nb">window</span><span class="p">.</span><span class="nx">setTimeout</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nb">window</span><span class="p">.</span><span class="nx">alert</span><span class="p">(</span><span class="nx">message</span><span class="p">),</span><span class="w"> </span><span class="mf">50</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span><span class="w"> </span><span class="nx">receiveMoves</span><span class="p">(</span><span class="nx">board</span><span class="p">,</span><span class="w"> </span><span class="nx">websocket</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">websocket</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">({</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">event</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+<span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">type</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">case</span><span class="w"> </span><span class="s2">&quot;play&quot;</span><span class="o">:</span>
+<span class="w">        </span><span class="c1">// Update the UI with the move.</span>
+<span class="w">        </span><span class="nx">playMove</span><span class="p">(</span><span class="nx">board</span><span class="p">,</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">player</span><span class="p">,</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">column</span><span class="p">,</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">row</span><span class="p">);</span>
+<span class="w">        </span><span class="k">break</span><span class="p">;</span>
+<span class="w">      </span><span class="k">case</span><span class="w"> </span><span class="s2">&quot;win&quot;</span><span class="o">:</span>
+<span class="w">        </span><span class="nx">showMessage</span><span class="p">(</span><span class="sb">`Player </span><span class="si">${</span><span class="nx">event</span><span class="p">.</span><span class="nx">player</span><span class="si">}</span><span class="sb"> wins!`</span><span class="p">);</span>
+<span class="w">        </span><span class="c1">// No further messages are expected; close the WebSocket connection.</span>
+<span class="w">        </span><span class="nx">websocket</span><span class="p">.</span><span class="nx">close</span><span class="p">(</span><span class="mf">1000</span><span class="p">);</span>
+<span class="w">        </span><span class="k">break</span><span class="p">;</span>
+<span class="w">      </span><span class="k">case</span><span class="w"> </span><span class="s2">&quot;error&quot;</span><span class="o">:</span>
+<span class="w">        </span><span class="nx">showMessage</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+<span class="w">        </span><span class="k">break</span><span class="p">;</span>
+<span class="w">      </span><span class="k">default</span><span class="o">:</span>
+<span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="sb">`Unsupported event type: </span><span class="si">${</span><span class="nx">event</span><span class="p">.</span><span class="nx">type</span><span class="si">}</span><span class="sb">.`</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">});</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="hint admonition">
+<p class="admonition-title">Why does <code class="docutils literal notranslate"><span class="pre">showMessage</span></code> use <code class="docutils literal notranslate"><span class="pre">window.setTimeout</span></code>?</p>
+<p>When <a class="reference internal" href="tutorial1.html#connect4.playMove" title="connect4.playMove"><code class="xref js js-func docutils literal notranslate"><span class="pre">playMove()</span></code></a> modifies the state of the board, the browser
+renders changes asynchronously. Conversely, <code class="docutils literal notranslate"><span class="pre">window.alert()</span></code> runs
+synchronously and blocks rendering while the alert is visible.</p>
+<p>If you called <code class="docutils literal notranslate"><span class="pre">window.alert()</span></code> immediately after <a class="reference internal" href="tutorial1.html#connect4.playMove" title="connect4.playMove"><code class="xref js js-func docutils literal notranslate"><span class="pre">playMove()</span></code></a>,
+the browser could display the alert before rendering the move. You could
+get a “Player red wins!” alert without seeing red’s last move.</p>
+<p>We’re using <code class="docutils literal notranslate"><span class="pre">window.alert()</span></code> for simplicity in this tutorial. A real
+application would display these messages in the user interface instead.
+It wouldn’t be vulnerable to this problem.</p>
+</div>
+<p>Modify the initialization to call the <code class="docutils literal notranslate"><span class="pre">receiveMoves()</span></code> function:</p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;DOMContentLoaded&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// Initialize the UI.</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">board</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;.board&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">createBoard</span><span class="p">(</span><span class="nx">board</span><span class="p">);</span>
+<span class="w">  </span><span class="c1">// Open the WebSocket connection and register event handlers.</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">websocket</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">WebSocket</span><span class="p">(</span><span class="s2">&quot;ws://localhost:8001/&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">receiveMoves</span><span class="p">(</span><span class="nx">board</span><span class="p">,</span><span class="w"> </span><span class="nx">websocket</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">sendMoves</span><span class="p">(</span><span class="nx">board</span><span class="p">,</span><span class="w"> </span><span class="nx">websocket</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>At this point, the user interface should receive events properly. Let’s test
+it by modifying the server to send some events.</p>
+<p>Sending an event from Python is quite similar to JavaScript:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">event</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;play&quot;</span><span class="p">,</span> <span class="s2">&quot;player&quot;</span><span class="p">:</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="s2">&quot;column&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;row&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+<span class="k">await</span> <span class="n">websocket</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">event</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">Don’t forget to serialize the event with <a class="reference external" href="https://docs.python.org/3/library/json.html#json.dumps" title="(in Python v3.13)"><code class="xref py py-func docutils literal notranslate"><span class="pre">json.dumps()</span></code></a>.</p>
+<p>Else, websockets raises <code class="docutils literal notranslate"><span class="pre">TypeError:</span> <span class="pre">data</span> <span class="pre">is</span> <span class="pre">a</span> <span class="pre">dict-like</span> <span class="pre">object</span></code>.</p>
+</div>
+<p>Modify the <code class="docutils literal notranslate"><span class="pre">handler()</span></code> coroutine in <code class="docutils literal notranslate"><span class="pre">app.py</span></code> as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
+
+<span class="kn">from</span> <span class="nn">connect4</span> <span class="kn">import</span> <span class="n">PLAYER1</span><span class="p">,</span> <span class="n">PLAYER2</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">handler</span><span class="p">(</span><span class="n">websocket</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">player</span><span class="p">,</span> <span class="n">column</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="p">[</span>
+        <span class="p">(</span><span class="n">PLAYER1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">PLAYER2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">PLAYER1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">PLAYER2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">PLAYER1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">PLAYER2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">PLAYER1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+    <span class="p">]:</span>
+        <span class="n">event</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;play&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;player&quot;</span><span class="p">:</span> <span class="n">player</span><span class="p">,</span>
+            <span class="s2">&quot;column&quot;</span><span class="p">:</span> <span class="n">column</span><span class="p">,</span>
+            <span class="s2">&quot;row&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">await</span> <span class="n">websocket</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">event</span><span class="p">))</span>
+        <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">event</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;win&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;player&quot;</span><span class="p">:</span> <span class="n">PLAYER1</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">await</span> <span class="n">websocket</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">event</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Restart the WebSocket server and  refresh <a class="reference external" href="http://localhost:8000/">http://localhost:8000/</a> in your web
+browser. Seven moves appear at 0.5 second intervals. Then an alert announces
+the winner.</p>
+<p>Good! Now you know how to communicate both ways.</p>
+<p>Once you plug the game engine to process moves, you will have a fully
+functional game.</p>
+</section>
+<section id="add-the-game-logic">
+<h2>Add the game logic<a class="headerlink" href="tutorial1.html#add-the-game-logic" title="Link to this heading">¶</a></h2>
+<p>In the <code class="docutils literal notranslate"><span class="pre">handler()</span></code> coroutine, you’re going to initialize a game:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">connect4</span> <span class="kn">import</span> <span class="n">Connect4</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">handler</span><span class="p">(</span><span class="n">websocket</span><span class="p">):</span>
+    <span class="c1"># Initialize a Connect Four game.</span>
+    <span class="n">game</span> <span class="o">=</span> <span class="n">Connect4</span><span class="p">()</span>
+
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>Then, you’re going to iterate over incoming messages and take these steps:</p>
+<ul class="simple">
+<li><p>parse an event of type <code class="docutils literal notranslate"><span class="pre">&quot;play&quot;</span></code>, the only type of event that the user
+interface sends;</p></li>
+<li><p>play the move in the board with the <a class="reference internal" href="tutorial1.html#connect4.Connect4.play" title="connect4.Connect4.play"><code class="xref py py-meth docutils literal notranslate"><span class="pre">play()</span></code></a> method,
+alternating between the two players;</p></li>
+<li><p>if <a class="reference internal" href="tutorial1.html#connect4.Connect4.play" title="connect4.Connect4.play"><code class="xref py py-meth docutils literal notranslate"><span class="pre">play()</span></code></a> raises <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.13)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ValueError</span></code></a> because the
+move is illegal, send an event of type <code class="docutils literal notranslate"><span class="pre">&quot;error&quot;</span></code>;</p></li>
+<li><p>else, send an event of type <code class="docutils literal notranslate"><span class="pre">&quot;play&quot;</span></code> to tell the user interface where the
+checker lands;</p></li>
+<li><p>if the move won the game, send an event of type <code class="docutils literal notranslate"><span class="pre">&quot;win&quot;</span></code>.</p></li>
+</ul>
+<p>Try to implement this by yourself!</p>
+<p>Keep in mind that you must restart the WebSocket server and reload the page in
+the browser when you make changes.</p>
+<p>When it works, you can play the game from a single browser, with players
+taking alternate turns.</p>
+<div class="tip admonition">
+<p class="admonition-title">Enable debug logs to see all messages sent and received.</p>
+<p>Here’s how to enable debug logs:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%(message)s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>If you’re stuck, a solution is available at the bottom of this document.</p>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="tutorial1.html#summary" title="Link to this heading">¶</a></h2>
+<p>In this first part of the tutorial, you learned how to:</p>
+<ul class="simple">
+<li><p>build and run a WebSocket server in Python with <a class="reference internal" href="../reference/asyncio/server.html#websockets.asyncio.server.serve" title="websockets.asyncio.server.serve"><code class="xref py py-func docutils literal notranslate"><span class="pre">serve()</span></code></a>;</p></li>
+<li><p>receive a message in a connection handler with
+<a class="reference internal" href="../reference/asyncio/server.html#websockets.asyncio.server.ServerConnection.recv" title="websockets.asyncio.server.ServerConnection.recv"><code class="xref py py-meth docutils literal notranslate"><span class="pre">recv()</span></code></a>;</p></li>
+<li><p>send a message in a connection handler with
+<a class="reference internal" href="../reference/asyncio/server.html#websockets.asyncio.server.ServerConnection.send" title="websockets.asyncio.server.ServerConnection.send"><code class="xref py py-meth docutils literal notranslate"><span class="pre">send()</span></code></a>;</p></li>
+<li><p>iterate over incoming messages with <code class="docutils literal notranslate"><span class="pre">async</span> <span class="pre">for</span> <span class="pre">message</span> <span class="pre">in</span> <span class="pre">websocket:</span> <span class="pre">...</span></code>;</p></li>
+<li><p>open a WebSocket connection in JavaScript with the <code class="docutils literal notranslate"><span class="pre">WebSocket</span></code> API;</p></li>
+<li><p>send messages in a browser with <code class="docutils literal notranslate"><span class="pre">WebSocket.send()</span></code>;</p></li>
+<li><p>receive messages in a browser by listening to <code class="docutils literal notranslate"><span class="pre">message</span></code> events;</p></li>
+<li><p>design a set of events to be exchanged between the browser and the server.</p></li>
+</ul>
+<p>You can now play a Connect Four game in a browser, communicating over a
+WebSocket connection with a server where the game logic resides!</p>
+<p>However, the two players share a browser, so the constraint of being in the
+same room still applies.</p>
+<p>Move on to the <a class="reference internal" href="tutorial2.html"><span class="doc">second part</span></a> of the tutorial to break this
+constraint and play from separate browsers.</p>
+</section>
+<section id="solution">
+<h2>Solution<a class="headerlink" href="tutorial1.html#solution" title="Link to this heading">¶</a></h2>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">app.py</span><a class="headerlink" href="tutorial1.html#id2" title="Link to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="ch">#!/usr/bin/env python</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="linenos"> 4</span><span class="kn">import</span> <span class="nn">itertools</span>
+<span class="linenos"> 5</span><span class="kn">import</span> <span class="nn">json</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="kn">from</span> <span class="nn">websockets.asyncio.server</span> <span class="kn">import</span> <span class="n">serve</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span><span class="kn">from</span> <span class="nn">connect4</span> <span class="kn">import</span> <span class="n">PLAYER1</span><span class="p">,</span> <span class="n">PLAYER2</span><span class="p">,</span> <span class="n">Connect4</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span>
+<span class="linenos">12</span><span class="k">async</span> <span class="k">def</span> <span class="nf">handler</span><span class="p">(</span><span class="n">websocket</span><span class="p">):</span>
+<span class="linenos">13</span>    <span class="c1"># Initialize a Connect Four game.</span>
+<span class="linenos">14</span>    <span class="n">game</span> <span class="o">=</span> <span class="n">Connect4</span><span class="p">()</span>
+<span class="linenos">15</span>
+<span class="linenos">16</span>    <span class="c1"># Players take alternate turns, using the same browser.</span>
+<span class="linenos">17</span>    <span class="n">turns</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">cycle</span><span class="p">([</span><span class="n">PLAYER1</span><span class="p">,</span> <span class="n">PLAYER2</span><span class="p">])</span>
+<span class="linenos">18</span>    <span class="n">player</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">turns</span><span class="p">)</span>
+<span class="linenos">19</span>
+<span class="linenos">20</span>    <span class="k">async</span> <span class="k">for</span> <span class="n">message</span> <span class="ow">in</span> <span class="n">websocket</span><span class="p">:</span>
+<span class="linenos">21</span>        <span class="c1"># Parse a &quot;play&quot; event from the UI.</span>
+<span class="linenos">22</span>        <span class="n">event</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+<span class="linenos">23</span>        <span class="k">assert</span> <span class="n">event</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;play&quot;</span>
+<span class="linenos">24</span>        <span class="n">column</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="s2">&quot;column&quot;</span><span class="p">]</span>
+<span class="linenos">25</span>
+<span class="linenos">26</span>        <span class="k">try</span><span class="p">:</span>
+<span class="linenos">27</span>            <span class="c1"># Play the move.</span>
+<span class="linenos">28</span>            <span class="n">row</span> <span class="o">=</span> <span class="n">game</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="n">player</span><span class="p">,</span> <span class="n">column</span><span class="p">)</span>
+<span class="linenos">29</span>        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+<span class="linenos">30</span>            <span class="c1"># Send an &quot;error&quot; event if the move was illegal.</span>
+<span class="linenos">31</span>            <span class="n">event</span> <span class="o">=</span> <span class="p">{</span>
+<span class="linenos">32</span>                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span>
+<span class="linenos">33</span>                <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">exc</span><span class="p">),</span>
+<span class="linenos">34</span>            <span class="p">}</span>
+<span class="linenos">35</span>            <span class="k">await</span> <span class="n">websocket</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">event</span><span class="p">))</span>
+<span class="linenos">36</span>            <span class="k">continue</span>
+<span class="linenos">37</span>
+<span class="linenos">38</span>        <span class="c1"># Send a &quot;play&quot; event to update the UI.</span>
+<span class="linenos">39</span>        <span class="n">event</span> <span class="o">=</span> <span class="p">{</span>
+<span class="linenos">40</span>            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;play&quot;</span><span class="p">,</span>
+<span class="linenos">41</span>            <span class="s2">&quot;player&quot;</span><span class="p">:</span> <span class="n">player</span><span class="p">,</span>
+<span class="linenos">42</span>            <span class="s2">&quot;column&quot;</span><span class="p">:</span> <span class="n">column</span><span class="p">,</span>
+<span class="linenos">43</span>            <span class="s2">&quot;row&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">,</span>
+<span class="linenos">44</span>        <span class="p">}</span>
+<span class="linenos">45</span>        <span class="k">await</span> <span class="n">websocket</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">event</span><span class="p">))</span>
+<span class="linenos">46</span>
+<span class="linenos">47</span>        <span class="c1"># If move is winning, send a &quot;win&quot; event.</span>
+<span class="linenos">48</span>        <span class="k">if</span> <span class="n">game</span><span class="o">.</span><span class="n">winner</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">49</span>            <span class="n">event</span> <span class="o">=</span> <span class="p">{</span>
+<span class="linenos">50</span>                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;win&quot;</span><span class="p">,</span>
+<span class="linenos">51</span>                <span class="s2">&quot;player&quot;</span><span class="p">:</span> <span class="n">game</span><span class="o">.</span><span class="n">winner</span><span class="p">,</span>
+<span class="linenos">52</span>            <span class="p">}</span>
+<span class="linenos">53</span>            <span class="k">await</span> <span class="n">websocket</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">event</span><span class="p">))</span>
+<span class="linenos">54</span>
+<span class="linenos">55</span>        <span class="c1"># Alternate turns.</span>
+<span class="linenos">56</span>        <span class="n">player</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">turns</span><span class="p">)</span>
+<span class="linenos">57</span>
+<span class="linenos">58</span>
+<span class="linenos">59</span><span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+<span class="linenos">60</span>    <span class="k">async</span> <span class="k">with</span> <span class="n">serve</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="mi">8001</span><span class="p">):</span>
+<span class="linenos">61</span>        <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_running_loop</span><span class="p">()</span><span class="o">.</span><span class="n">create_future</span><span class="p">()</span>  <span class="c1"># run forever</span>
+<span class="linenos">62</span>
+<span class="linenos">63</span>
+<span class="linenos">64</span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+<span class="linenos">65</span>    <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">index.html</span><a class="headerlink" href="tutorial1.html#id3" title="Link to this code">¶</a></div>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="linenos"> 2</span><span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;en&quot;</span><span class="p">&gt;</span>
+<span class="linenos"> 3</span>  <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="linenos"> 4</span>    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Connect Four<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+<span class="linenos"> 5</span>  <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="linenos"> 6</span>  <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="linenos"> 7</span>    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;board&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="linenos"> 8</span>    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;main.js&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;module&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="linenos"> 9</span>  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="linenos">10</span><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">main.js</span><a class="headerlink" href="tutorial1.html#id4" title="Link to this code">¶</a></div>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">createBoard</span><span class="p">,</span><span class="w"> </span><span class="nx">playMove</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;./connect4.js&quot;</span><span class="p">;</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="kd">function</span><span class="w"> </span><span class="nx">showMessage</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 4</span><span class="w">  </span><span class="nb">window</span><span class="p">.</span><span class="nx">setTimeout</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nb">window</span><span class="p">.</span><span class="nx">alert</span><span class="p">(</span><span class="nx">message</span><span class="p">),</span><span class="w"> </span><span class="mf">50</span><span class="p">);</span>
+<span class="linenos"> 5</span><span class="p">}</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="kd">function</span><span class="w"> </span><span class="nx">receiveMoves</span><span class="p">(</span><span class="nx">board</span><span class="p">,</span><span class="w"> </span><span class="nx">websocket</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 8</span><span class="w">  </span><span class="nx">websocket</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">({</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 9</span><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">event</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+<span class="linenos">10</span><span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">type</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">11</span><span class="w">      </span><span class="k">case</span><span class="w"> </span><span class="s2">&quot;play&quot;</span><span class="o">:</span>
+<span class="linenos">12</span><span class="w">        </span><span class="c1">// Update the UI with the move.</span>
+<span class="linenos">13</span><span class="w">        </span><span class="nx">playMove</span><span class="p">(</span><span class="nx">board</span><span class="p">,</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">player</span><span class="p">,</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">column</span><span class="p">,</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">row</span><span class="p">);</span>
+<span class="linenos">14</span><span class="w">        </span><span class="k">break</span><span class="p">;</span>
+<span class="linenos">15</span><span class="w">      </span><span class="k">case</span><span class="w"> </span><span class="s2">&quot;win&quot;</span><span class="o">:</span>
+<span class="linenos">16</span><span class="w">        </span><span class="nx">showMessage</span><span class="p">(</span><span class="sb">`Player </span><span class="si">${</span><span class="nx">event</span><span class="p">.</span><span class="nx">player</span><span class="si">}</span><span class="sb"> wins!`</span><span class="p">);</span>
+<span class="linenos">17</span><span class="w">        </span><span class="c1">// No further messages are expected; close the WebSocket connection.</span>
+<span class="linenos">18</span><span class="w">        </span><span class="nx">websocket</span><span class="p">.</span><span class="nx">close</span><span class="p">(</span><span class="mf">1000</span><span class="p">);</span>
+<span class="linenos">19</span><span class="w">        </span><span class="k">break</span><span class="p">;</span>
+<span class="linenos">20</span><span class="w">      </span><span class="k">case</span><span class="w"> </span><span class="s2">&quot;error&quot;</span><span class="o">:</span>
+<span class="linenos">21</span><span class="w">        </span><span class="nx">showMessage</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+<span class="linenos">22</span><span class="w">        </span><span class="k">break</span><span class="p">;</span>
+<span class="linenos">23</span><span class="w">      </span><span class="k">default</span><span class="o">:</span>
+<span class="linenos">24</span><span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="sb">`Unsupported event type: </span><span class="si">${</span><span class="nx">event</span><span class="p">.</span><span class="nx">type</span><span class="si">}</span><span class="sb">.`</span><span class="p">);</span>
+<span class="linenos">25</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">26</span><span class="w">  </span><span class="p">});</span>
+<span class="linenos">27</span><span class="p">}</span>
+<span class="linenos">28</span>
+<span class="linenos">29</span><span class="kd">function</span><span class="w"> </span><span class="nx">sendMoves</span><span class="p">(</span><span class="nx">board</span><span class="p">,</span><span class="w"> </span><span class="nx">websocket</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">30</span><span class="w">  </span><span class="c1">// When clicking a column, send a &quot;play&quot; event for a move in that column.</span>
+<span class="linenos">31</span><span class="w">  </span><span class="nx">board</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">({</span><span class="w"> </span><span class="nx">target</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">32</span><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">column</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">target</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">column</span><span class="p">;</span>
+<span class="linenos">33</span><span class="w">    </span><span class="c1">// Ignore clicks outside a column.</span>
+<span class="linenos">34</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">column</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="kc">undefined</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">35</span><span class="w">      </span><span class="k">return</span><span class="p">;</span>
+<span class="linenos">36</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">37</span><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">event</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">38</span><span class="w">      </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;play&quot;</span><span class="p">,</span>
+<span class="linenos">39</span><span class="w">      </span><span class="nx">column</span><span class="o">:</span><span class="w"> </span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">column</span><span class="p">,</span><span class="w"> </span><span class="mf">10</span><span class="p">),</span>
+<span class="linenos">40</span><span class="w">    </span><span class="p">};</span>
+<span class="linenos">41</span><span class="w">    </span><span class="nx">websocket</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">event</span><span class="p">));</span>
+<span class="linenos">42</span><span class="w">  </span><span class="p">});</span>
+<span class="linenos">43</span><span class="p">}</span>
+<span class="linenos">44</span>
+<span class="linenos">45</span><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;DOMContentLoaded&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">46</span><span class="w">  </span><span class="c1">// Initialize the UI.</span>
+<span class="linenos">47</span><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">board</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;.board&quot;</span><span class="p">);</span>
+<span class="linenos">48</span><span class="w">  </span><span class="nx">createBoard</span><span class="p">(</span><span class="nx">board</span><span class="p">);</span>
+<span class="linenos">49</span><span class="w">  </span><span class="c1">// Open the WebSocket connection and register event handlers.</span>
+<span class="linenos">50</span><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">websocket</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">WebSocket</span><span class="p">(</span><span class="s2">&quot;ws://localhost:8001/&quot;</span><span class="p">);</span>
+<span class="linenos">51</span><span class="w">  </span><span class="nx">receiveMoves</span><span class="p">(</span><span class="nx">board</span><span class="p">,</span><span class="w"> </span><span class="nx">websocket</span><span class="p">);</span>
+<span class="linenos">52</span><span class="w">  </span><span class="nx">sendMoves</span><span class="p">(</span><span class="nx">board</span><span class="p">,</span><span class="w"> </span><span class="nx">websocket</span><span class="p">);</span>
+<span class="linenos">53</span><span class="p">});</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="tutorial2.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Part 2 - Route &amp; broadcast</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="index.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Getting started</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2013-2024, Aymeric Augustin and contributors
+            </div>
+            Made with 
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="tutorial1.html#">Part 1 - Send &amp; receive</a><ul>
+<li><a class="reference internal" href="tutorial1.html#prerequisites">Prerequisites</a></li>
+<li><a class="reference internal" href="tutorial1.html#download-the-starter-kit">Download the starter kit</a><ul>
+<li><a class="reference internal" href="tutorial1.html#connect4.PLAYER1"><code class="docutils literal notranslate"><span class="pre">PLAYER1</span></code></a></li>
+<li><a class="reference internal" href="tutorial1.html#connect4.PLAYER2"><code class="docutils literal notranslate"><span class="pre">PLAYER2</span></code></a></li>
+<li><a class="reference internal" href="tutorial1.html#connect4.createBoard"><code class="docutils literal notranslate"><span class="pre">createBoard()</span></code></a></li>
+<li><a class="reference internal" href="tutorial1.html#connect4.playMove"><code class="docutils literal notranslate"><span class="pre">playMove()</span></code></a></li>
+<li><a class="reference internal" href="tutorial1.html#id0"><code class="docutils literal notranslate"><span class="pre">PLAYER1</span></code></a></li>
+<li><a class="reference internal" href="tutorial1.html#id1"><code class="docutils literal notranslate"><span class="pre">PLAYER2</span></code></a></li>
+<li><a class="reference internal" href="tutorial1.html#connect4.Connect4"><code class="docutils literal notranslate"><span class="pre">Connect4</span></code></a><ul>
+<li><a class="reference internal" href="tutorial1.html#connect4.Connect4.play"><code class="docutils literal notranslate"><span class="pre">Connect4.play()</span></code></a></li>
+<li><a class="reference internal" href="tutorial1.html#connect4.Connect4.moves"><code class="docutils literal notranslate"><span class="pre">Connect4.moves</span></code></a></li>
+<li><a class="reference internal" href="tutorial1.html#connect4.Connect4.winner"><code class="docutils literal notranslate"><span class="pre">Connect4.winner</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="tutorial1.html#bootstrap-the-web-ui">Bootstrap the web UI</a></li>
+<li><a class="reference internal" href="tutorial1.html#bootstrap-the-server">Bootstrap the server</a></li>
+<li><a class="reference internal" href="tutorial1.html#transmit-from-browser-to-server">Transmit from browser to server</a></li>
+<li><a class="reference internal" href="tutorial1.html#transmit-from-server-to-browser">Transmit from server to browser</a></li>
+<li><a class="reference internal" href="tutorial1.html#add-the-game-logic">Add the game logic</a></li>
+<li><a class="reference internal" href="tutorial1.html#summary">Summary</a></li>
+<li><a class="reference internal" href="tutorial1.html#solution">Solution</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js%3Fv=03fa008d"></script>
+    <script src="../_static/doctools.js%3Fv=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js%3Fv=dc90522c"></script>
+    <script src="../_static/scripts/furo.js%3Fv=5fa4622c"></script>
+    <script src="../_static/clipboard.min.js%3Fv=a7894cd8"></script>
+    <script src="../_static/copybutton.js%3Fv=f281be69"></script>
+    <script src="../_static/tabs.js%3Fv=3ee01567"></script>
+    </body>
+</html>

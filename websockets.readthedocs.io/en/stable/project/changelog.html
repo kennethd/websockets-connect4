@@ -1,0 +1,1953 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Changelog" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="project/changelog.html" />
+<meta property="og:site_name" content="websockets" />
+<meta property="og:description" content="Backwards-compatibility policy: websockets is intended for production use. Therefore, stability is a goal. websockets also aims at providing the best API for WebSocket in Python. While we value sta..." />
+<meta name="description" content="Backwards-compatibility policy: websockets is intended for production use. Therefore, stability is a goal. websockets also aims at providing the best API for WebSocket in Python. While we value sta..." />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Contributing" href="contributing.html" /><link rel="prev" title="About websockets" href="index.html" />
+
+    <link rel="shortcut icon" href="../_static/favicon.ico"/><!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
+        <title>Changelog - websockets 14.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css%3Fv=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css%3Fv=354aac6f.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css%3Fv=76b2166b.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css%3Fv=4c969af8.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css%3Fv=302659d7.css" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  --color-brand-primary: #306998;
+  --color-brand-content: #0b487a;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --color-brand-primary: #ffd43bcc;
+  --color-brand-content: #ffd43bd9;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --color-brand-primary: #ffd43bcc;
+  --color-brand-content: #ffd43bd9;
+  
+      }
+    }
+  }
+</style><script async type="text/javascript" src="../../../_/static/javascript/readthedocs-addons.js"></script><meta name="readthedocs-project-slug" content="websockets" /><meta name="readthedocs-version-slug" content="stable" /><meta name="readthedocs-resolver-filename" content="/project/changelog.html" /><meta name="readthedocs-http-status" content="200" /></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="changelog.html#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">websockets 14.1 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../_static/websockets.svg" alt="Logo"/>
+  </div>
+  
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../intro/index.html">Getting started</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Getting started</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../intro/tutorial1.html">Part 1 - Send &amp; receive</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/tutorial2.html">Part 2 - Route &amp; broadcast</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/tutorial3.html">Part 3 - Deploy to the web</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../howto/index.html">How-to guides</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of How-to guides</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../howto/quickstart.html">Quick start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/upgrade.html">Upgrade to the new <code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code> implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/cheatsheet.html">Cheat sheet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/patterns.html">Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/autoreload.html">Reload on code changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/django.html">Integrate with Django</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/extensions.html">Write an extension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/render.html">Deploy to Render</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/fly.html">Deploy to Fly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/heroku.html">Deploy to Heroku</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/kubernetes.html">Deploy to Kubernetes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/supervisor.html">Deploy with Supervisor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/nginx.html">Deploy behind nginx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/haproxy.html">Deploy behind HAProxy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/sansio.html">Integrate the Sans-I/O layer</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../faq/index.html">Frequently asked questions</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Frequently asked questions</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../faq/server.html">Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/client.html">Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/common.html">Both sides</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/asyncio.html">Using asyncio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/misc.html">Miscellaneous</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../reference/index.html">API reference</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of API reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reference/features.html">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/asyncio/server.html">Server (new <code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/asyncio/client.html">Client (new <code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/sync/server.html">Server (<code class="xref py py-mod docutils literal notranslate"><span class="pre">threading</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/sync/client.html">Client (<code class="xref py py-mod docutils literal notranslate"><span class="pre">threading</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/sansio/server.html">Server (Sans-I/O)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/sansio/client.html">Client (Sans-I/O)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/legacy/server.html">Server (legacy <code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/legacy/client.html">Client (legacy <code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/extensions.html">Extensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/datastructures.html">Data structures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/exceptions.html">Exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/types.html">Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/variables.html">Environment variables</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../topics/index.html">Topic guides</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of Topic guides</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../topics/deployment.html">Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../topics/logging.html">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../topics/authentication.html">Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../topics/broadcast.html">Broadcasting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../topics/compression.html">Compression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../topics/keepalive.html">Keepalive and latency</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../topics/memory.html">Memory and buffers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../topics/security.html">Security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../topics/performance.html">Performance</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">About websockets</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of About websockets</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="changelog.html#">Changelog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sponsoring.html">Sponsoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tidelift.html">For enterprise</a></li>
+<li class="toctree-l2"><a class="reference internal" href="support.html">Getting support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="changelog.html#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          
+
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="changelog">
+<h1>Changelog<a class="headerlink" href="changelog.html#changelog" title="Link to this heading">¶</a></h1>
+<section id="backwards-compatibility-policy">
+<span id="id1"></span><h2>Backwards-compatibility policy<a class="headerlink" href="changelog.html#backwards-compatibility-policy" title="Link to this heading">¶</a></h2>
+<p>websockets is intended for production use. Therefore, stability is a goal.</p>
+<p>websockets also aims at providing the best API for WebSocket in Python.</p>
+<p>While we value stability, we value progress more. When an improvement requires
+changing a public API, we make the change and document it in this changelog.</p>
+<p>When possible with reasonable effort, we preserve backwards-compatibility for
+five years after the release that introduced the change.</p>
+<p>When a release contains backwards-incompatible API changes, the major version
+is increased, else the minor version is increased. Patch versions are only for
+fixing regressions shortly after a release.</p>
+<p>Only documented APIs are public. Undocumented, private APIs may change without
+notice.</p>
+</section>
+<section id="id2">
+<span id="id3"></span><h2>14.1<a class="headerlink" href="changelog.html#id2" title="Link to this heading">¶</a></h2>
+<p><em>November 13, 2024</em></p>
+<section id="improvements">
+<h3>Improvements<a class="headerlink" href="changelog.html#improvements" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Supported <code class="docutils literal notranslate"><span class="pre">max_queue=None</span></code> in the <a class="reference external" href="https://docs.python.org/3/library/asyncio.html#module-asyncio" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code></a> and <a class="reference external" href="https://docs.python.org/3/library/threading.html#module-threading" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">threading</span></code></a>
+implementations for consistency with the legacy implementation, even though
+this is never a good idea.</p></li>
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">close_code</span></code> and <code class="docutils literal notranslate"><span class="pre">close_reason</span></code> attributes in the <a class="reference external" href="https://docs.python.org/3/library/asyncio.html#module-asyncio" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code></a> and
+<a class="reference external" href="https://docs.python.org/3/library/threading.html#module-threading" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">threading</span></code></a> implementations for consistency with the legacy
+implementation.</p></li>
+</ul>
+</section>
+<section id="bug-fixes">
+<h3>Bug fixes<a class="headerlink" href="changelog.html#bug-fixes" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Once the connection is closed, messages previously received and buffered can
+be read in the <a class="reference external" href="https://docs.python.org/3/library/asyncio.html#module-asyncio" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code></a> and <a class="reference external" href="https://docs.python.org/3/library/threading.html#module-threading" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">threading</span></code></a> implementations, just like
+in the legacy implementation.</p></li>
+</ul>
+</section>
+</section>
+<section id="id4">
+<span id="id5"></span><h2>14.0<a class="headerlink" href="changelog.html#id4" title="Link to this heading">¶</a></h2>
+<p><em>November 9, 2024</em></p>
+<section id="backwards-incompatible-changes">
+<h3>Backwards-incompatible changes<a class="headerlink" href="changelog.html#backwards-incompatible-changes" title="Link to this heading">¶</a></h3>
+<div class="tip admonition">
+<p class="admonition-title">websockets 14.0 requires Python ≥ 3.9.</p>
+<p>websockets 13.1 is the last version supporting Python 3.8.</p>
+</div>
+<div class="danger admonition">
+<p class="admonition-title">The new <a class="reference external" href="https://docs.python.org/3/library/asyncio.html#module-asyncio" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code></a> implementation is now the default.</p>
+<p>The following aliases in the <code class="docutils literal notranslate"><span class="pre">websockets</span></code> package were switched to the new
+<a class="reference external" href="https://docs.python.org/3/library/asyncio.html#module-asyncio" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code></a> implementation:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">websockets</span> <span class="kn">import</span> <span class="n">connect</span><span class="p">,</span> <span class="n">unix_connext</span>
+<span class="kn">from</span> <span class="nn">websockets</span> <span class="kn">import</span> <span class="n">broadcast</span><span class="p">,</span> <span class="n">serve</span><span class="p">,</span> <span class="n">unix_serve</span>
+</pre></div>
+</div>
+<p>If you’re using any of them, then you must follow the <a class="reference internal" href="../howto/upgrade.html"><span class="doc">upgrade guide</span></a> immediately.</p>
+<p>Alternatively, you may stick to the legacy <a class="reference external" href="https://docs.python.org/3/library/asyncio.html#module-asyncio" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code></a> implementation for
+now by importing it explicitly:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">websockets.legacy.client</span> <span class="kn">import</span> <span class="n">connect</span><span class="p">,</span> <span class="n">unix_connect</span>
+<span class="kn">from</span> <span class="nn">websockets.legacy.server</span> <span class="kn">import</span> <span class="n">broadcast</span><span class="p">,</span> <span class="n">serve</span><span class="p">,</span> <span class="n">unix_serve</span>
+</pre></div>
+</div>
+</div>
+<div class="caution admonition">
+<p class="admonition-title">The legacy <a class="reference external" href="https://docs.python.org/3/library/asyncio.html#module-asyncio" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code></a> implementation is now deprecated.</p>
+<p>The <a class="reference internal" href="../howto/upgrade.html"><span class="doc">upgrade guide</span></a> provides complete instructions
+to migrate your application.</p>
+<p>Aliases for deprecated API were removed from <code class="docutils literal notranslate"><span class="pre">websockets.__all__</span></code>, meaning
+that they cannot be imported with <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">websockets</span> <span class="pre">import</span> <span class="pre">*</span></code> anymore.</p>
+</div>
+<div class="note admonition">
+<p class="admonition-title">Several API raise <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.13)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ValueError</span></code></a> instead of <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.13)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">TypeError</span></code></a>
+on invalid arguments.</p>
+<p><a class="reference internal" href="../reference/asyncio/client.html#websockets.asyncio.client.connect" title="websockets.asyncio.client.connect"><code class="xref py py-func docutils literal notranslate"><span class="pre">connect()</span></code></a>, <a class="reference internal" href="../reference/asyncio/client.html#websockets.asyncio.client.unix_connect" title="websockets.asyncio.client.unix_connect"><code class="xref py py-func docutils literal notranslate"><span class="pre">unix_connect()</span></code></a>, and
+<a class="reference internal" href="../reference/asyncio/server.html#websockets.asyncio.server.basic_auth" title="websockets.asyncio.server.basic_auth"><code class="xref py py-func docutils literal notranslate"><span class="pre">basic_auth()</span></code></a> in the <a class="reference external" href="https://docs.python.org/3/library/asyncio.html#module-asyncio" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code></a> implementation as
+well as <a class="reference internal" href="../reference/sync/client.html#websockets.sync.client.connect" title="websockets.sync.client.connect"><code class="xref py py-func docutils literal notranslate"><span class="pre">connect()</span></code></a>, <a class="reference internal" href="../reference/sync/client.html#websockets.sync.client.unix_connect" title="websockets.sync.client.unix_connect"><code class="xref py py-func docutils literal notranslate"><span class="pre">unix_connect()</span></code></a>,
+<a class="reference internal" href="../reference/sync/server.html#websockets.sync.server.serve" title="websockets.sync.server.serve"><code class="xref py py-func docutils literal notranslate"><span class="pre">serve()</span></code></a>, <a class="reference internal" href="../reference/sync/server.html#websockets.sync.server.unix_serve" title="websockets.sync.server.unix_serve"><code class="xref py py-func docutils literal notranslate"><span class="pre">unix_serve()</span></code></a>, and
+<a class="reference internal" href="../reference/sync/server.html#websockets.sync.server.basic_auth" title="websockets.sync.server.basic_auth"><code class="xref py py-func docutils literal notranslate"><span class="pre">basic_auth()</span></code></a> in the <a class="reference external" href="https://docs.python.org/3/library/threading.html#module-threading" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">threading</span></code></a> implementation now
+raise <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.13)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ValueError</span></code></a> when a required argument isn’t provided or an
+argument that is incompatible with others is provided.</p>
+</div>
+<div class="note admonition">
+<p class="admonition-title"><a class="reference internal" href="../reference/datastructures.html#websockets.frames.Frame.data" title="websockets.frames.Frame.data"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Frame.data</span></code></a> is now a bytes-like object.</p>
+<p>In addition to <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code></a>, it may be a <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytearray" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bytearray</span></code></a> or a
+<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#memoryview" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">memoryview</span></code></a>. If you wrote an <a class="reference internal" href="../reference/extensions.html#websockets.extensions.Extension" title="websockets.extensions.Extension"><code class="xref py py-class docutils literal notranslate"><span class="pre">Extension</span></code></a> that
+relies on methods not provided by these types, you must update your code.</p>
+</div>
+<div class="note admonition">
+<p class="admonition-title">The signature of <a class="reference internal" href="../reference/exceptions.html#websockets.exceptions.PayloadTooBig" title="websockets.exceptions.PayloadTooBig"><code class="xref py py-exc docutils literal notranslate"><span class="pre">PayloadTooBig</span></code></a> changed.</p>
+<p>If you wrote an extension that raises <a class="reference internal" href="../reference/exceptions.html#websockets.exceptions.PayloadTooBig" title="websockets.exceptions.PayloadTooBig"><code class="xref py py-exc docutils literal notranslate"><span class="pre">PayloadTooBig</span></code></a> in
+<a class="reference internal" href="../reference/extensions.html#websockets.extensions.Extension.decode" title="websockets.extensions.Extension.decode"><code class="xref py py-meth docutils literal notranslate"><span class="pre">decode()</span></code></a>, for example, you must replace
+<code class="docutils literal notranslate"><span class="pre">PayloadTooBig(f&quot;over</span> <span class="pre">size</span> <span class="pre">limit</span> <span class="pre">({size}</span> <span class="pre">&gt;</span> <span class="pre">{max_size}</span> <span class="pre">bytes)&quot;)</span></code> with
+<code class="docutils literal notranslate"><span class="pre">PayloadTooBig(size,</span> <span class="pre">max_size)</span></code>.</p>
+</div>
+</section>
+<section id="new-features">
+<h3>New features<a class="headerlink" href="changelog.html#new-features" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Added an option to receive text frames as <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code></a>, without decoding,
+in the <a class="reference external" href="https://docs.python.org/3/library/threading.html#module-threading" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">threading</span></code></a> implementation; also binary frames as <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>.</p></li>
+<li><p>Added an option to send <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code></a> in a text frame in the <a class="reference external" href="https://docs.python.org/3/library/asyncio.html#module-asyncio" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code></a>
+and <a class="reference external" href="https://docs.python.org/3/library/threading.html#module-threading" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">threading</span></code></a> implementations; also <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> in a binary frame.</p></li>
+</ul>
+</section>
+<section id="id6">
+<h3>Improvements<a class="headerlink" href="changelog.html#id6" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>The <a class="reference external" href="https://docs.python.org/3/library/threading.html#module-threading" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">threading</span></code></a> implementation receives messages faster.</p></li>
+<li><p>Sending or receiving large compressed messages is now faster.</p></li>
+<li><p>Errors when a fragmented message is too large are clearer.</p></li>
+<li><p>Log messages at the <a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.WARNING" title="(in Python v3.13)"><code class="xref py py-data docutils literal notranslate"><span class="pre">WARNING</span></code></a> and <a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.INFO" title="(in Python v3.13)"><code class="xref py py-data docutils literal notranslate"><span class="pre">INFO</span></code></a> levels
+no longer include stack traces.</p></li>
+</ul>
+</section>
+<section id="id7">
+<h3>Bug fixes<a class="headerlink" href="changelog.html#id7" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Clients no longer crash when the server rejects the opening handshake and the
+HTTP response doesn’t Include a <code class="docutils literal notranslate"><span class="pre">Content-Length</span></code> header.</p></li>
+<li><p>Returning an HTTP response in <code class="docutils literal notranslate"><span class="pre">process_request</span></code> or <code class="docutils literal notranslate"><span class="pre">process_response</span></code>
+doesn’t generate a log message at the <a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.ERROR" title="(in Python v3.13)"><code class="xref py py-data docutils literal notranslate"><span class="pre">ERROR</span></code></a> level anymore.</p></li>
+<li><p>Connections are closed with code 1007 (invalid data) when receiving invalid
+UTF-8 in a text frame.</p></li>
+</ul>
+</section>
+</section>
+<section id="id8">
+<span id="id9"></span><h2>13.1<a class="headerlink" href="changelog.html#id8" title="Link to this heading">¶</a></h2>
+<p><em>September 21, 2024</em></p>
+<section id="id10">
+<h3>Backwards-incompatible changes<a class="headerlink" href="changelog.html#id10" title="Link to this heading">¶</a></h3>
+<div class="note admonition">
+<p class="admonition-title">The <code class="docutils literal notranslate"><span class="pre">code</span></code> and <code class="docutils literal notranslate"><span class="pre">reason</span></code> attributes of
+<a class="reference internal" href="../reference/exceptions.html#websockets.exceptions.ConnectionClosed" title="websockets.exceptions.ConnectionClosed"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ConnectionClosed</span></code></a> are deprecated.</p>
+<p>They were removed from the documentation in version 10.0, due to their
+spec-compliant but counter-intuitive behavior, but they were kept in
+the code for backwards compatibility. They’re now formally deprecated.</p>
+</div>
+</section>
+<section id="id11">
+<h3>New features<a class="headerlink" href="changelog.html#id11" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Added support for reconnecting automatically by using
+<a class="reference internal" href="../reference/asyncio/client.html#websockets.asyncio.client.connect" title="websockets.asyncio.client.connect"><code class="xref py py-func docutils literal notranslate"><span class="pre">connect()</span></code></a> as an asynchronous iterator to the new
+<a class="reference external" href="https://docs.python.org/3/library/asyncio.html#module-asyncio" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code></a> implementation.</p></li>
+<li><p><a class="reference internal" href="../reference/asyncio/client.html#websockets.asyncio.client.connect" title="websockets.asyncio.client.connect"><code class="xref py py-func docutils literal notranslate"><span class="pre">connect()</span></code></a> now follows redirects in the new
+<a class="reference external" href="https://docs.python.org/3/library/asyncio.html#module-asyncio" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code></a> implementation.</p></li>
+<li><p>Added HTTP Basic Auth to the new <a class="reference external" href="https://docs.python.org/3/library/asyncio.html#module-asyncio" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code></a> and <a class="reference external" href="https://docs.python.org/3/library/threading.html#module-threading" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">threading</span></code></a>
+implementations of servers.</p></li>
+<li><p>Made the set of active connections available in the <a class="reference internal" href="../reference/asyncio/server.html#websockets.asyncio.server.Server.connections" title="websockets.asyncio.server.Server.connections"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Server.connections</span></code></a> property.</p></li>
+</ul>
+</section>
+<section id="id12">
+<h3>Improvements<a class="headerlink" href="changelog.html#id12" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Improved reporting of errors during the opening handshake.</p></li>
+<li><p>Raised <a class="reference internal" href="../reference/exceptions.html#websockets.exceptions.ConcurrencyError" title="websockets.exceptions.ConcurrencyError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ConcurrencyError</span></code></a> on unsupported concurrent calls.
+Previously, <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.13)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">RuntimeError</span></code></a> was raised. For backwards compatibility,
+<a class="reference internal" href="../reference/exceptions.html#websockets.exceptions.ConcurrencyError" title="websockets.exceptions.ConcurrencyError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ConcurrencyError</span></code></a> is a subclass of <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.13)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">RuntimeError</span></code></a>.</p></li>
+</ul>
+</section>
+<section id="id13">
+<h3>Bug fixes<a class="headerlink" href="changelog.html#id13" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>The new <a class="reference external" href="https://docs.python.org/3/library/asyncio.html#module-asyncio" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code></a> and <a class="reference external" href="https://docs.python.org/3/library/threading.html#module-threading" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">threading</span></code></a> implementations of servers don’t
+start the connection handler anymore when <code class="docutils literal notranslate"><span class="pre">process_request</span></code> or
+<code class="docutils literal notranslate"><span class="pre">process_response</span></code> returns an HTTP response.</p></li>
+<li><p>Fixed a bug in the <a class="reference external" href="https://docs.python.org/3/library/threading.html#module-threading" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">threading</span></code></a> implementation that could lead to
+incorrect error reporting when closing a connection while
+<a class="reference internal" href="../reference/sync/common.html#websockets.sync.connection.Connection.recv" title="websockets.sync.connection.Connection.recv"><code class="xref py py-meth docutils literal notranslate"><span class="pre">recv()</span></code></a> is running.</p></li>
+</ul>
+</section>
+</section>
+<section id="id14">
+<h2>13.0.1<a class="headerlink" href="changelog.html#id14" title="Link to this heading">¶</a></h2>
+<p><em>August 28, 2024</em></p>
+<section id="id15">
+<h3>Bug fixes<a class="headerlink" href="changelog.html#id15" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Restored the C extension in the source distribution.</p></li>
+</ul>
+</section>
+</section>
+<section id="id16">
+<span id="id17"></span><h2>13.0<a class="headerlink" href="changelog.html#id16" title="Link to this heading">¶</a></h2>
+<p><em>August 20, 2024</em></p>
+<section id="id18">
+<h3>Backwards-incompatible changes<a class="headerlink" href="changelog.html#id18" title="Link to this heading">¶</a></h3>
+<div class="note admonition">
+<p class="admonition-title">Receiving the request path in the second parameter of connection
+handlers is deprecated.</p>
+<p>If you implemented the connection handler of a server as:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">async</span> <span class="k">def</span> <span class="nf">handler</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+  <span class="o">...</span>
+</pre></div>
+</div>
+<p>You should switch to the pattern recommended since version 10.1:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">async</span> <span class="k">def</span> <span class="nf">handler</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">path</span>  <span class="c1"># only if handler() uses the path argument</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+</div>
+<div class="note admonition">
+<p class="admonition-title">The <code class="docutils literal notranslate"><span class="pre">ssl_context</span></code> argument of <a class="reference internal" href="../reference/sync/client.html#websockets.sync.client.connect" title="websockets.sync.client.connect"><code class="xref py py-func docutils literal notranslate"><span class="pre">connect()</span></code></a>
+and <a class="reference internal" href="../reference/sync/server.html#websockets.sync.server.serve" title="websockets.sync.server.serve"><code class="xref py py-func docutils literal notranslate"><span class="pre">serve()</span></code></a> in the <a class="reference external" href="https://docs.python.org/3/library/threading.html#module-threading" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">threading</span></code></a> implementation is
+renamed to <code class="docutils literal notranslate"><span class="pre">ssl</span></code>.</p>
+<p>This aligns the API of the <a class="reference external" href="https://docs.python.org/3/library/threading.html#module-threading" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">threading</span></code></a> implementation with the
+<a class="reference external" href="https://docs.python.org/3/library/asyncio.html#module-asyncio" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code></a> implementation.</p>
+<p>For backwards compatibility, <code class="docutils literal notranslate"><span class="pre">ssl_context</span></code> is still supported.</p>
+</div>
+<div class="note admonition">
+<p class="admonition-title">The <code class="docutils literal notranslate"><span class="pre">WebSocketServer</span></code> class in the <a class="reference external" href="https://docs.python.org/3/library/threading.html#module-threading" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">threading</span></code></a>
+implementation is renamed to <a class="reference internal" href="../reference/sync/server.html#websockets.sync.server.Server" title="websockets.sync.server.Server"><code class="xref py py-class docutils literal notranslate"><span class="pre">Server</span></code></a>.</p>
+<p>This change should be transparent because this class shouldn’t be
+instantiated directly; <a class="reference internal" href="../reference/sync/server.html#websockets.sync.server.serve" title="websockets.sync.server.serve"><code class="xref py py-func docutils literal notranslate"><span class="pre">serve()</span></code></a> returns an instance.</p>
+<p>Regardless, an alias provides backwards compatibility.</p>
+</div>
+</section>
+<section id="id19">
+<h3>New features<a class="headerlink" href="changelog.html#id19" title="Link to this heading">¶</a></h3>
+<div class="important admonition">
+<p class="admonition-title">websockets 11.0 introduces a new <a class="reference external" href="https://docs.python.org/3/library/asyncio.html#module-asyncio" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code></a> implementation.</p>
+<p>This new implementation is intended to be a drop-in replacement for the
+current implementation. It will become the default in a future release.</p>
+<p>Please try it and report any issue that you encounter! The <a class="reference internal" href="../howto/upgrade.html"><span class="doc">upgrade
+guide</span></a> explains everything you need to know about the
+upgrade process.</p>
+</div>
+<ul>
+<li><p>Validated compatibility with Python 3.12 and 3.13.</p></li>
+<li><p>Added an option to receive text frames as <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code></a>, without decoding,
+in the <a class="reference external" href="https://docs.python.org/3/library/asyncio.html#module-asyncio" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code></a> implementation; also binary frames as <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>.</p></li>
+<li><p>Added <a class="reference internal" href="../reference/variables.html"><span class="doc">environment variables</span></a> to configure debug
+logs, the <code class="docutils literal notranslate"><span class="pre">Server</span></code> and <code class="docutils literal notranslate"><span class="pre">User-Agent</span></code> headers, as well as security limits.</p>
+<p>If you were monkey-patching constants, be aware that they were renamed, which
+will break your configuration. You must switch to the environment variables.</p>
+</li>
+</ul>
+</section>
+<section id="id20">
+<h3>Improvements<a class="headerlink" href="changelog.html#id20" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>The error message in server logs when a header is too long is more explicit.</p></li>
+</ul>
+</section>
+<section id="id21">
+<h3>Bug fixes<a class="headerlink" href="changelog.html#id21" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Fixed a bug in the <a class="reference external" href="https://docs.python.org/3/library/threading.html#module-threading" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">threading</span></code></a> implementation that could prevent the
+program from exiting when a connection wasn’t closed properly.</p></li>
+<li><p>Redirecting from a <code class="docutils literal notranslate"><span class="pre">ws://</span></code> URI to a <code class="docutils literal notranslate"><span class="pre">wss://</span></code> URI now works.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">broadcast(raise_exceptions=True)</span></code> no longer crashes when there isn’t any
+exception.</p></li>
+</ul>
+</section>
+</section>
+<section id="id22">
+<span id="id23"></span><h2>12.0<a class="headerlink" href="changelog.html#id22" title="Link to this heading">¶</a></h2>
+<p><em>October 21, 2023</em></p>
+<section id="id24">
+<h3>Backwards-incompatible changes<a class="headerlink" href="changelog.html#id24" title="Link to this heading">¶</a></h3>
+<div class="tip admonition">
+<p class="admonition-title">websockets 12.0 requires Python ≥ 3.8.</p>
+<p>websockets 11.0 is the last version supporting Python 3.7.</p>
+</div>
+</section>
+<section id="id25">
+<h3>Improvements<a class="headerlink" href="changelog.html#id25" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Made convenience imports from <code class="docutils literal notranslate"><span class="pre">websockets</span></code> compatible with static code
+analysis tools such as auto-completion in an IDE or type checking with <a class="reference external" href="https://github.com/python/mypy">mypy</a>.</p>
+</li>
+<li><p>Accepted a plain <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a> where an <a class="reference external" href="https://docs.python.org/3/library/http.html#http.HTTPStatus" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">HTTPStatus</span></code></a> is expected.</p></li>
+<li><p>Added <a class="reference internal" href="../reference/datastructures.html#websockets.frames.CloseCode" title="websockets.frames.CloseCode"><code class="xref py py-class docutils literal notranslate"><span class="pre">CloseCode</span></code></a>.</p></li>
+</ul>
+</section>
+</section>
+<section id="id26">
+<h2>11.0.3<a class="headerlink" href="changelog.html#id26" title="Link to this heading">¶</a></h2>
+<p><em>May 7, 2023</em></p>
+<section id="id27">
+<h3>Bug fixes<a class="headerlink" href="changelog.html#id27" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Fixed the <a class="reference external" href="https://docs.python.org/3/library/threading.html#module-threading" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">threading</span></code></a> implementation of servers on Windows.</p></li>
+</ul>
+</section>
+</section>
+<section id="id28">
+<h2>11.0.2<a class="headerlink" href="changelog.html#id28" title="Link to this heading">¶</a></h2>
+<p><em>April 18, 2023</em></p>
+<section id="id29">
+<h3>Bug fixes<a class="headerlink" href="changelog.html#id29" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Fixed a deadlock in the <a class="reference external" href="https://docs.python.org/3/library/threading.html#module-threading" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">threading</span></code></a> implementation when closing a
+connection without reading all messages.</p></li>
+</ul>
+</section>
+</section>
+<section id="id30">
+<h2>11.0.1<a class="headerlink" href="changelog.html#id30" title="Link to this heading">¶</a></h2>
+<p><em>April 6, 2023</em></p>
+<section id="id31">
+<h3>Bug fixes<a class="headerlink" href="changelog.html#id31" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Restored the C extension in the source distribution.</p></li>
+</ul>
+</section>
+</section>
+<section id="id32">
+<span id="id33"></span><h2>11.0<a class="headerlink" href="changelog.html#id32" title="Link to this heading">¶</a></h2>
+<p><em>April 2, 2023</em></p>
+<section id="id34">
+<h3>Backwards-incompatible changes<a class="headerlink" href="changelog.html#id34" title="Link to this heading">¶</a></h3>
+<div class="caution admonition">
+<p class="admonition-title">The Sans-I/O implementation was moved.</p>
+<p>Aliases provide compatibility for all previously public APIs according to
+the <a class="reference internal" href="changelog.html#backwards-compatibility-policy">backwards-compatibility policy</a>.</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">connection</span></code> module was renamed to <code class="docutils literal notranslate"><span class="pre">protocol</span></code>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">connection.Connection</span></code>, <code class="docutils literal notranslate"><span class="pre">server.ServerConnection</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">client.ClientConnection</span></code> classes were renamed to <code class="docutils literal notranslate"><span class="pre">protocol.Protocol</span></code>,
+<code class="docutils literal notranslate"><span class="pre">server.ServerProtocol</span></code>, and <code class="docutils literal notranslate"><span class="pre">client.ClientProtocol</span></code>.</p></li>
+</ul>
+</div>
+<div class="caution admonition">
+<p class="admonition-title">Sans-I/O protocol constructors now use keyword-only arguments.</p>
+<p>If you instantiate <a class="reference internal" href="../reference/sansio/server.html#websockets.server.ServerProtocol" title="websockets.server.ServerProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">ServerProtocol</span></code></a> or
+<a class="reference internal" href="../reference/sansio/client.html#websockets.client.ClientProtocol" title="websockets.client.ClientProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientProtocol</span></code></a> directly, make sure you are using keyword
+arguments.</p>
+</div>
+<div class="note admonition">
+<p class="admonition-title">Closing a connection without an empty close frame is OK.</p>
+<p>Receiving an empty close frame now results in
+<a class="reference internal" href="../reference/exceptions.html#websockets.exceptions.ConnectionClosedOK" title="websockets.exceptions.ConnectionClosedOK"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ConnectionClosedOK</span></code></a> instead of
+<a class="reference internal" href="../reference/exceptions.html#websockets.exceptions.ConnectionClosedError" title="websockets.exceptions.ConnectionClosedError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ConnectionClosedError</span></code></a>.</p>
+<p>As a consequence, calling <code class="docutils literal notranslate"><span class="pre">WebSocket.close()</span></code> without arguments in a
+browser isn’t reported as an error anymore.</p>
+</div>
+<div class="note admonition">
+<p class="admonition-title"><a class="reference internal" href="../reference/legacy/server.html#websockets.legacy.server.serve" title="websockets.legacy.server.serve"><code class="xref py py-func docutils literal notranslate"><span class="pre">serve()</span></code></a> times out on the opening handshake
+after 10 seconds by default.</p>
+<p>You can adjust the timeout with the <code class="docutils literal notranslate"><span class="pre">open_timeout</span></code> parameter. Set it to
+<a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a> to disable the timeout entirely.</p>
+</div>
+</section>
+<section id="id35">
+<h3>New features<a class="headerlink" href="changelog.html#id35" title="Link to this heading">¶</a></h3>
+<div class="important admonition">
+<p class="admonition-title">websockets 11.0 introduces a <a class="reference external" href="https://docs.python.org/3/library/threading.html#module-threading" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">threading</span></code></a> implementation.</p>
+<p>It may be more convenient if you don’t need to manage many connections and
+you’re more comfortable with <a class="reference external" href="https://docs.python.org/3/library/threading.html#module-threading" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">threading</span></code></a> than <a class="reference external" href="https://docs.python.org/3/library/asyncio.html#module-asyncio" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code></a>.</p>
+<p>It is particularly suited to client applications that establish only one
+connection. It may be used for servers handling few connections.</p>
+<p>See <a class="reference internal" href="../reference/sync/client.html#websockets.sync.client.connect" title="websockets.sync.client.connect"><code class="xref py py-func docutils literal notranslate"><span class="pre">websockets.sync.client.connect()</span></code></a> and
+<a class="reference internal" href="../reference/sync/server.html#websockets.sync.server.serve" title="websockets.sync.server.serve"><code class="xref py py-func docutils literal notranslate"><span class="pre">websockets.sync.server.serve()</span></code></a> for details.</p>
+</div>
+<ul class="simple">
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">open_timeout</span></code> to <a class="reference internal" href="../reference/legacy/server.html#websockets.legacy.server.serve" title="websockets.legacy.server.serve"><code class="xref py py-func docutils literal notranslate"><span class="pre">serve()</span></code></a>.</p></li>
+<li><p>Made it possible to close a server without closing existing connections.</p></li>
+<li><p>Added <a class="reference internal" href="../reference/sansio/server.html#websockets.server.ServerProtocol.select_subprotocol" title="websockets.server.ServerProtocol.select_subprotocol"><code class="xref py py-attr docutils literal notranslate"><span class="pre">select_subprotocol</span></code></a> to customize
+negotiation of subprotocols in the Sans-I/O layer.</p></li>
+</ul>
+</section>
+<section id="id36">
+<h3>Improvements<a class="headerlink" href="changelog.html#id36" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Added platform-independent wheels.</p></li>
+<li><p>Improved error handling in <a class="reference internal" href="../reference/legacy/server.html#websockets.legacy.server.broadcast" title="websockets.legacy.server.broadcast"><code class="xref py py-func docutils literal notranslate"><span class="pre">broadcast()</span></code></a>.</p></li>
+<li><p>Set <code class="docutils literal notranslate"><span class="pre">server_hostname</span></code> automatically on TLS connections when providing a
+<code class="docutils literal notranslate"><span class="pre">sock</span></code> argument to <a class="reference internal" href="../reference/sync/client.html#websockets.sync.client.connect" title="websockets.sync.client.connect"><code class="xref py py-func docutils literal notranslate"><span class="pre">connect()</span></code></a>.</p></li>
+</ul>
+</section>
+</section>
+<section id="id37">
+<span id="id38"></span><h2>10.4<a class="headerlink" href="changelog.html#id37" title="Link to this heading">¶</a></h2>
+<p><em>October 25, 2022</em></p>
+<section id="id39">
+<h3>New features<a class="headerlink" href="changelog.html#id39" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Validated compatibility with Python 3.11.</p></li>
+<li><p>Added the <a class="reference internal" href="../reference/legacy/common.html#websockets.legacy.protocol.WebSocketCommonProtocol.latency" title="websockets.legacy.protocol.WebSocketCommonProtocol.latency"><code class="xref py py-attr docutils literal notranslate"><span class="pre">latency</span></code></a> property to
+protocols.</p></li>
+<li><p>Changed <a class="reference internal" href="../reference/legacy/common.html#websockets.legacy.protocol.WebSocketCommonProtocol.ping" title="websockets.legacy.protocol.WebSocketCommonProtocol.ping"><code class="xref py py-attr docutils literal notranslate"><span class="pre">ping</span></code></a> to return the
+latency of the connection.</p></li>
+<li><p>Supported overriding or removing the <code class="docutils literal notranslate"><span class="pre">User-Agent</span></code> header in clients and the
+<code class="docutils literal notranslate"><span class="pre">Server</span></code> header in servers.</p></li>
+<li><p>Added deployment guides for more Platform as a Service providers.</p></li>
+</ul>
+</section>
+<section id="id40">
+<h3>Improvements<a class="headerlink" href="changelog.html#id40" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Improved FAQ.</p></li>
+</ul>
+</section>
+</section>
+<section id="id41">
+<span id="id42"></span><h2>10.3<a class="headerlink" href="changelog.html#id41" title="Link to this heading">¶</a></h2>
+<p><em>April 17, 2022</em></p>
+<section id="id43">
+<h3>Backwards-incompatible changes<a class="headerlink" href="changelog.html#id43" title="Link to this heading">¶</a></h3>
+<div class="note admonition">
+<p class="admonition-title">The <code class="docutils literal notranslate"><span class="pre">exception</span></code> attribute of <a class="reference internal" href="../reference/datastructures.html#websockets.http11.Request" title="websockets.http11.Request"><code class="xref py py-class docutils literal notranslate"><span class="pre">Request</span></code></a> and
+<a class="reference internal" href="../reference/datastructures.html#websockets.http11.Response" title="websockets.http11.Response"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></a> is deprecated.</p>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">handshake_exc</span></code> attribute of <a class="reference internal" href="../reference/sansio/server.html#websockets.server.ServerProtocol" title="websockets.server.ServerProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">ServerProtocol</span></code></a> and
+<a class="reference internal" href="../reference/sansio/client.html#websockets.client.ClientProtocol" title="websockets.client.ClientProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientProtocol</span></code></a> instead.</p>
+<p>See <a class="reference internal" href="../howto/sansio.html"><span class="doc">Integrate the Sans-I/O layer</span></a> for details.</p>
+</div>
+</section>
+<section id="id44">
+<h3>Improvements<a class="headerlink" href="changelog.html#id44" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Reduced noise in logs when <a class="reference external" href="https://docs.python.org/3/library/ssl.html#module-ssl" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ssl</span></code></a> or <a class="reference external" href="https://docs.python.org/3/library/zlib.html#module-zlib" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">zlib</span></code></a> raise exceptions.</p></li>
+</ul>
+</section>
+</section>
+<section id="id45">
+<span id="id46"></span><h2>10.2<a class="headerlink" href="changelog.html#id45" title="Link to this heading">¶</a></h2>
+<p><em>February 21, 2022</em></p>
+<section id="id47">
+<h3>Improvements<a class="headerlink" href="changelog.html#id47" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Made compression negotiation more lax for compatibility with Firefox.</p></li>
+<li><p>Improved FAQ and quick start guide.</p></li>
+</ul>
+</section>
+<section id="id48">
+<h3>Bug fixes<a class="headerlink" href="changelog.html#id48" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Fixed backwards-incompatibility in 10.1 for connection handlers created with
+<a class="reference external" href="https://docs.python.org/3/library/functools.html#functools.partial" title="(in Python v3.13)"><code class="xref py py-func docutils literal notranslate"><span class="pre">functools.partial()</span></code></a>.</p></li>
+<li><p>Avoided leaking open sockets when <a class="reference internal" href="../reference/legacy/client.html#websockets.legacy.client.connect" title="websockets.legacy.client.connect"><code class="xref py py-func docutils literal notranslate"><span class="pre">connect()</span></code></a> is canceled.</p></li>
+</ul>
+</section>
+</section>
+<section id="id49">
+<span id="id50"></span><h2>10.1<a class="headerlink" href="changelog.html#id49" title="Link to this heading">¶</a></h2>
+<p><em>November 14, 2021</em></p>
+<section id="id51">
+<h3>New features<a class="headerlink" href="changelog.html#id51" title="Link to this heading">¶</a></h3>
+<ul>
+<li><p>Added a tutorial.</p></li>
+<li><p>Made the second parameter of connection handlers optional. The request path is
+available in the <a class="reference internal" href="../reference/legacy/common.html#websockets.legacy.protocol.WebSocketCommonProtocol.path" title="websockets.legacy.protocol.WebSocketCommonProtocol.path"><code class="xref py py-attr docutils literal notranslate"><span class="pre">path</span></code></a>
+attribute of the first argument.</p>
+<p>If you implemented the connection handler of a server as:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">async</span> <span class="k">def</span> <span class="nf">handler</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>You should replace it with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">async</span> <span class="k">def</span> <span class="nf">handler</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">path</span>  <span class="c1"># only if handler() uses the path argument</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+</li>
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">websockets</span> <span class="pre">--version</span></code>.</p></li>
+</ul>
+</section>
+<section id="id52">
+<h3>Improvements<a class="headerlink" href="changelog.html#id52" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Added wheels for Python 3.10, PyPy 3.7, and for more platforms.</p></li>
+<li><p>Reverted optimization of default compression settings for clients, mainly to
+avoid triggering bugs in poorly implemented servers like <a class="reference external" href="https://github.com/python-websockets/websockets/issues/1065">AWS API Gateway</a>.</p>
+</li>
+<li><p>Mirrored the entire <a class="reference external" href="https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.Server" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Server</span></code></a> API in
+<a class="reference internal" href="../reference/legacy/server.html#websockets.legacy.server.WebSocketServer" title="websockets.legacy.server.WebSocketServer"><code class="xref py py-class docutils literal notranslate"><span class="pre">WebSocketServer</span></code></a>.</p></li>
+<li><p>Improved performance for large messages on ARM processors.</p></li>
+<li><p>Documented how to auto-reload on code changes in development.</p></li>
+</ul>
+</section>
+<section id="id53">
+<h3>Bug fixes<a class="headerlink" href="changelog.html#id53" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Avoided half-closing TCP connections that are already closed.</p></li>
+</ul>
+</section>
+</section>
+<section id="id54">
+<span id="id55"></span><h2>10.0<a class="headerlink" href="changelog.html#id54" title="Link to this heading">¶</a></h2>
+<p><em>September 9, 2021</em></p>
+<section id="id56">
+<h3>Backwards-incompatible changes<a class="headerlink" href="changelog.html#id56" title="Link to this heading">¶</a></h3>
+<div class="tip admonition">
+<p class="admonition-title">websockets 10.0 requires Python ≥ 3.7.</p>
+<p>websockets 9.1 is the last version supporting Python 3.6.</p>
+</div>
+<div class="caution admonition">
+<p class="admonition-title">The <code class="docutils literal notranslate"><span class="pre">loop</span></code> parameter is deprecated from all APIs.</p>
+<p>This reflects a decision made in Python 3.8. See the release notes of
+Python 3.10 for details.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">loop</span></code> parameter is also removed
+from <a class="reference internal" href="../reference/legacy/server.html#websockets.legacy.server.WebSocketServer" title="websockets.legacy.server.WebSocketServer"><code class="xref py py-class docutils literal notranslate"><span class="pre">WebSocketServer</span></code></a>. This should be transparent.</p>
+</div>
+<div class="note admonition">
+<p class="admonition-title"><a class="reference internal" href="../reference/legacy/client.html#websockets.legacy.client.connect" title="websockets.legacy.client.connect"><code class="xref py py-func docutils literal notranslate"><span class="pre">connect()</span></code></a> times out after 10 seconds by default.</p>
+<p>You can adjust the timeout with the <code class="docutils literal notranslate"><span class="pre">open_timeout</span></code> parameter. Set it to
+<a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a> to disable the timeout entirely.</p>
+</div>
+<div class="note admonition">
+<p class="admonition-title">The <code class="docutils literal notranslate"><span class="pre">legacy_recv</span></code> option is deprecated.</p>
+<p>See the release notes of websockets 3.0 for details.</p>
+</div>
+<div class="note admonition">
+<p class="admonition-title">The signature of <a class="reference internal" href="../reference/exceptions.html#websockets.exceptions.ConnectionClosed" title="websockets.exceptions.ConnectionClosed"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ConnectionClosed</span></code></a> changed.</p>
+<p>If you raise <a class="reference internal" href="../reference/exceptions.html#websockets.exceptions.ConnectionClosed" title="websockets.exceptions.ConnectionClosed"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ConnectionClosed</span></code></a> or a subclass, rather
+than catch them when websockets raises them, you must change your code.</p>
+</div>
+<div class="note admonition">
+<p class="admonition-title">A <code class="docutils literal notranslate"><span class="pre">msg</span></code> parameter was added to <a class="reference internal" href="../reference/exceptions.html#websockets.exceptions.InvalidURI" title="websockets.exceptions.InvalidURI"><code class="xref py py-exc docutils literal notranslate"><span class="pre">InvalidURI</span></code></a>.</p>
+<p>If you raise <a class="reference internal" href="../reference/exceptions.html#websockets.exceptions.InvalidURI" title="websockets.exceptions.InvalidURI"><code class="xref py py-exc docutils literal notranslate"><span class="pre">InvalidURI</span></code></a>, rather than catch it when
+websockets raises it, you must change your code.</p>
+</div>
+</section>
+<section id="id57">
+<h3>New features<a class="headerlink" href="changelog.html#id57" title="Link to this heading">¶</a></h3>
+<div class="important admonition">
+<p class="admonition-title">websockets 10.0 introduces a <a class="reference external" href="https://sans-io.readthedocs.io/">Sans-I/O API</a> for easier integration
+in third-party libraries.</p>
+<p>If you’re integrating websockets in a library, rather than just using it,
+look at the <a class="reference internal" href="../howto/sansio.html"><span class="doc">Sans-I/O integration guide</span></a>.</p>
+</div>
+<ul class="simple">
+<li><p>Added compatibility with Python 3.10.</p></li>
+<li><p>Added <a class="reference internal" href="../reference/legacy/server.html#websockets.legacy.server.broadcast" title="websockets.legacy.server.broadcast"><code class="xref py py-func docutils literal notranslate"><span class="pre">broadcast()</span></code></a> to send a message to many clients.</p></li>
+<li><p>Added support for reconnecting automatically by using
+<a class="reference internal" href="../reference/legacy/client.html#websockets.legacy.client.connect" title="websockets.legacy.client.connect"><code class="xref py py-func docutils literal notranslate"><span class="pre">connect()</span></code></a> as an asynchronous iterator.</p></li>
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">open_timeout</span></code> to <a class="reference internal" href="../reference/legacy/client.html#websockets.legacy.client.connect" title="websockets.legacy.client.connect"><code class="xref py py-func docutils literal notranslate"><span class="pre">connect()</span></code></a>.</p></li>
+<li><p>Documented how to integrate with <a class="reference external" href="https://www.djangoproject.com/">Django</a>.</p></li>
+<li><p>Documented how to deploy websockets in production, with several options.</p></li>
+<li><p>Documented how to authenticate connections.</p></li>
+<li><p>Documented how to broadcast messages to many connections.</p></li>
+</ul>
+</section>
+<section id="id58">
+<h3>Improvements<a class="headerlink" href="changelog.html#id58" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Improved logging. See the <a class="reference internal" href="../topics/logging.html"><span class="doc">logging guide</span></a>.</p></li>
+<li><p>Optimized default compression settings to reduce memory usage.</p></li>
+<li><p>Optimized processing of client-to-server messages when the C extension isn’t
+available.</p></li>
+<li><p>Supported relative redirects in <a class="reference internal" href="../reference/legacy/client.html#websockets.legacy.client.connect" title="websockets.legacy.client.connect"><code class="xref py py-func docutils literal notranslate"><span class="pre">connect()</span></code></a>.</p></li>
+<li><p>Handled TCP connection drops during the opening handshake.</p></li>
+<li><p>Made it easier to customize authentication with
+<a class="reference internal" href="../reference/legacy/server.html#websockets.legacy.auth.BasicAuthWebSocketServerProtocol.check_credentials" title="websockets.legacy.auth.BasicAuthWebSocketServerProtocol.check_credentials"><code class="xref py py-meth docutils literal notranslate"><span class="pre">check_credentials()</span></code></a>.</p></li>
+<li><p>Provided additional information in <a class="reference internal" href="../reference/exceptions.html#websockets.exceptions.ConnectionClosed" title="websockets.exceptions.ConnectionClosed"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ConnectionClosed</span></code></a>
+exceptions.</p></li>
+<li><p>Clarified several exceptions or log messages.</p></li>
+<li><p>Restructured documentation.</p></li>
+<li><p>Improved API documentation.</p></li>
+<li><p>Extended FAQ.</p></li>
+</ul>
+</section>
+<section id="id59">
+<h3>Bug fixes<a class="headerlink" href="changelog.html#id59" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Avoided a crash when receiving a ping while the connection is closing.</p></li>
+</ul>
+</section>
+</section>
+<section id="id60">
+<span id="id61"></span><h2>9.1<a class="headerlink" href="changelog.html#id60" title="Link to this heading">¶</a></h2>
+<p><em>May 27, 2021</em></p>
+<section id="security-fix">
+<h3>Security fix<a class="headerlink" href="changelog.html#security-fix" title="Link to this heading">¶</a></h3>
+<div class="important admonition">
+<p class="admonition-title">websockets 9.1 fixes a security issue introduced in 8.0.</p>
+<p>Version 8.0 was vulnerable to timing attacks on HTTP Basic Auth passwords
+(<a class="reference external" href="https://nvd.nist.gov/vuln/detail/CVE-2021-33880">CVE-2021-33880</a>).</p>
+</div>
+</section>
+</section>
+<section id="id62">
+<h2>9.0.2<a class="headerlink" href="changelog.html#id62" title="Link to this heading">¶</a></h2>
+<p><em>May 15, 2021</em></p>
+<section id="id63">
+<h3>Bug fixes<a class="headerlink" href="changelog.html#id63" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Restored compatibility of <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">websockets</span></code> with Python &lt; 3.9.</p></li>
+<li><p>Restored compatibility with mypy.</p></li>
+</ul>
+</section>
+</section>
+<section id="id64">
+<h2>9.0.1<a class="headerlink" href="changelog.html#id64" title="Link to this heading">¶</a></h2>
+<p><em>May 2, 2021</em></p>
+<section id="id65">
+<h3>Bug fixes<a class="headerlink" href="changelog.html#id65" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Fixed issues with the packaging of the 9.0 release.</p></li>
+</ul>
+</section>
+</section>
+<section id="id66">
+<span id="id67"></span><h2>9.0<a class="headerlink" href="changelog.html#id66" title="Link to this heading">¶</a></h2>
+<p><em>May 1, 2021</em></p>
+<section id="id68">
+<h3>Backwards-incompatible changes<a class="headerlink" href="changelog.html#id68" title="Link to this heading">¶</a></h3>
+<div class="caution admonition">
+<p class="admonition-title">Several modules are moved or deprecated.</p>
+<p>Aliases provide compatibility for all previously public APIs according to
+the <a class="reference internal" href="changelog.html#backwards-compatibility-policy">backwards-compatibility policy</a></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../reference/datastructures.html#websockets.datastructures.Headers" title="websockets.datastructures.Headers"><code class="xref py py-class docutils literal notranslate"><span class="pre">Headers</span></code></a> and
+<a class="reference internal" href="../reference/datastructures.html#websockets.datastructures.MultipleValuesError" title="websockets.datastructures.MultipleValuesError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">MultipleValuesError</span></code></a> are moved from
+<code class="docutils literal notranslate"><span class="pre">websockets.http</span></code> to <a class="reference internal" href="../reference/datastructures.html#module-websockets.datastructures" title="websockets.datastructures"><code class="xref py py-mod docutils literal notranslate"><span class="pre">websockets.datastructures</span></code></a>. If you’re using
+them, you should adjust the import path.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">client</span></code>, <code class="docutils literal notranslate"><span class="pre">server</span></code>, <code class="docutils literal notranslate"><span class="pre">protocol</span></code>, and <code class="docutils literal notranslate"><span class="pre">auth</span></code> modules were
+moved from the <code class="docutils literal notranslate"><span class="pre">websockets</span></code> package to a <code class="docutils literal notranslate"><span class="pre">websockets.legacy</span></code>
+sub-package. Despite the name, they’re still fully supported.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">framing</span></code>, <code class="docutils literal notranslate"><span class="pre">handshake</span></code>, <code class="docutils literal notranslate"><span class="pre">headers</span></code>, <code class="docutils literal notranslate"><span class="pre">http</span></code>, and <code class="docutils literal notranslate"><span class="pre">uri</span></code>
+modules in the <code class="docutils literal notranslate"><span class="pre">websockets</span></code> package are deprecated. These modules
+provided low-level APIs for reuse by other projects, but they didn’t
+reach that goal. Keeping these APIs public makes it more difficult to
+improve websockets.</p></li>
+</ul>
+<p>These changes pave the path for a refactoring that should be a transparent
+upgrade for most uses and facilitate integration by other projects.</p>
+</div>
+<div class="note admonition">
+<p class="admonition-title">Convenience imports from <code class="docutils literal notranslate"><span class="pre">websockets</span></code> are performed lazily.</p>
+<p>While Python supports this, tools relying on static code analysis don’t.
+This breaks auto-completion in an IDE or type checking with <a class="reference external" href="https://github.com/python/mypy">mypy</a>.</p>
+<p>If you depend on such tools, use the real import paths, which can be found
+in the API documentation, for example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">websockets.client</span> <span class="kn">import</span> <span class="n">connect</span>
+<span class="kn">from</span> <span class="nn">websockets.server</span> <span class="kn">import</span> <span class="n">serve</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="id70">
+<h3>New features<a class="headerlink" href="changelog.html#id70" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Added compatibility with Python 3.9.</p></li>
+</ul>
+</section>
+<section id="id71">
+<h3>Improvements<a class="headerlink" href="changelog.html#id71" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Added support for IRIs in addition to URIs.</p></li>
+<li><p>Added close codes 1012, 1013, and 1014.</p></li>
+<li><p>Raised an error when passing a <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a> to
+<a class="reference internal" href="../reference/legacy/common.html#websockets.legacy.protocol.WebSocketCommonProtocol.send" title="websockets.legacy.protocol.WebSocketCommonProtocol.send"><code class="xref py py-meth docutils literal notranslate"><span class="pre">send()</span></code></a>.</p></li>
+<li><p>Improved error reporting.</p></li>
+</ul>
+</section>
+<section id="id72">
+<h3>Bug fixes<a class="headerlink" href="changelog.html#id72" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Fixed sending fragmented, compressed messages.</p></li>
+<li><p>Fixed <code class="docutils literal notranslate"><span class="pre">Host</span></code> header sent when connecting to an IPv6 address.</p></li>
+<li><p>Fixed creating a client or a server with an existing Unix socket.</p></li>
+<li><p>Aligned maximum cookie size with popular web browsers.</p></li>
+<li><p>Ensured cancellation always propagates, even on Python versions where
+<a class="reference external" href="https://docs.python.org/3/library/asyncio-exceptions.html#asyncio.CancelledError" title="(in Python v3.13)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">CancelledError</span></code></a> inherits from <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.13)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">Exception</span></code></a>.</p></li>
+</ul>
+</section>
+</section>
+<section id="id73">
+<span id="id74"></span><h2>8.1<a class="headerlink" href="changelog.html#id73" title="Link to this heading">¶</a></h2>
+<p><em>November 1, 2019</em></p>
+<section id="id75">
+<h3>New features<a class="headerlink" href="changelog.html#id75" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Added compatibility with Python 3.8.</p></li>
+</ul>
+</section>
+</section>
+<section id="id76">
+<h2>8.0.2<a class="headerlink" href="changelog.html#id76" title="Link to this heading">¶</a></h2>
+<p><em>July 31, 2019</em></p>
+<section id="id77">
+<h3>Bug fixes<a class="headerlink" href="changelog.html#id77" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Restored the ability to pass a socket with the <code class="docutils literal notranslate"><span class="pre">sock</span></code> parameter of
+<a class="reference internal" href="../reference/legacy/server.html#websockets.legacy.server.serve" title="websockets.legacy.server.serve"><code class="xref py py-func docutils literal notranslate"><span class="pre">serve()</span></code></a>.</p></li>
+<li><p>Removed an incorrect assertion when a connection drops.</p></li>
+</ul>
+</section>
+</section>
+<section id="id78">
+<h2>8.0.1<a class="headerlink" href="changelog.html#id78" title="Link to this heading">¶</a></h2>
+<p><em>July 21, 2019</em></p>
+<section id="id79">
+<h3>Bug fixes<a class="headerlink" href="changelog.html#id79" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Restored the ability to import <code class="docutils literal notranslate"><span class="pre">WebSocketProtocolError</span></code> from
+<code class="docutils literal notranslate"><span class="pre">websockets</span></code>.</p></li>
+</ul>
+</section>
+</section>
+<section id="id80">
+<span id="id81"></span><h2>8.0<a class="headerlink" href="changelog.html#id80" title="Link to this heading">¶</a></h2>
+<p><em>July 7, 2019</em></p>
+<section id="id82">
+<h3>Backwards-incompatible changes<a class="headerlink" href="changelog.html#id82" title="Link to this heading">¶</a></h3>
+<div class="tip admonition">
+<p class="admonition-title">websockets 8.0 requires Python ≥ 3.6.</p>
+<p>websockets 7.0 is the last version supporting Python 3.4 and 3.5.</p>
+</div>
+<div class="note admonition">
+<p class="admonition-title"><code class="docutils literal notranslate"><span class="pre">process_request</span></code> is now expected to be a coroutine.</p>
+<p>If you’re passing a <code class="docutils literal notranslate"><span class="pre">process_request</span></code> argument to
+<a class="reference internal" href="../reference/legacy/server.html#websockets.legacy.server.serve" title="websockets.legacy.server.serve"><code class="xref py py-func docutils literal notranslate"><span class="pre">serve()</span></code></a> or
+<a class="reference internal" href="../reference/legacy/server.html#websockets.legacy.server.WebSocketServerProtocol" title="websockets.legacy.server.WebSocketServerProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">WebSocketServerProtocol</span></code></a>, or if you’re overriding
+<a class="reference internal" href="../reference/legacy/server.html#websockets.legacy.server.WebSocketServerProtocol.process_request" title="websockets.legacy.server.WebSocketServerProtocol.process_request"><code class="xref py py-meth docutils literal notranslate"><span class="pre">process_request()</span></code></a> in a
+subclass, define it with <code class="docutils literal notranslate"><span class="pre">async</span> <span class="pre">def</span></code> instead of <code class="docutils literal notranslate"><span class="pre">def</span></code>. Previously, both
+were supported.</p>
+<p>For backwards compatibility, functions are still accepted, but mixing
+functions and coroutines won’t work in some inheritance scenarios.</p>
+</div>
+<div class="note admonition">
+<p class="admonition-title"><code class="docutils literal notranslate"><span class="pre">max_queue</span></code> must be <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a> to disable the limit.</p>
+<p>If you were setting <code class="docutils literal notranslate"><span class="pre">max_queue=0</span></code> to make the queue of incoming messages
+unbounded, change it to <code class="docutils literal notranslate"><span class="pre">max_queue=None</span></code>.</p>
+</div>
+<div class="note admonition">
+<p class="admonition-title">The <code class="docutils literal notranslate"><span class="pre">host</span></code>, <code class="docutils literal notranslate"><span class="pre">port</span></code>, and <code class="docutils literal notranslate"><span class="pre">secure</span></code> attributes
+of <a class="reference internal" href="../reference/legacy/common.html#websockets.legacy.protocol.WebSocketCommonProtocol" title="websockets.legacy.protocol.WebSocketCommonProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">WebSocketCommonProtocol</span></code></a> are deprecated.</p>
+<p>Use <a class="reference internal" href="../reference/legacy/common.html#websockets.legacy.protocol.WebSocketCommonProtocol.local_address" title="websockets.legacy.protocol.WebSocketCommonProtocol.local_address"><code class="xref py py-attr docutils literal notranslate"><span class="pre">local_address</span></code></a> in
+servers and
+<a class="reference internal" href="../reference/legacy/common.html#websockets.legacy.protocol.WebSocketCommonProtocol.remote_address" title="websockets.legacy.protocol.WebSocketCommonProtocol.remote_address"><code class="xref py py-attr docutils literal notranslate"><span class="pre">remote_address</span></code></a> in clients
+instead of <code class="docutils literal notranslate"><span class="pre">host</span></code> and <code class="docutils literal notranslate"><span class="pre">port</span></code>.</p>
+</div>
+<div class="note admonition">
+<p class="admonition-title"><code class="docutils literal notranslate"><span class="pre">WebSocketProtocolError</span></code> is renamed
+to <a class="reference internal" href="../reference/exceptions.html#websockets.exceptions.ProtocolError" title="websockets.exceptions.ProtocolError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ProtocolError</span></code></a>.</p>
+<p>An alias provides backwards compatibility.</p>
+</div>
+<div class="note admonition">
+<p class="admonition-title"><code class="docutils literal notranslate"><span class="pre">read_response()</span></code> now returns the reason phrase.</p>
+<p>If you’re using this low-level API, you must change your code.</p>
+</div>
+</section>
+<section id="id83">
+<h3>New features<a class="headerlink" href="changelog.html#id83" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Added <a class="reference internal" href="../reference/legacy/server.html#websockets.legacy.auth.basic_auth_protocol_factory" title="websockets.legacy.auth.basic_auth_protocol_factory"><code class="xref py py-func docutils literal notranslate"><span class="pre">basic_auth_protocol_factory()</span></code></a> to enforce HTTP Basic
+Auth on the server side.</p></li>
+<li><p><a class="reference internal" href="../reference/legacy/client.html#websockets.legacy.client.connect" title="websockets.legacy.client.connect"><code class="xref py py-func docutils literal notranslate"><span class="pre">connect()</span></code></a> handles redirects from the server during the
+handshake.</p></li>
+<li><p><a class="reference internal" href="../reference/legacy/client.html#websockets.legacy.client.connect" title="websockets.legacy.client.connect"><code class="xref py py-func docutils literal notranslate"><span class="pre">connect()</span></code></a> supports overriding <code class="docutils literal notranslate"><span class="pre">host</span></code> and <code class="docutils literal notranslate"><span class="pre">port</span></code>.</p></li>
+<li><p>Added <a class="reference internal" href="../reference/legacy/client.html#websockets.legacy.client.unix_connect" title="websockets.legacy.client.unix_connect"><code class="xref py py-func docutils literal notranslate"><span class="pre">unix_connect()</span></code></a> for connecting to Unix sockets.</p></li>
+<li><p>Added support for asynchronous generators
+in <a class="reference internal" href="../reference/legacy/common.html#websockets.legacy.protocol.WebSocketCommonProtocol.send" title="websockets.legacy.protocol.WebSocketCommonProtocol.send"><code class="xref py py-meth docutils literal notranslate"><span class="pre">send()</span></code></a>
+to generate fragmented messages incrementally.</p></li>
+<li><p>Enabled readline in the interactive client.</p></li>
+<li><p>Added type hints (<span class="target" id="index-0"></span><a class="pep reference external" href="https://peps.python.org/pep-0484/"><strong>PEP 484</strong></a>).</p></li>
+<li><p>Added a FAQ to the documentation.</p></li>
+<li><p>Added documentation for extensions.</p></li>
+<li><p>Documented how to optimize memory usage.</p></li>
+</ul>
+</section>
+<section id="id84">
+<h3>Improvements<a class="headerlink" href="changelog.html#id84" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference internal" href="../reference/legacy/common.html#websockets.legacy.protocol.WebSocketCommonProtocol.send" title="websockets.legacy.protocol.WebSocketCommonProtocol.send"><code class="xref py py-meth docutils literal notranslate"><span class="pre">send()</span></code></a>,
+<a class="reference internal" href="../reference/legacy/common.html#websockets.legacy.protocol.WebSocketCommonProtocol.ping" title="websockets.legacy.protocol.WebSocketCommonProtocol.ping"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ping()</span></code></a>, and
+<a class="reference internal" href="../reference/legacy/common.html#websockets.legacy.protocol.WebSocketCommonProtocol.pong" title="websockets.legacy.protocol.WebSocketCommonProtocol.pong"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pong()</span></code></a> support bytes-like
+types <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytearray" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bytearray</span></code></a> and <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#memoryview" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">memoryview</span></code></a> in addition to
+<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code></a>.</p></li>
+<li><p>Added <a class="reference internal" href="../reference/exceptions.html#websockets.exceptions.ConnectionClosedOK" title="websockets.exceptions.ConnectionClosedOK"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ConnectionClosedOK</span></code></a> and
+<a class="reference internal" href="../reference/exceptions.html#websockets.exceptions.ConnectionClosedError" title="websockets.exceptions.ConnectionClosedError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ConnectionClosedError</span></code></a> subclasses of
+<a class="reference internal" href="../reference/exceptions.html#websockets.exceptions.ConnectionClosed" title="websockets.exceptions.ConnectionClosed"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ConnectionClosed</span></code></a> to tell apart normal connection
+termination from errors.</p></li>
+<li><p>Changed <a class="reference internal" href="../reference/legacy/server.html#websockets.legacy.server.WebSocketServer.close" title="websockets.legacy.server.WebSocketServer.close"><code class="xref py py-meth docutils literal notranslate"><span class="pre">WebSocketServer.close()</span></code></a>
+to perform a proper closing handshake instead of failing the connection.</p></li>
+<li><p>Improved error messages when HTTP parsing fails.</p></li>
+<li><p>Improved API documentation.</p></li>
+</ul>
+</section>
+<section id="id85">
+<h3>Bug fixes<a class="headerlink" href="changelog.html#id85" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Prevented spurious log messages about <a class="reference internal" href="../reference/exceptions.html#websockets.exceptions.ConnectionClosed" title="websockets.exceptions.ConnectionClosed"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ConnectionClosed</span></code></a>
+exceptions in keepalive ping task. If you were using <code class="docutils literal notranslate"><span class="pre">ping_timeout=None</span></code>
+as a workaround, you can remove it.</p></li>
+<li><p>Avoided a crash when a <code class="docutils literal notranslate"><span class="pre">extra_headers</span></code> callable returns <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>.</p></li>
+</ul>
+</section>
+</section>
+<section id="id86">
+<span id="id87"></span><h2>7.0<a class="headerlink" href="changelog.html#id86" title="Link to this heading">¶</a></h2>
+<p><em>November 1, 2018</em></p>
+<section id="id88">
+<h3>Backwards-incompatible changes<a class="headerlink" href="changelog.html#id88" title="Link to this heading">¶</a></h3>
+<div class="important admonition">
+<p class="admonition-title">Keepalive is enabled by default.</p>
+<p>websockets now sends Ping frames at regular intervals and closes the
+connection if it doesn’t receive a matching Pong frame.
+See <a class="reference internal" href="../reference/legacy/common.html#websockets.legacy.protocol.WebSocketCommonProtocol" title="websockets.legacy.protocol.WebSocketCommonProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">WebSocketCommonProtocol</span></code></a> for details.</p>
+</div>
+<div class="caution admonition">
+<p class="admonition-title">Termination of connections by <a class="reference internal" href="../reference/legacy/server.html#websockets.legacy.server.WebSocketServer.close" title="websockets.legacy.server.WebSocketServer.close"><code class="xref py py-meth docutils literal notranslate"><span class="pre">WebSocketServer.close()</span></code></a> changes.</p>
+<p>Previously, connections handlers were canceled. Now, connections are
+closed with close code 1001 (going away).</p>
+<p>From the perspective of the connection handler, this is the same as if the
+remote endpoint was disconnecting. This removes the need to prepare for
+<a class="reference external" href="https://docs.python.org/3/library/asyncio-exceptions.html#asyncio.CancelledError" title="(in Python v3.13)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">CancelledError</span></code></a> in connection handlers.</p>
+<p>You can restore the previous behavior by adding the following line at the
+beginning of connection handlers:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">handler</span><span class="p">(</span><span class="n">websocket</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+    <span class="n">closed</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">ensure_future</span><span class="p">(</span><span class="n">websocket</span><span class="o">.</span><span class="n">wait_closed</span><span class="p">())</span>
+    <span class="n">closed</span><span class="o">.</span><span class="n">add_done_callback</span><span class="p">(</span><span class="k">lambda</span> <span class="n">task</span><span class="p">:</span> <span class="n">task</span><span class="o">.</span><span class="n">cancel</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="note admonition">
+<p class="admonition-title">Calling <a class="reference internal" href="../reference/legacy/common.html#websockets.legacy.protocol.WebSocketCommonProtocol.recv" title="websockets.legacy.protocol.WebSocketCommonProtocol.recv"><code class="xref py py-meth docutils literal notranslate"><span class="pre">recv()</span></code></a>
+concurrently raises a <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.13)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">RuntimeError</span></code></a>.</p>
+<p>Concurrent calls lead to non-deterministic behavior because there are no
+guarantees about which coroutine will receive which message.</p>
+</div>
+<div class="note admonition">
+<p class="admonition-title">The <code class="docutils literal notranslate"><span class="pre">timeout</span></code> argument of <a class="reference internal" href="../reference/legacy/server.html#websockets.legacy.server.serve" title="websockets.legacy.server.serve"><code class="xref py py-func docutils literal notranslate"><span class="pre">serve()</span></code></a>
+and <a class="reference internal" href="../reference/legacy/client.html#websockets.legacy.client.connect" title="websockets.legacy.client.connect"><code class="xref py py-func docutils literal notranslate"><span class="pre">connect()</span></code></a> is renamed to <code class="docutils literal notranslate"><span class="pre">close_timeout</span></code> .</p>
+<p>This prevents confusion with <code class="docutils literal notranslate"><span class="pre">ping_timeout</span></code>.</p>
+<p>For backwards compatibility, <code class="docutils literal notranslate"><span class="pre">timeout</span></code> is still supported.</p>
+</div>
+<div class="note admonition">
+<p class="admonition-title">The <code class="docutils literal notranslate"><span class="pre">origins</span></code> argument of <a class="reference internal" href="../reference/legacy/server.html#websockets.legacy.server.serve" title="websockets.legacy.server.serve"><code class="xref py py-func docutils literal notranslate"><span class="pre">serve()</span></code></a>
+changes.</p>
+<p>Include <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a> in the list rather than <code class="docutils literal notranslate"><span class="pre">''</span></code> to allow requests that
+don’t contain an Origin header.</p>
+</div>
+<div class="note admonition">
+<p class="admonition-title">Pending pings aren’t canceled when the connection is closed.</p>
+<p>A ping — as in <code class="docutils literal notranslate"><span class="pre">ping</span> <span class="pre">=</span> <span class="pre">await</span> <span class="pre">websocket.ping()</span></code> — for which no pong was
+received yet used to be canceled when the connection is closed, so that
+<code class="docutils literal notranslate"><span class="pre">await</span> <span class="pre">ping</span></code> raised <a class="reference external" href="https://docs.python.org/3/library/asyncio-exceptions.html#asyncio.CancelledError" title="(in Python v3.13)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">CancelledError</span></code></a>.</p>
+<p>Now <code class="docutils literal notranslate"><span class="pre">await</span> <span class="pre">ping</span></code> raises <a class="reference internal" href="../reference/exceptions.html#websockets.exceptions.ConnectionClosed" title="websockets.exceptions.ConnectionClosed"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ConnectionClosed</span></code></a> like other
+public APIs.</p>
+</div>
+</section>
+<section id="id89">
+<h3>New features<a class="headerlink" href="changelog.html#id89" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">process_request</span></code> and <code class="docutils literal notranslate"><span class="pre">select_subprotocol</span></code> arguments to
+<a class="reference internal" href="../reference/legacy/server.html#websockets.legacy.server.serve" title="websockets.legacy.server.serve"><code class="xref py py-func docutils literal notranslate"><span class="pre">serve()</span></code></a> and
+<a class="reference internal" href="../reference/legacy/server.html#websockets.legacy.server.WebSocketServerProtocol" title="websockets.legacy.server.WebSocketServerProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">WebSocketServerProtocol</span></code></a> to facilitate customization of
+<a class="reference internal" href="../reference/legacy/server.html#websockets.legacy.server.WebSocketServerProtocol.process_request" title="websockets.legacy.server.WebSocketServerProtocol.process_request"><code class="xref py py-meth docutils literal notranslate"><span class="pre">process_request()</span></code></a> and
+<a class="reference internal" href="../reference/legacy/server.html#websockets.legacy.server.WebSocketServerProtocol.select_subprotocol" title="websockets.legacy.server.WebSocketServerProtocol.select_subprotocol"><code class="xref py py-meth docutils literal notranslate"><span class="pre">select_subprotocol()</span></code></a>.</p></li>
+<li><p>Added support for sending fragmented messages.</p></li>
+<li><p>Added the <a class="reference internal" href="../reference/legacy/common.html#websockets.legacy.protocol.WebSocketCommonProtocol.wait_closed" title="websockets.legacy.protocol.WebSocketCommonProtocol.wait_closed"><code class="xref py py-meth docutils literal notranslate"><span class="pre">wait_closed()</span></code></a>
+method to protocols.</p></li>
+<li><p>Added an interactive client: <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">websockets</span> <span class="pre">&lt;uri&gt;</span></code>.</p></li>
+</ul>
+</section>
+<section id="id90">
+<h3>Improvements<a class="headerlink" href="changelog.html#id90" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Improved handling of multiple HTTP headers with the same name.</p></li>
+<li><p>Improved error messages when a required HTTP header is missing.</p></li>
+</ul>
+</section>
+<section id="id91">
+<h3>Bug fixes<a class="headerlink" href="changelog.html#id91" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Fixed a data loss bug in
+<a class="reference internal" href="../reference/legacy/common.html#websockets.legacy.protocol.WebSocketCommonProtocol.recv" title="websockets.legacy.protocol.WebSocketCommonProtocol.recv"><code class="xref py py-meth docutils literal notranslate"><span class="pre">recv()</span></code></a>:
+canceling it at the wrong time could result in messages being dropped.</p></li>
+</ul>
+</section>
+</section>
+<section id="id92">
+<span id="id93"></span><h2>6.0<a class="headerlink" href="changelog.html#id92" title="Link to this heading">¶</a></h2>
+<p><em>July 16, 2018</em></p>
+<section id="id94">
+<h3>Backwards-incompatible changes<a class="headerlink" href="changelog.html#id94" title="Link to this heading">¶</a></h3>
+<div class="caution admonition">
+<p class="admonition-title">The <a class="reference internal" href="../reference/datastructures.html#websockets.datastructures.Headers" title="websockets.datastructures.Headers"><code class="xref py py-class docutils literal notranslate"><span class="pre">Headers</span></code></a> class is introduced and
+several APIs are updated to use it.</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">request_headers</span></code> argument of
+<a class="reference internal" href="../reference/legacy/server.html#websockets.legacy.server.WebSocketServerProtocol.process_request" title="websockets.legacy.server.WebSocketServerProtocol.process_request"><code class="xref py py-meth docutils literal notranslate"><span class="pre">process_request()</span></code></a> is now a
+<a class="reference internal" href="../reference/datastructures.html#websockets.datastructures.Headers" title="websockets.datastructures.Headers"><code class="xref py py-class docutils literal notranslate"><span class="pre">Headers</span></code></a> instead of an
+<code class="docutils literal notranslate"><span class="pre">http.client.HTTPMessage</span></code>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">request_headers</span></code> and <code class="docutils literal notranslate"><span class="pre">response_headers</span></code> attributes of
+<a class="reference internal" href="../reference/legacy/common.html#websockets.legacy.protocol.WebSocketCommonProtocol" title="websockets.legacy.protocol.WebSocketCommonProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">WebSocketCommonProtocol</span></code></a> are now
+<a class="reference internal" href="../reference/datastructures.html#websockets.datastructures.Headers" title="websockets.datastructures.Headers"><code class="xref py py-class docutils literal notranslate"><span class="pre">Headers</span></code></a> instead of <code class="docutils literal notranslate"><span class="pre">http.client.HTTPMessage</span></code>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">raw_request_headers</span></code> and <code class="docutils literal notranslate"><span class="pre">raw_response_headers</span></code> attributes of
+<a class="reference internal" href="../reference/legacy/common.html#websockets.legacy.protocol.WebSocketCommonProtocol" title="websockets.legacy.protocol.WebSocketCommonProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">WebSocketCommonProtocol</span></code></a> are removed. Use
+<a class="reference internal" href="../reference/datastructures.html#websockets.datastructures.Headers.raw_items" title="websockets.datastructures.Headers.raw_items"><code class="xref py py-meth docutils literal notranslate"><span class="pre">raw_items()</span></code></a> instead.</p></li>
+<li><p>Functions defined in the <code class="docutils literal notranslate"><span class="pre">handshake</span></code> module now receive
+<a class="reference internal" href="../reference/datastructures.html#websockets.datastructures.Headers" title="websockets.datastructures.Headers"><code class="xref py py-class docutils literal notranslate"><span class="pre">Headers</span></code></a> in argument instead of <code class="docutils literal notranslate"><span class="pre">get_header</span></code>
+or <code class="docutils literal notranslate"><span class="pre">set_header</span></code> functions. This affects libraries that rely on
+low-level APIs.</p></li>
+<li><p>Functions defined in the <code class="docutils literal notranslate"><span class="pre">http</span></code> module now return HTTP headers as
+<a class="reference internal" href="../reference/datastructures.html#websockets.datastructures.Headers" title="websockets.datastructures.Headers"><code class="xref py py-class docutils literal notranslate"><span class="pre">Headers</span></code></a> instead of lists of <code class="docutils literal notranslate"><span class="pre">(name,</span> <span class="pre">value)</span></code>
+pairs.</p></li>
+</ul>
+<p>Since <a class="reference internal" href="../reference/datastructures.html#websockets.datastructures.Headers" title="websockets.datastructures.Headers"><code class="xref py py-class docutils literal notranslate"><span class="pre">Headers</span></code></a> and <code class="docutils literal notranslate"><span class="pre">http.client.HTTPMessage</span></code>
+provide similar APIs, much of the code dealing with HTTP headers won’t
+require changes.</p>
+</div>
+</section>
+<section id="id95">
+<h3>New features<a class="headerlink" href="changelog.html#id95" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Added compatibility with Python 3.7.</p></li>
+</ul>
+</section>
+</section>
+<section id="id96">
+<h2>5.0.1<a class="headerlink" href="changelog.html#id96" title="Link to this heading">¶</a></h2>
+<p><em>May 24, 2018</em></p>
+<section id="id97">
+<h3>Bug fixes<a class="headerlink" href="changelog.html#id97" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Fixed a regression in 5.0 that broke some invocations of
+<a class="reference internal" href="../reference/legacy/server.html#websockets.legacy.server.serve" title="websockets.legacy.server.serve"><code class="xref py py-func docutils literal notranslate"><span class="pre">serve()</span></code></a> and <a class="reference internal" href="../reference/legacy/client.html#websockets.legacy.client.connect" title="websockets.legacy.client.connect"><code class="xref py py-func docutils literal notranslate"><span class="pre">connect()</span></code></a>.</p></li>
+</ul>
+</section>
+</section>
+<section id="id98">
+<span id="id99"></span><h2>5.0<a class="headerlink" href="changelog.html#id98" title="Link to this heading">¶</a></h2>
+<p><em>May 22, 2018</em></p>
+<section id="id100">
+<h3>Security fix<a class="headerlink" href="changelog.html#id100" title="Link to this heading">¶</a></h3>
+<div class="important admonition">
+<p class="admonition-title">websockets 5.0 fixes a security issue introduced in 4.0.</p>
+<p>Version 4.0 was vulnerable to denial of service by memory exhaustion
+because it didn’t enforce <code class="docutils literal notranslate"><span class="pre">max_size</span></code> when decompressing compressed
+messages (<a class="reference external" href="https://nvd.nist.gov/vuln/detail/CVE-2018-1000518">CVE-2018-1000518</a>).</p>
+</div>
+</section>
+<section id="id101">
+<h3>Backwards-incompatible changes<a class="headerlink" href="changelog.html#id101" title="Link to this heading">¶</a></h3>
+<div class="note admonition">
+<p class="admonition-title">A <code class="docutils literal notranslate"><span class="pre">user_info</span></code> field is added to the return value of
+<code class="docutils literal notranslate"><span class="pre">parse_uri</span></code> and <code class="docutils literal notranslate"><span class="pre">WebSocketURI</span></code>.</p>
+<p>If you’re unpacking <code class="docutils literal notranslate"><span class="pre">WebSocketURI</span></code> into four variables, adjust your code
+to account for that fifth field.</p>
+</div>
+</section>
+<section id="id102">
+<h3>New features<a class="headerlink" href="changelog.html#id102" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference internal" href="../reference/legacy/client.html#websockets.legacy.client.connect" title="websockets.legacy.client.connect"><code class="xref py py-func docutils literal notranslate"><span class="pre">connect()</span></code></a> performs HTTP Basic Auth when the URI contains
+credentials.</p></li>
+<li><p><a class="reference internal" href="../reference/legacy/server.html#websockets.legacy.server.unix_serve" title="websockets.legacy.server.unix_serve"><code class="xref py py-func docutils literal notranslate"><span class="pre">unix_serve()</span></code></a> can be used as an asynchronous context
+manager on Python ≥ 3.5.1.</p></li>
+<li><p>Added the <a class="reference internal" href="../reference/legacy/common.html#websockets.legacy.protocol.WebSocketCommonProtocol.closed" title="websockets.legacy.protocol.WebSocketCommonProtocol.closed"><code class="xref py py-attr docutils literal notranslate"><span class="pre">closed</span></code></a> property
+to protocols.</p></li>
+<li><p>Added new examples in the documentation.</p></li>
+</ul>
+</section>
+<section id="id103">
+<h3>Improvements<a class="headerlink" href="changelog.html#id103" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Iterating on incoming messages no longer raises an exception when the
+connection terminates with close code 1001 (going away).</p></li>
+<li><p>A plain HTTP request now receives a 426 Upgrade Required response and
+doesn’t log a stack trace.</p></li>
+<li><p>If a <a class="reference internal" href="../reference/legacy/common.html#websockets.legacy.protocol.WebSocketCommonProtocol.ping" title="websockets.legacy.protocol.WebSocketCommonProtocol.ping"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ping()</span></code></a> doesn’t receive a
+pong, it’s canceled when the connection is closed.</p></li>
+<li><p>Reported the cause of <a class="reference internal" href="../reference/exceptions.html#websockets.exceptions.ConnectionClosed" title="websockets.exceptions.ConnectionClosed"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ConnectionClosed</span></code></a> exceptions.</p></li>
+<li><p>Stopped logging stack traces when the TCP connection dies prematurely.</p></li>
+<li><p>Prevented writing to a closing TCP connection during unclean shutdowns.</p></li>
+<li><p>Made connection termination more robust to network congestion.</p></li>
+<li><p>Prevented processing of incoming frames after failing the connection.</p></li>
+<li><p>Updated documentation with new features from Python 3.6.</p></li>
+<li><p>Improved several sections of the documentation.</p></li>
+</ul>
+</section>
+<section id="id104">
+<h3>Bug fixes<a class="headerlink" href="changelog.html#id104" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Prevented <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.13)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">TypeError</span></code></a> due to missing close code on connection close.</p></li>
+<li><p>Fixed a race condition in the closing handshake that raised
+<a class="reference internal" href="../reference/exceptions.html#websockets.exceptions.InvalidState" title="websockets.exceptions.InvalidState"><code class="xref py py-exc docutils literal notranslate"><span class="pre">InvalidState</span></code></a>.</p></li>
+</ul>
+</section>
+</section>
+<section id="id105">
+<h2>4.0.1<a class="headerlink" href="changelog.html#id105" title="Link to this heading">¶</a></h2>
+<p><em>November 2, 2017</em></p>
+<section id="id106">
+<h3>Bug fixes<a class="headerlink" href="changelog.html#id106" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Fixed issues with the packaging of the 4.0 release.</p></li>
+</ul>
+</section>
+</section>
+<section id="id107">
+<span id="id108"></span><h2>4.0<a class="headerlink" href="changelog.html#id107" title="Link to this heading">¶</a></h2>
+<p><em>November 2, 2017</em></p>
+<section id="id109">
+<h3>Backwards-incompatible changes<a class="headerlink" href="changelog.html#id109" title="Link to this heading">¶</a></h3>
+<div class="tip admonition">
+<p class="admonition-title">websockets 4.0 requires Python ≥ 3.4.</p>
+<p>websockets 3.4 is the last version supporting Python 3.3.</p>
+</div>
+<div class="important admonition">
+<p class="admonition-title">Compression is enabled by default.</p>
+<p>In August 2017, Firefox and Chrome support the permessage-deflate
+extension, but not Safari and IE.</p>
+<p>Compression should improve performance but it increases RAM and CPU use.</p>
+<p>If you want to disable compression, add <code class="docutils literal notranslate"><span class="pre">compression=None</span></code> when calling
+<a class="reference internal" href="../reference/legacy/server.html#websockets.legacy.server.serve" title="websockets.legacy.server.serve"><code class="xref py py-func docutils literal notranslate"><span class="pre">serve()</span></code></a> or <a class="reference internal" href="../reference/legacy/client.html#websockets.legacy.client.connect" title="websockets.legacy.client.connect"><code class="xref py py-func docutils literal notranslate"><span class="pre">connect()</span></code></a>.</p>
+</div>
+<div class="note admonition">
+<p class="admonition-title">The <code class="docutils literal notranslate"><span class="pre">state_name</span></code> attribute of protocols is deprecated.</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">protocol.state.name</span></code> instead of <code class="docutils literal notranslate"><span class="pre">protocol.state_name</span></code>.</p>
+</div>
+</section>
+<section id="id110">
+<h3>New features<a class="headerlink" href="changelog.html#id110" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference internal" href="../reference/legacy/common.html#websockets.legacy.protocol.WebSocketCommonProtocol" title="websockets.legacy.protocol.WebSocketCommonProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">WebSocketCommonProtocol</span></code></a> instances can be used as
+asynchronous iterators on Python ≥ 3.6. They yield incoming messages.</p></li>
+<li><p>Added <a class="reference internal" href="../reference/legacy/server.html#websockets.legacy.server.unix_serve" title="websockets.legacy.server.unix_serve"><code class="xref py py-func docutils literal notranslate"><span class="pre">unix_serve()</span></code></a> for listening on Unix sockets.</p></li>
+<li><p>Added the <a class="reference internal" href="../reference/legacy/server.html#websockets.legacy.server.WebSocketServer.sockets" title="websockets.legacy.server.WebSocketServer.sockets"><code class="xref py py-attr docutils literal notranslate"><span class="pre">sockets</span></code></a> attribute to the
+return value of <a class="reference internal" href="../reference/legacy/server.html#websockets.legacy.server.serve" title="websockets.legacy.server.serve"><code class="xref py py-func docutils literal notranslate"><span class="pre">serve()</span></code></a>.</p></li>
+<li><p>Allowed <code class="docutils literal notranslate"><span class="pre">extra_headers</span></code> to override <code class="docutils literal notranslate"><span class="pre">Server</span></code> and <code class="docutils literal notranslate"><span class="pre">User-Agent</span></code> headers.</p></li>
+</ul>
+</section>
+<section id="id111">
+<h3>Improvements<a class="headerlink" href="changelog.html#id111" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Reorganized and extended documentation.</p></li>
+<li><p>Rewrote connection termination to increase robustness in edge cases.</p></li>
+<li><p>Reduced verbosity of “Failing the WebSocket connection” logs.</p></li>
+</ul>
+</section>
+<section id="id112">
+<h3>Bug fixes<a class="headerlink" href="changelog.html#id112" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Aborted connections if they don’t close within the configured <code class="docutils literal notranslate"><span class="pre">timeout</span></code>.</p></li>
+<li><p>Stopped leaking pending tasks when <a class="reference external" href="https://docs.python.org/3/library/asyncio-task.html#asyncio.Task.cancel" title="(in Python v3.13)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">cancel()</span></code></a> is called on
+a connection while it’s being closed.</p></li>
+</ul>
+</section>
+</section>
+<section id="id113">
+<span id="id114"></span><h2>3.4<a class="headerlink" href="changelog.html#id113" title="Link to this heading">¶</a></h2>
+<p><em>August 20, 2017</em></p>
+<section id="id115">
+<h3>Backwards-incompatible changes<a class="headerlink" href="changelog.html#id115" title="Link to this heading">¶</a></h3>
+<div class="note admonition">
+<p class="admonition-title"><code class="docutils literal notranslate"><span class="pre">InvalidStatus</span></code> is replaced
+by <a class="reference internal" href="../reference/exceptions.html#websockets.exceptions.InvalidStatusCode" title="websockets.exceptions.InvalidStatusCode"><code class="xref py py-class docutils literal notranslate"><span class="pre">InvalidStatusCode</span></code></a>.</p>
+<p>This exception is raised when <a class="reference internal" href="../reference/legacy/client.html#websockets.legacy.client.connect" title="websockets.legacy.client.connect"><code class="xref py py-func docutils literal notranslate"><span class="pre">connect()</span></code></a> receives an invalid
+response status code from the server.</p>
+</div>
+</section>
+<section id="id116">
+<h3>New features<a class="headerlink" href="changelog.html#id116" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference internal" href="../reference/legacy/server.html#websockets.legacy.server.serve" title="websockets.legacy.server.serve"><code class="xref py py-func docutils literal notranslate"><span class="pre">serve()</span></code></a> can be used as an asynchronous context manager
+on Python ≥ 3.5.1.</p></li>
+<li><p>Added support for customizing handling of incoming connections with
+<a class="reference internal" href="../reference/legacy/server.html#websockets.legacy.server.WebSocketServerProtocol.process_request" title="websockets.legacy.server.WebSocketServerProtocol.process_request"><code class="xref py py-meth docutils literal notranslate"><span class="pre">process_request()</span></code></a>.</p></li>
+<li><p>Made read and write buffer sizes configurable.</p></li>
+</ul>
+</section>
+<section id="id117">
+<h3>Improvements<a class="headerlink" href="changelog.html#id117" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Renamed <a class="reference internal" href="../reference/legacy/server.html#websockets.legacy.server.serve" title="websockets.legacy.server.serve"><code class="xref py py-func docutils literal notranslate"><span class="pre">serve()</span></code></a> and <a class="reference internal" href="../reference/legacy/client.html#websockets.legacy.client.connect" title="websockets.legacy.client.connect"><code class="xref py py-func docutils literal notranslate"><span class="pre">connect()</span></code></a>’s
+<code class="docutils literal notranslate"><span class="pre">klass</span></code> argument to <code class="docutils literal notranslate"><span class="pre">create_protocol</span></code> to reflect that it can also be a
+callable. For backwards compatibility, <code class="docutils literal notranslate"><span class="pre">klass</span></code> is still supported.</p></li>
+<li><p>Rewrote HTTP handling for simplicity and performance.</p></li>
+<li><p>Added an optional C extension to speed up low-level operations.</p></li>
+</ul>
+</section>
+<section id="id118">
+<h3>Bug fixes<a class="headerlink" href="changelog.html#id118" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Providing a <code class="docutils literal notranslate"><span class="pre">sock</span></code> argument to <a class="reference internal" href="../reference/legacy/client.html#websockets.legacy.client.connect" title="websockets.legacy.client.connect"><code class="xref py py-func docutils literal notranslate"><span class="pre">connect()</span></code></a> no longer
+crashes.</p></li>
+</ul>
+</section>
+</section>
+<section id="id119">
+<span id="id120"></span><h2>3.3<a class="headerlink" href="changelog.html#id119" title="Link to this heading">¶</a></h2>
+<p><em>March 29, 2017</em></p>
+<section id="id121">
+<h3>New features<a class="headerlink" href="changelog.html#id121" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Ensured compatibility with Python 3.6.</p></li>
+</ul>
+</section>
+<section id="id122">
+<h3>Improvements<a class="headerlink" href="changelog.html#id122" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Reduced noise in logs caused by connection resets.</p></li>
+</ul>
+</section>
+<section id="id123">
+<h3>Bug fixes<a class="headerlink" href="changelog.html#id123" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Avoided crashing on concurrent writes on slow connections.</p></li>
+</ul>
+</section>
+</section>
+<section id="id124">
+<span id="id125"></span><h2>3.2<a class="headerlink" href="changelog.html#id124" title="Link to this heading">¶</a></h2>
+<p><em>August 17, 2016</em></p>
+<section id="id126">
+<h3>New features<a class="headerlink" href="changelog.html#id126" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">timeout</span></code>, <code class="docutils literal notranslate"><span class="pre">max_size</span></code>, and <code class="docutils literal notranslate"><span class="pre">max_queue</span></code> arguments to
+<a class="reference internal" href="../reference/legacy/client.html#websockets.legacy.client.connect" title="websockets.legacy.client.connect"><code class="xref py py-func docutils literal notranslate"><span class="pre">connect()</span></code></a> and <a class="reference internal" href="../reference/legacy/server.html#websockets.legacy.server.serve" title="websockets.legacy.server.serve"><code class="xref py py-func docutils literal notranslate"><span class="pre">serve()</span></code></a>.</p></li>
+</ul>
+</section>
+<section id="id127">
+<h3>Improvements<a class="headerlink" href="changelog.html#id127" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Made server shutdown more robust.</p></li>
+</ul>
+</section>
+</section>
+<section id="id128">
+<span id="id129"></span><h2>3.1<a class="headerlink" href="changelog.html#id128" title="Link to this heading">¶</a></h2>
+<p><em>April 21, 2016</em></p>
+<section id="id130">
+<h3>New features<a class="headerlink" href="changelog.html#id130" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Added flow control for incoming data.</p></li>
+</ul>
+</section>
+<section id="id131">
+<h3>Bug fixes<a class="headerlink" href="changelog.html#id131" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Avoided a warning when closing a connection before the opening handshake.</p></li>
+</ul>
+</section>
+</section>
+<section id="id132">
+<span id="id133"></span><h2>3.0<a class="headerlink" href="changelog.html#id132" title="Link to this heading">¶</a></h2>
+<p><em>December 25, 2015</em></p>
+<section id="id134">
+<h3>Backwards-incompatible changes<a class="headerlink" href="changelog.html#id134" title="Link to this heading">¶</a></h3>
+<div class="caution admonition">
+<p class="admonition-title"><a class="reference internal" href="../reference/legacy/common.html#websockets.legacy.protocol.WebSocketCommonProtocol.recv" title="websockets.legacy.protocol.WebSocketCommonProtocol.recv"><code class="xref py py-meth docutils literal notranslate"><span class="pre">recv()</span></code></a> now
+raises an exception when the connection is closed.</p>
+<p><a class="reference internal" href="../reference/legacy/common.html#websockets.legacy.protocol.WebSocketCommonProtocol.recv" title="websockets.legacy.protocol.WebSocketCommonProtocol.recv"><code class="xref py py-meth docutils literal notranslate"><span class="pre">recv()</span></code></a> used to return
+<a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a> when the connection was closed. This required checking the
+return value of every call:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">message</span> <span class="o">=</span> <span class="k">await</span> <span class="n">websocket</span><span class="o">.</span><span class="n">recv</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">message</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">return</span>
+</pre></div>
+</div>
+<p>Now it raises a <a class="reference internal" href="../reference/exceptions.html#websockets.exceptions.ConnectionClosed" title="websockets.exceptions.ConnectionClosed"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ConnectionClosed</span></code></a> exception instead.
+This is more Pythonic. The previous code can be simplified to:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">message</span> <span class="o">=</span> <span class="k">await</span> <span class="n">websocket</span><span class="o">.</span><span class="n">recv</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>When implementing a server, there’s no strong reason to handle such
+exceptions. Let them bubble up, terminate the handler coroutine, and the
+server will simply ignore them.</p>
+<p>In order to avoid stranding projects built upon an earlier version, the
+previous behavior can be restored by passing <code class="docutils literal notranslate"><span class="pre">legacy_recv=True</span></code> to
+<a class="reference internal" href="../reference/legacy/server.html#websockets.legacy.server.serve" title="websockets.legacy.server.serve"><code class="xref py py-func docutils literal notranslate"><span class="pre">serve()</span></code></a>, <a class="reference internal" href="../reference/legacy/client.html#websockets.legacy.client.connect" title="websockets.legacy.client.connect"><code class="xref py py-func docutils literal notranslate"><span class="pre">connect()</span></code></a>,
+<a class="reference internal" href="../reference/legacy/server.html#websockets.legacy.server.WebSocketServerProtocol" title="websockets.legacy.server.WebSocketServerProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">WebSocketServerProtocol</span></code></a>, or
+<a class="reference internal" href="../reference/legacy/client.html#websockets.legacy.client.WebSocketClientProtocol" title="websockets.legacy.client.WebSocketClientProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">WebSocketClientProtocol</span></code></a>.</p>
+</div>
+</section>
+<section id="id135">
+<h3>New features<a class="headerlink" href="changelog.html#id135" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference internal" href="../reference/legacy/client.html#websockets.legacy.client.connect" title="websockets.legacy.client.connect"><code class="xref py py-func docutils literal notranslate"><span class="pre">connect()</span></code></a> can be used as an asynchronous context manager
+on Python ≥ 3.5.1.</p></li>
+<li><p><a class="reference internal" href="../reference/legacy/common.html#websockets.legacy.protocol.WebSocketCommonProtocol.ping" title="websockets.legacy.protocol.WebSocketCommonProtocol.ping"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ping()</span></code></a> and
+<a class="reference internal" href="../reference/legacy/common.html#websockets.legacy.protocol.WebSocketCommonProtocol.pong" title="websockets.legacy.protocol.WebSocketCommonProtocol.pong"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pong()</span></code></a> support data passed as
+<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> in addition to <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code></a>.</p></li>
+<li><p>Made <code class="docutils literal notranslate"><span class="pre">state_name</span></code> attribute on protocols a public API.</p></li>
+</ul>
+</section>
+<section id="id136">
+<h3>Improvements<a class="headerlink" href="changelog.html#id136" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Updated documentation with <code class="docutils literal notranslate"><span class="pre">await</span></code> and <code class="docutils literal notranslate"><span class="pre">async</span></code> syntax from Python 3.5.</p></li>
+<li><p>Worked around an <a class="reference external" href="https://docs.python.org/3/library/asyncio.html#module-asyncio" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code></a> bug affecting connection termination under
+load.</p></li>
+<li><p>Improved documentation.</p></li>
+</ul>
+</section>
+</section>
+<section id="id137">
+<span id="id138"></span><h2>2.7<a class="headerlink" href="changelog.html#id137" title="Link to this heading">¶</a></h2>
+<p><em>November 18, 2015</em></p>
+<section id="id139">
+<h3>New features<a class="headerlink" href="changelog.html#id139" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Added compatibility with Python 3.5.</p></li>
+</ul>
+</section>
+<section id="id140">
+<h3>Improvements<a class="headerlink" href="changelog.html#id140" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Refreshed documentation.</p></li>
+</ul>
+</section>
+</section>
+<section id="id141">
+<span id="id142"></span><h2>2.6<a class="headerlink" href="changelog.html#id141" title="Link to this heading">¶</a></h2>
+<p><em>August 18, 2015</em></p>
+<section id="id143">
+<h3>New features<a class="headerlink" href="changelog.html#id143" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">local_address</span></code> and <code class="docutils literal notranslate"><span class="pre">remote_address</span></code> attributes on protocols.</p></li>
+<li><p>Closed open connections with code 1001 when a server shuts down.</p></li>
+</ul>
+</section>
+<section id="id144">
+<h3>Bug fixes<a class="headerlink" href="changelog.html#id144" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Avoided TCP fragmentation of small frames.</p></li>
+</ul>
+</section>
+</section>
+<section id="id145">
+<span id="id146"></span><h2>2.5<a class="headerlink" href="changelog.html#id145" title="Link to this heading">¶</a></h2>
+<p><em>July 28, 2015</em></p>
+<section id="id147">
+<h3>New features<a class="headerlink" href="changelog.html#id147" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Provided access to handshake request and response HTTP headers.</p></li>
+<li><p>Allowed customizing handshake request and response HTTP headers.</p></li>
+<li><p>Added support for running on a non-default event loop.</p></li>
+</ul>
+</section>
+<section id="id148">
+<h3>Improvements<a class="headerlink" href="changelog.html#id148" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Improved documentation.</p></li>
+<li><p>Sent a 403 status code instead of 400 when request Origin isn’t allowed.</p></li>
+<li><p>Clarified that the closing handshake can be initiated by the client.</p></li>
+<li><p>Set the close code and reason more consistently.</p></li>
+<li><p>Strengthened connection termination.</p></li>
+</ul>
+</section>
+<section id="id149">
+<h3>Bug fixes<a class="headerlink" href="changelog.html#id149" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Canceling <a class="reference internal" href="../reference/legacy/common.html#websockets.legacy.protocol.WebSocketCommonProtocol.recv" title="websockets.legacy.protocol.WebSocketCommonProtocol.recv"><code class="xref py py-meth docutils literal notranslate"><span class="pre">recv()</span></code></a> no longer
+drops the next message.</p></li>
+</ul>
+</section>
+</section>
+<section id="id150">
+<span id="id151"></span><h2>2.4<a class="headerlink" href="changelog.html#id150" title="Link to this heading">¶</a></h2>
+<p><em>January 31, 2015</em></p>
+<section id="id152">
+<h3>New features<a class="headerlink" href="changelog.html#id152" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Added support for subprotocols.</p></li>
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">loop</span></code> argument to <a class="reference internal" href="../reference/legacy/client.html#websockets.legacy.client.connect" title="websockets.legacy.client.connect"><code class="xref py py-func docutils literal notranslate"><span class="pre">connect()</span></code></a> and
+<a class="reference internal" href="../reference/legacy/server.html#websockets.legacy.server.serve" title="websockets.legacy.server.serve"><code class="xref py py-func docutils literal notranslate"><span class="pre">serve()</span></code></a>.</p></li>
+</ul>
+</section>
+</section>
+<section id="id153">
+<span id="id154"></span><h2>2.3<a class="headerlink" href="changelog.html#id153" title="Link to this heading">¶</a></h2>
+<p><em>November 3, 2014</em></p>
+<section id="id155">
+<h3>Improvements<a class="headerlink" href="changelog.html#id155" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Improved compliance of close codes.</p></li>
+</ul>
+</section>
+</section>
+<section id="id156">
+<span id="id157"></span><h2>2.2<a class="headerlink" href="changelog.html#id156" title="Link to this heading">¶</a></h2>
+<p><em>July 28, 2014</em></p>
+<section id="id158">
+<h3>New features<a class="headerlink" href="changelog.html#id158" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Added support for limiting message size.</p></li>
+</ul>
+</section>
+</section>
+<section id="id159">
+<span id="id160"></span><h2>2.1<a class="headerlink" href="changelog.html#id159" title="Link to this heading">¶</a></h2>
+<p><em>April 26, 2014</em></p>
+<section id="id161">
+<h3>New features<a class="headerlink" href="changelog.html#id161" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">host</span></code>, <code class="docutils literal notranslate"><span class="pre">port</span></code> and <code class="docutils literal notranslate"><span class="pre">secure</span></code> attributes on protocols.</p></li>
+<li><p>Added support for providing and checking <a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc6455.html#section-10.2">Origin</a>.</p></li>
+</ul>
+</section>
+</section>
+<section id="id162">
+<span id="id163"></span><h2>2.0<a class="headerlink" href="changelog.html#id162" title="Link to this heading">¶</a></h2>
+<p><em>February 16, 2014</em></p>
+<section id="id164">
+<h3>Backwards-incompatible changes<a class="headerlink" href="changelog.html#id164" title="Link to this heading">¶</a></h3>
+<div class="caution admonition">
+<p class="admonition-title"><a class="reference internal" href="../reference/legacy/common.html#websockets.legacy.protocol.WebSocketCommonProtocol.send" title="websockets.legacy.protocol.WebSocketCommonProtocol.send"><code class="xref py py-meth docutils literal notranslate"><span class="pre">send()</span></code></a>,
+<a class="reference internal" href="../reference/legacy/common.html#websockets.legacy.protocol.WebSocketCommonProtocol.ping" title="websockets.legacy.protocol.WebSocketCommonProtocol.ping"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ping()</span></code></a>, and
+<a class="reference internal" href="../reference/legacy/common.html#websockets.legacy.protocol.WebSocketCommonProtocol.pong" title="websockets.legacy.protocol.WebSocketCommonProtocol.pong"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pong()</span></code></a> are now coroutines.</p>
+<p>They used to be functions.</p>
+<p>Instead of:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">websocket</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>you must write:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">await</span> <span class="n">websocket</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="id165">
+<h3>New features<a class="headerlink" href="changelog.html#id165" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Added flow control for outgoing data.</p></li>
+</ul>
+</section>
+</section>
+<section id="id166">
+<span id="id167"></span><h2>1.0<a class="headerlink" href="changelog.html#id166" title="Link to this heading">¶</a></h2>
+<p><em>November 14, 2013</em></p>
+<section id="id168">
+<h3>New features<a class="headerlink" href="changelog.html#id168" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Initial public release.</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="contributing.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Contributing</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="index.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">About websockets</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2013-2024, Aymeric Augustin and contributors
+            </div>
+            Made with 
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="changelog.html#">Changelog</a><ul>
+<li><a class="reference internal" href="changelog.html#backwards-compatibility-policy">Backwards-compatibility policy</a></li>
+<li><a class="reference internal" href="changelog.html#id2">14.1</a><ul>
+<li><a class="reference internal" href="changelog.html#improvements">Improvements</a></li>
+<li><a class="reference internal" href="changelog.html#bug-fixes">Bug fixes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="changelog.html#id4">14.0</a><ul>
+<li><a class="reference internal" href="changelog.html#backwards-incompatible-changes">Backwards-incompatible changes</a></li>
+<li><a class="reference internal" href="changelog.html#new-features">New features</a></li>
+<li><a class="reference internal" href="changelog.html#id6">Improvements</a></li>
+<li><a class="reference internal" href="changelog.html#id7">Bug fixes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="changelog.html#id8">13.1</a><ul>
+<li><a class="reference internal" href="changelog.html#id10">Backwards-incompatible changes</a></li>
+<li><a class="reference internal" href="changelog.html#id11">New features</a></li>
+<li><a class="reference internal" href="changelog.html#id12">Improvements</a></li>
+<li><a class="reference internal" href="changelog.html#id13">Bug fixes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="changelog.html#id14">13.0.1</a><ul>
+<li><a class="reference internal" href="changelog.html#id15">Bug fixes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="changelog.html#id16">13.0</a><ul>
+<li><a class="reference internal" href="changelog.html#id18">Backwards-incompatible changes</a></li>
+<li><a class="reference internal" href="changelog.html#id19">New features</a></li>
+<li><a class="reference internal" href="changelog.html#id20">Improvements</a></li>
+<li><a class="reference internal" href="changelog.html#id21">Bug fixes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="changelog.html#id22">12.0</a><ul>
+<li><a class="reference internal" href="changelog.html#id24">Backwards-incompatible changes</a></li>
+<li><a class="reference internal" href="changelog.html#id25">Improvements</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="changelog.html#id26">11.0.3</a><ul>
+<li><a class="reference internal" href="changelog.html#id27">Bug fixes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="changelog.html#id28">11.0.2</a><ul>
+<li><a class="reference internal" href="changelog.html#id29">Bug fixes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="changelog.html#id30">11.0.1</a><ul>
+<li><a class="reference internal" href="changelog.html#id31">Bug fixes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="changelog.html#id32">11.0</a><ul>
+<li><a class="reference internal" href="changelog.html#id34">Backwards-incompatible changes</a></li>
+<li><a class="reference internal" href="changelog.html#id35">New features</a></li>
+<li><a class="reference internal" href="changelog.html#id36">Improvements</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="changelog.html#id37">10.4</a><ul>
+<li><a class="reference internal" href="changelog.html#id39">New features</a></li>
+<li><a class="reference internal" href="changelog.html#id40">Improvements</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="changelog.html#id41">10.3</a><ul>
+<li><a class="reference internal" href="changelog.html#id43">Backwards-incompatible changes</a></li>
+<li><a class="reference internal" href="changelog.html#id44">Improvements</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="changelog.html#id45">10.2</a><ul>
+<li><a class="reference internal" href="changelog.html#id47">Improvements</a></li>
+<li><a class="reference internal" href="changelog.html#id48">Bug fixes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="changelog.html#id49">10.1</a><ul>
+<li><a class="reference internal" href="changelog.html#id51">New features</a></li>
+<li><a class="reference internal" href="changelog.html#id52">Improvements</a></li>
+<li><a class="reference internal" href="changelog.html#id53">Bug fixes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="changelog.html#id54">10.0</a><ul>
+<li><a class="reference internal" href="changelog.html#id56">Backwards-incompatible changes</a></li>
+<li><a class="reference internal" href="changelog.html#id57">New features</a></li>
+<li><a class="reference internal" href="changelog.html#id58">Improvements</a></li>
+<li><a class="reference internal" href="changelog.html#id59">Bug fixes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="changelog.html#id60">9.1</a><ul>
+<li><a class="reference internal" href="changelog.html#security-fix">Security fix</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="changelog.html#id62">9.0.2</a><ul>
+<li><a class="reference internal" href="changelog.html#id63">Bug fixes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="changelog.html#id64">9.0.1</a><ul>
+<li><a class="reference internal" href="changelog.html#id65">Bug fixes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="changelog.html#id66">9.0</a><ul>
+<li><a class="reference internal" href="changelog.html#id68">Backwards-incompatible changes</a></li>
+<li><a class="reference internal" href="changelog.html#id70">New features</a></li>
+<li><a class="reference internal" href="changelog.html#id71">Improvements</a></li>
+<li><a class="reference internal" href="changelog.html#id72">Bug fixes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="changelog.html#id73">8.1</a><ul>
+<li><a class="reference internal" href="changelog.html#id75">New features</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="changelog.html#id76">8.0.2</a><ul>
+<li><a class="reference internal" href="changelog.html#id77">Bug fixes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="changelog.html#id78">8.0.1</a><ul>
+<li><a class="reference internal" href="changelog.html#id79">Bug fixes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="changelog.html#id80">8.0</a><ul>
+<li><a class="reference internal" href="changelog.html#id82">Backwards-incompatible changes</a></li>
+<li><a class="reference internal" href="changelog.html#id83">New features</a></li>
+<li><a class="reference internal" href="changelog.html#id84">Improvements</a></li>
+<li><a class="reference internal" href="changelog.html#id85">Bug fixes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="changelog.html#id86">7.0</a><ul>
+<li><a class="reference internal" href="changelog.html#id88">Backwards-incompatible changes</a></li>
+<li><a class="reference internal" href="changelog.html#id89">New features</a></li>
+<li><a class="reference internal" href="changelog.html#id90">Improvements</a></li>
+<li><a class="reference internal" href="changelog.html#id91">Bug fixes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="changelog.html#id92">6.0</a><ul>
+<li><a class="reference internal" href="changelog.html#id94">Backwards-incompatible changes</a></li>
+<li><a class="reference internal" href="changelog.html#id95">New features</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="changelog.html#id96">5.0.1</a><ul>
+<li><a class="reference internal" href="changelog.html#id97">Bug fixes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="changelog.html#id98">5.0</a><ul>
+<li><a class="reference internal" href="changelog.html#id100">Security fix</a></li>
+<li><a class="reference internal" href="changelog.html#id101">Backwards-incompatible changes</a></li>
+<li><a class="reference internal" href="changelog.html#id102">New features</a></li>
+<li><a class="reference internal" href="changelog.html#id103">Improvements</a></li>
+<li><a class="reference internal" href="changelog.html#id104">Bug fixes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="changelog.html#id105">4.0.1</a><ul>
+<li><a class="reference internal" href="changelog.html#id106">Bug fixes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="changelog.html#id107">4.0</a><ul>
+<li><a class="reference internal" href="changelog.html#id109">Backwards-incompatible changes</a></li>
+<li><a class="reference internal" href="changelog.html#id110">New features</a></li>
+<li><a class="reference internal" href="changelog.html#id111">Improvements</a></li>
+<li><a class="reference internal" href="changelog.html#id112">Bug fixes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="changelog.html#id113">3.4</a><ul>
+<li><a class="reference internal" href="changelog.html#id115">Backwards-incompatible changes</a></li>
+<li><a class="reference internal" href="changelog.html#id116">New features</a></li>
+<li><a class="reference internal" href="changelog.html#id117">Improvements</a></li>
+<li><a class="reference internal" href="changelog.html#id118">Bug fixes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="changelog.html#id119">3.3</a><ul>
+<li><a class="reference internal" href="changelog.html#id121">New features</a></li>
+<li><a class="reference internal" href="changelog.html#id122">Improvements</a></li>
+<li><a class="reference internal" href="changelog.html#id123">Bug fixes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="changelog.html#id124">3.2</a><ul>
+<li><a class="reference internal" href="changelog.html#id126">New features</a></li>
+<li><a class="reference internal" href="changelog.html#id127">Improvements</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="changelog.html#id128">3.1</a><ul>
+<li><a class="reference internal" href="changelog.html#id130">New features</a></li>
+<li><a class="reference internal" href="changelog.html#id131">Bug fixes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="changelog.html#id132">3.0</a><ul>
+<li><a class="reference internal" href="changelog.html#id134">Backwards-incompatible changes</a></li>
+<li><a class="reference internal" href="changelog.html#id135">New features</a></li>
+<li><a class="reference internal" href="changelog.html#id136">Improvements</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="changelog.html#id137">2.7</a><ul>
+<li><a class="reference internal" href="changelog.html#id139">New features</a></li>
+<li><a class="reference internal" href="changelog.html#id140">Improvements</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="changelog.html#id141">2.6</a><ul>
+<li><a class="reference internal" href="changelog.html#id143">New features</a></li>
+<li><a class="reference internal" href="changelog.html#id144">Bug fixes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="changelog.html#id145">2.5</a><ul>
+<li><a class="reference internal" href="changelog.html#id147">New features</a></li>
+<li><a class="reference internal" href="changelog.html#id148">Improvements</a></li>
+<li><a class="reference internal" href="changelog.html#id149">Bug fixes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="changelog.html#id150">2.4</a><ul>
+<li><a class="reference internal" href="changelog.html#id152">New features</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="changelog.html#id153">2.3</a><ul>
+<li><a class="reference internal" href="changelog.html#id155">Improvements</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="changelog.html#id156">2.2</a><ul>
+<li><a class="reference internal" href="changelog.html#id158">New features</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="changelog.html#id159">2.1</a><ul>
+<li><a class="reference internal" href="changelog.html#id161">New features</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="changelog.html#id162">2.0</a><ul>
+<li><a class="reference internal" href="changelog.html#id164">Backwards-incompatible changes</a></li>
+<li><a class="reference internal" href="changelog.html#id165">New features</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="changelog.html#id166">1.0</a><ul>
+<li><a class="reference internal" href="changelog.html#id168">New features</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js%3Fv=03fa008d"></script>
+    <script src="../_static/doctools.js%3Fv=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js%3Fv=dc90522c"></script>
+    <script src="../_static/scripts/furo.js%3Fv=5fa4622c"></script>
+    <script src="../_static/clipboard.min.js%3Fv=a7894cd8"></script>
+    <script src="../_static/copybutton.js%3Fv=f281be69"></script>
+    <script src="../_static/tabs.js%3Fv=3ee01567"></script>
+    </body>
+</html>

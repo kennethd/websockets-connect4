@@ -1,0 +1,679 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Logging" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="topics/logging.html" />
+<meta property="og:site_name" content="websockets" />
+<meta property="og:description" content="Logs contents: When you run a WebSocket client, your code calls coroutines provided by websockets. If an error occurs, websockets tells you by raising an exception. For example, it raises a Connect..." />
+<meta name="description" content="Logs contents: When you run a WebSocket client, your code calls coroutines provided by websockets. If an error occurs, websockets tells you by raising an exception. For example, it raises a Connect..." />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Authentication" href="authentication.html" /><link rel="prev" title="Deployment" href="deployment.html" />
+
+    <link rel="shortcut icon" href="../_static/favicon.ico"/><!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
+        <title>Logging - websockets 14.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css%3Fv=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css%3Fv=354aac6f.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css%3Fv=76b2166b.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css%3Fv=4c969af8.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css%3Fv=302659d7.css" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  --color-brand-primary: #306998;
+  --color-brand-content: #0b487a;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --color-brand-primary: #ffd43bcc;
+  --color-brand-content: #ffd43bd9;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --color-brand-primary: #ffd43bcc;
+  --color-brand-content: #ffd43bd9;
+  
+      }
+    }
+  }
+</style><script async type="text/javascript" src="../../../_/static/javascript/readthedocs-addons.js"></script><meta name="readthedocs-project-slug" content="websockets" /><meta name="readthedocs-version-slug" content="stable" /><meta name="readthedocs-resolver-filename" content="/topics/logging.html" /><meta name="readthedocs-http-status" content="200" /></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="logging.html#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">websockets 14.1 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../_static/websockets.svg" alt="Logo"/>
+  </div>
+  
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../intro/index.html">Getting started</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Getting started</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../intro/tutorial1.html">Part 1 - Send &amp; receive</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/tutorial2.html">Part 2 - Route &amp; broadcast</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/tutorial3.html">Part 3 - Deploy to the web</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../howto/index.html">How-to guides</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of How-to guides</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../howto/quickstart.html">Quick start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/upgrade.html">Upgrade to the new <code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code> implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/cheatsheet.html">Cheat sheet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/patterns.html">Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/autoreload.html">Reload on code changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/django.html">Integrate with Django</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/extensions.html">Write an extension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/render.html">Deploy to Render</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/fly.html">Deploy to Fly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/heroku.html">Deploy to Heroku</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/kubernetes.html">Deploy to Kubernetes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/supervisor.html">Deploy with Supervisor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/nginx.html">Deploy behind nginx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/haproxy.html">Deploy behind HAProxy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/sansio.html">Integrate the Sans-I/O layer</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../faq/index.html">Frequently asked questions</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Frequently asked questions</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../faq/server.html">Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/client.html">Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/common.html">Both sides</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/asyncio.html">Using asyncio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/misc.html">Miscellaneous</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../reference/index.html">API reference</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of API reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reference/features.html">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/asyncio/server.html">Server (new <code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/asyncio/client.html">Client (new <code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/sync/server.html">Server (<code class="xref py py-mod docutils literal notranslate"><span class="pre">threading</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/sync/client.html">Client (<code class="xref py py-mod docutils literal notranslate"><span class="pre">threading</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/sansio/server.html">Server (Sans-I/O)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/sansio/client.html">Client (Sans-I/O)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/legacy/server.html">Server (legacy <code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/legacy/client.html">Client (legacy <code class="xref py py-mod docutils literal notranslate"><span class="pre">asyncio</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/extensions.html">Extensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/datastructures.html">Data structures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/exceptions.html">Exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/types.html">Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/variables.html">Environment variables</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Topic guides</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of Topic guides</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="deployment.html">Deployment</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="logging.html#">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="authentication.html">Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="broadcast.html">Broadcasting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compression.html">Compression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keepalive.html">Keepalive and latency</a></li>
+<li class="toctree-l2"><a class="reference internal" href="memory.html">Memory and buffers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">Security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html">Performance</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../project/index.html">About websockets</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of About websockets</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../project/changelog.html">Changelog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../project/contributing.html">Contributing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../project/sponsoring.html">Sponsoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../project/tidelift.html">For enterprise</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../project/support.html">Getting support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../project/license.html">License</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="logging.html#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          
+
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="logging">
+<h1>Logging<a class="headerlink" href="logging.html#logging" title="Link to this heading">¶</a></h1>
+<section id="logs-contents">
+<h2>Logs contents<a class="headerlink" href="logging.html#logs-contents" title="Link to this heading">¶</a></h2>
+<p>When you run a WebSocket client, your code calls coroutines provided by
+websockets.</p>
+<p>If an error occurs, websockets tells you by raising an exception. For example,
+it raises a <a class="reference internal" href="../reference/exceptions.html#websockets.exceptions.ConnectionClosed" title="websockets.exceptions.ConnectionClosed"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ConnectionClosed</span></code></a> exception if the other side
+closes the connection.</p>
+<p>When you run a WebSocket server, websockets accepts connections, performs the
+opening handshake, runs the connection handler coroutine that you provided,
+and performs the closing handshake.</p>
+<p>Given this <a class="reference external" href="https://en.wikipedia.org/wiki/Inversion_of_control">inversion of control</a>, if an error happens in the opening
+handshake or if the connection handler crashes, there is no way to raise an
+exception that you can handle.</p>
+<p>Logs tell you about these errors.</p>
+<p>Besides errors, you may want to record the activity of the server.</p>
+<p>In a request/response protocol such as HTTP, there’s an obvious way to record
+activity: log one event per request/response. Unfortunately, this solution
+doesn’t work well for a bidirectional protocol such as WebSocket.</p>
+<p>Instead, when running as a server, websockets logs one event when a
+<a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc6455.html#section-4">connection is established</a> and another event when a <a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc6455.html#section-7.1.4">connection is
+closed</a>.</p>
+<p>By default, websockets doesn’t log an event for every message. That would be
+excessive for many applications exchanging small messages at a fast rate. If
+you need this level of detail, you could add logging in your own code.</p>
+<p>Finally, you can enable debug logs to get details about everything websockets
+is doing. This can be useful when developing clients as well as servers.</p>
+<p>See <a class="reference internal" href="logging.html#log-levels"><span class="std std-ref">log levels</span></a> below for a list of events logged by
+websockets logs at each log level.</p>
+</section>
+<section id="configure-logging">
+<h2>Configure logging<a class="headerlink" href="logging.html#configure-logging" title="Link to this heading">¶</a></h2>
+<p>websockets relies on the <a class="reference external" href="https://docs.python.org/3/library/logging.html#module-logging" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">logging</span></code></a> module from the standard library in
+order to maximize compatibility and integrate nicely with other libraries:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
+</pre></div>
+</div>
+<p>websockets logs to the <code class="docutils literal notranslate"><span class="pre">&quot;websockets.client&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;websockets.server&quot;</span></code>
+loggers.</p>
+<p>websockets doesn’t provide a default logging configuration because
+requirements vary a lot depending on the environment.</p>
+<p>Here’s a basic configuration for a server in production:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span>
+    <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%(asctime)s</span><span class="s2"> </span><span class="si">%(message)s</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Here’s how to enable debug logs for development:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span>
+    <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%(message)s</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>By default, websockets elides the content of messages to improve readability.
+If you want to see more, you can increase the <span class="target" id="index-0"></span><a class="reference internal" href="../reference/variables.html#envvar-WEBSOCKETS_MAX_LOG_SIZE"><code class="xref std std-envvar docutils literal notranslate"><span class="pre">WEBSOCKETS_MAX_LOG_SIZE</span></code></a>
+environment variable. The default value is 75.</p>
+<p>Furthermore, websockets adds a <code class="docutils literal notranslate"><span class="pre">websocket</span></code> attribute to log records, so you
+can include additional information about the current connection in logs.</p>
+<p>You could attempt to add information with a formatter:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># this doesn&#39;t work!</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span>
+    <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{asctime}</span><span class="s2"> </span><span class="si">{websocket.id}</span><span class="s2"> </span><span class="si">{websocket.remote_address[0]}</span><span class="s2"> </span><span class="si">{message}</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="s2">&quot;{&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>However, this technique runs into two problems:</p>
+<ul class="simple">
+<li><p>The formatter applies to all records. It will crash if it receives a record
+without a <code class="docutils literal notranslate"><span class="pre">websocket</span></code> attribute. For example, this happens when logging
+that the server starts because there is no current connection.</p></li>
+<li><p>Even with <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str.format" title="(in Python v3.13)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">str.format()</span></code></a> style, you’re restricted to attribute and index
+lookups, which isn’t enough to implement some fairly simple requirements.</p></li>
+</ul>
+<p>There’s a better way. <a class="reference internal" href="../reference/asyncio/client.html#websockets.asyncio.client.connect" title="websockets.asyncio.client.connect"><code class="xref py py-func docutils literal notranslate"><span class="pre">connect()</span></code></a> and
+<a class="reference internal" href="../reference/asyncio/server.html#websockets.asyncio.server.serve" title="websockets.asyncio.server.serve"><code class="xref py py-func docutils literal notranslate"><span class="pre">serve()</span></code></a> accept a <code class="docutils literal notranslate"><span class="pre">logger</span></code> argument to override the
+default <a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Logger" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Logger</span></code></a>. You can set <code class="docutils literal notranslate"><span class="pre">logger</span></code> to a
+<a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.LoggerAdapter" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoggerAdapter</span></code></a> that enriches logs.</p>
+<p>For example, if the server is behind a reverse
+proxy, <a class="reference internal" href="../reference/legacy/common.html#websockets.legacy.protocol.WebSocketCommonProtocol.remote_address" title="websockets.legacy.protocol.WebSocketCommonProtocol.remote_address"><code class="xref py py-attr docutils literal notranslate"><span class="pre">remote_address</span></code></a> gives
+the IP address of the proxy, which isn’t useful. IP addresses of clients are
+provided in an HTTP header set by the proxy.</p>
+<p>Here’s how to include them in logs, assuming they’re in the
+<code class="docutils literal notranslate"><span class="pre">X-Forwarded-For</span></code> header:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span>
+    <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%(asctime)s</span><span class="s2"> </span><span class="si">%(message)s</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">LoggerAdapter</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">LoggerAdapter</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Add connection ID and client IP address to websockets logs.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">websocket</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;extra&quot;</span><span class="p">][</span><span class="s2">&quot;websocket&quot;</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>        <span class="c1"># log entry not coming from a connection</span>
+            <span class="k">return</span> <span class="n">msg</span><span class="p">,</span> <span class="n">kwargs</span>
+        <span class="k">if</span> <span class="n">websocket</span><span class="o">.</span><span class="n">request</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>   <span class="c1"># opening handshake not complete</span>
+            <span class="k">return</span> <span class="n">msg</span><span class="p">,</span> <span class="n">kwargs</span>
+        <span class="n">xff</span> <span class="o">=</span> <span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;X-Forwarded-For&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">websocket</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">xff</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">msg</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">kwargs</span>
+
+<span class="k">async</span> <span class="k">with</span> <span class="n">serve</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="c1"># Python &lt; 3.10 requires passing None as the second argument.</span>
+    <span class="n">logger</span><span class="o">=</span><span class="n">LoggerAdapter</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;websockets.server&quot;</span><span class="p">),</span> <span class="kc">None</span><span class="p">),</span>
+<span class="p">):</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+</section>
+<section id="logging-to-json">
+<h2>Logging to JSON<a class="headerlink" href="logging.html#logging-to-json" title="Link to this heading">¶</a></h2>
+<p>Even though <a class="reference external" href="https://docs.python.org/3/library/logging.html#module-logging" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">logging</span></code></a> predates structured logging, it’s still possible to
+output logs as JSON with a bit of effort.</p>
+<p>First, we need a <a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Formatter" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Formatter</span></code></a> that renders JSON:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="k">class</span> <span class="nc">JSONFormatter</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Render logs as JSON.</span>
+
+<span class="sd">    To add details to a log record, store them in a ``event_data``</span>
+<span class="sd">    custom attribute. This dict is merged into the event.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>  <span class="c1"># override logging.Formatter constructor</span>
+
+    <span class="k">def</span> <span class="nf">format</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">):</span>
+        <span class="n">event</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">getTimestamp</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">created</span><span class="p">),</span>
+            <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="n">record</span><span class="o">.</span><span class="n">getMessage</span><span class="p">(),</span>
+            <span class="s2">&quot;level&quot;</span><span class="p">:</span> <span class="n">record</span><span class="o">.</span><span class="n">levelname</span><span class="p">,</span>
+            <span class="s2">&quot;logger&quot;</span><span class="p">:</span> <span class="n">record</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">event_data</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="s2">&quot;event_data&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">event_data</span><span class="p">:</span>
+            <span class="n">event</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">event_data</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">record</span><span class="o">.</span><span class="n">exc_info</span><span class="p">:</span>
+            <span class="n">event</span><span class="p">[</span><span class="s2">&quot;exc_info&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatException</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">exc_info</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">record</span><span class="o">.</span><span class="n">stack_info</span><span class="p">:</span>
+            <span class="n">event</span><span class="p">[</span><span class="s2">&quot;stack_info&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatStack</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">stack_info</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">getTimestamp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">created</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">utcfromtimestamp</span><span class="p">(</span><span class="n">created</span><span class="p">)</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Then, we configure logging to apply this formatter:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">handler</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">()</span>
+<span class="n">handler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">formatter</span><span class="p">)</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Finally, we populate the <code class="docutils literal notranslate"><span class="pre">event_data</span></code> custom attribute in log records with
+a <a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.LoggerAdapter" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoggerAdapter</span></code></a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">LoggerAdapter</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">LoggerAdapter</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Add connection ID and client IP address to websockets logs.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">websocket</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;extra&quot;</span><span class="p">][</span><span class="s2">&quot;websocket&quot;</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">msg</span><span class="p">,</span> <span class="n">kwargs</span>
+        <span class="n">event_data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;connection_id&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">websocket</span><span class="o">.</span><span class="n">id</span><span class="p">)}</span>
+        <span class="k">if</span> <span class="n">websocket</span><span class="o">.</span><span class="n">request</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># opening handshake complete</span>
+            <span class="n">headers</span> <span class="o">=</span> <span class="n">websocket</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">headers</span>
+            <span class="n">event_data</span><span class="p">[</span><span class="s2">&quot;remote_addr&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;X-Forwarded-For&quot;</span><span class="p">)</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;extra&quot;</span><span class="p">][</span><span class="s2">&quot;event_data&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">event_data</span>
+        <span class="k">return</span> <span class="n">msg</span><span class="p">,</span> <span class="n">kwargs</span>
+
+<span class="k">async</span> <span class="k">with</span> <span class="n">serve</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="c1"># Python &lt; 3.10 requires passing None as the second argument.</span>
+    <span class="n">logger</span><span class="o">=</span><span class="n">LoggerAdapter</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;websockets.server&quot;</span><span class="p">),</span> <span class="kc">None</span><span class="p">),</span>
+<span class="p">):</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+</section>
+<section id="disable-logging">
+<h2>Disable logging<a class="headerlink" href="logging.html#disable-logging" title="Link to this heading">¶</a></h2>
+<p>If your application doesn’t configure <a class="reference external" href="https://docs.python.org/3/library/logging.html#module-logging" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">logging</span></code></a>, Python outputs messages
+of severity <code class="docutils literal notranslate"><span class="pre">WARNING</span></code> and higher to <a class="reference external" href="https://docs.python.org/3/library/sys.html#sys.stderr" title="(in Python v3.13)"><code class="xref py py-data docutils literal notranslate"><span class="pre">stderr</span></code></a>. As a consequence,
+you will see a message and a stack trace if a connection handler coroutine
+crashes or if you hit a bug in websockets.</p>
+<p>If you want to disable this behavior for websockets, you can add
+a <a class="reference external" href="https://docs.python.org/3/library/logging.handlers.html#logging.NullHandler" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">NullHandler</span></code></a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;websockets&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">NullHandler</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>Additionally, if your application configures <a class="reference external" href="https://docs.python.org/3/library/logging.html#module-logging" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">logging</span></code></a>, you must disable
+propagation to the root logger, or else its handlers could output logs:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;websockets&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">propagate</span> <span class="o">=</span> <span class="kc">False</span>
+</pre></div>
+</div>
+<p>Alternatively, you could set the log level to <code class="docutils literal notranslate"><span class="pre">CRITICAL</span></code> for the
+<code class="docutils literal notranslate"><span class="pre">&quot;websockets&quot;</span></code> logger, as the highest level currently used is <code class="docutils literal notranslate"><span class="pre">ERROR</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;websockets&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">CRITICAL</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Or you could configure a filter to drop all messages:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;websockets&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">addFilter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">record</span><span class="p">:</span> <span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="log-levels">
+<span id="id1"></span><h2>Log levels<a class="headerlink" href="logging.html#log-levels" title="Link to this heading">¶</a></h2>
+<p>Here’s what websockets logs at each level.</p>
+<section id="error">
+<h3><code class="docutils literal notranslate"><span class="pre">ERROR</span></code><a class="headerlink" href="logging.html#error" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Exceptions raised by your code in servers</dt><dd><ul>
+<li><p>connection handler coroutines</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">select_subprotocol</span></code> callbacks</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">process_request</span></code> and <code class="docutils literal notranslate"><span class="pre">process_response</span></code> callbacks</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>Exceptions resulting from bugs in websockets</p></li>
+</ul>
+</section>
+<section id="warning">
+<h3><code class="docutils literal notranslate"><span class="pre">WARNING</span></code><a class="headerlink" href="logging.html#warning" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Failures in <a class="reference internal" href="../reference/asyncio/server.html#websockets.asyncio.server.broadcast" title="websockets.asyncio.server.broadcast"><code class="xref py py-func docutils literal notranslate"><span class="pre">broadcast()</span></code></a></p></li>
+</ul>
+</section>
+<section id="info">
+<h3><code class="docutils literal notranslate"><span class="pre">INFO</span></code><a class="headerlink" href="logging.html#info" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Server starting and stopping</p></li>
+<li><p>Server establishing and closing connections</p></li>
+<li><p>Client reconnecting automatically</p></li>
+</ul>
+</section>
+<section id="debug">
+<h3><code class="docutils literal notranslate"><span class="pre">DEBUG</span></code><a class="headerlink" href="logging.html#debug" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Changes to the state of connections</p></li>
+<li><p>Handshake requests and responses</p></li>
+<li><p>All frames sent and received</p></li>
+<li><p>Steps to close a connection</p></li>
+<li><p>Keepalive pings and pongs</p></li>
+<li><p>Errors handled transparently</p></li>
+</ul>
+<p>Debug messages have cute prefixes that make logs easier to scan:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&gt;</span></code> - send something</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;</span></code> - receive something</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">=</span></code> - set connection state</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code> - shut down connection</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">%</span></code> - manage pings and pongs</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-</span></code> - timeout</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">!</span></code> - error, with a traceback</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="authentication.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Authentication</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="deployment.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Deployment</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2013-2024, Aymeric Augustin and contributors
+            </div>
+            Made with 
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="logging.html#">Logging</a><ul>
+<li><a class="reference internal" href="logging.html#logs-contents">Logs contents</a></li>
+<li><a class="reference internal" href="logging.html#configure-logging">Configure logging</a></li>
+<li><a class="reference internal" href="logging.html#logging-to-json">Logging to JSON</a></li>
+<li><a class="reference internal" href="logging.html#disable-logging">Disable logging</a></li>
+<li><a class="reference internal" href="logging.html#log-levels">Log levels</a><ul>
+<li><a class="reference internal" href="logging.html#error"><code class="docutils literal notranslate"><span class="pre">ERROR</span></code></a></li>
+<li><a class="reference internal" href="logging.html#warning"><code class="docutils literal notranslate"><span class="pre">WARNING</span></code></a></li>
+<li><a class="reference internal" href="logging.html#info"><code class="docutils literal notranslate"><span class="pre">INFO</span></code></a></li>
+<li><a class="reference internal" href="logging.html#debug"><code class="docutils literal notranslate"><span class="pre">DEBUG</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js%3Fv=03fa008d"></script>
+    <script src="../_static/doctools.js%3Fv=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js%3Fv=dc90522c"></script>
+    <script src="../_static/scripts/furo.js%3Fv=5fa4622c"></script>
+    <script src="../_static/clipboard.min.js%3Fv=a7894cd8"></script>
+    <script src="../_static/copybutton.js%3Fv=f281be69"></script>
+    <script src="../_static/tabs.js%3Fv=3ee01567"></script>
+    </body>
+</html>
