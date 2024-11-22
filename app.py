@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import asyncio
+import itertools
 import json
 import logging
 
@@ -15,16 +16,14 @@ logging.basicConfig(format="%(message)s", level=logging.DEBUG)
 
 async def handler(websocket):
     game = Connect4()
-    move = 0
-    players = [PLAYER1, PLAYER2]
+    # Players take alternate turns, using the same browser.
+    turns = itertools.cycle([PLAYER1, PLAYER2])
+    player = next(turns)
 
     async for message in websocket:
         logging.debug(message)
         event = json.loads(message)
         logging.debug(event)
-        # handle play events, alternating between users
-        move = move + 1
-        player = players[move % 2]
 
         event_type = event.get("type")
         response = {
@@ -35,6 +34,7 @@ async def handler(websocket):
         if event_type == "play":
             try:
                 column = event["column"]
+                logging.debug(f"player {player} plays col {column}")
                 row = game.play(player, column)
             except (ValueError, KeyError) as exc:
                 response = {
@@ -56,6 +56,8 @@ async def handler(websocket):
                     "column": column,
                     "row": row,
                 }
+            player = next(turns)
+            logging.debug(f"Next player is up: {player}")
 
         await websocket.send(json.dumps(response))
 
