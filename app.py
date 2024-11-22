@@ -162,6 +162,14 @@ def game_watchers(game_id):
     return game, connections
 
 
+async def error(websocket, message):
+    event = {
+        "type": "error",
+        "message": message,
+    }
+    await websocket.send(json.dumps(event))
+
+
 async def init_game(websocket):
     """called when player creates a new game
 
@@ -178,6 +186,7 @@ async def init_game(websocket):
         # enter gameplay loop
         await play(websocket, game_id, PLAYER1)
     finally:
+        logging.debug(f"Game over")
         destroy_game(game_id)
 
 
@@ -194,6 +203,7 @@ async def join_game(websocket, game_id):
         # enter gameplay loop
         await play(websocket, game_id, PLAYER2)
     finally:
+        logging.debug(f"{PLAYER2} leaving game {game_id}")
         leave_game(game_id)
 
 
@@ -201,11 +211,15 @@ async def play(websocket, game_id, player):
     """gameplay loop"""
     game, connections = lookup_game(game_id)
 
+    # TODO: Wait for player2
+    # TODO: Add event to notify player it's their turn
+    # TODO: Add timeout to destroy idle games
+
     async for message in websocket:
         logging.debug(message)
-        # once a game is started/joined only valid client event is play
         event = json.loads(message)
         logging.debug(event)
+        # once a game is started/joined only valid client event is play
         assert event.get("type") == "play"
 
         try:
@@ -213,11 +227,7 @@ async def play(websocket, game_id, player):
             logging.debug(f"player {player} plays col {column}")
             row = game.play(player, column)
         except (ValueError, KeyError) as exc:
-            response = {
-                "type": "error",
-                "message": str(exc),
-            }
-            await websocket.send(json.dumps(response))
+            await error(str(exc))
             continue
 
         response = {
@@ -237,28 +247,23 @@ async def play(websocket, game_id, player):
 
 
 async def handler(websocket):
+    # handler accepts init, join or watch events, then delegates to event loop;
+    # therefore we only need .recv() one message
+    message = await websocket.recv()
+    logging.debug(message)
+    event = json.loads(message)
+    logging.debug(event)
 
-    async for message in websocket:
-        logging.debug(message)
-        event = json.loads(message)
-        logging.debug(event)
+    event_type = event.get("type")
 
-        event_type = event.get("type")
-
-        if event_type == "init":
-            game_id = event.get("game_id")
-
-            if not game_id:
-                await init_game(websocket)
-            else:
-                await join_game(websocket, game_id)
-
+    if event_type == "init":
+        game_id = event.get("game_id")
+        if not game_id:
+            await init_game(websocket)
         else:
-            response = {
-                "type": "error",
-                "message": f"Unknown event type {event_type}",
-            }
-            await websocket.send(json.dumps(response))
+            await join_game(websocket, game_id)
+    else:
+        await error(f"Unknown event type {event_type}")
 
 
 async def main():
