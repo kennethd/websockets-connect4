@@ -1,4 +1,4 @@
-#!/usr/bin/env pytho
+#!/usr/bin/env python3
 
 import asyncio
 
@@ -6,11 +6,7 @@ from websockets.asyncio.server import serve
 from websockets.exceptions import ConnectionClosedOK
 
 async def handler(websocket):
-    while True:
-        try:
-            message = await websocket.recv()
-        except ConnectionClosedOK:
-            break
+    async for message in websocket:
         print(message)
 
 async def main():
