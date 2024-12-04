@@ -1,5 +1,17 @@
 import { createBoard, playMove } from "./connect4.js";
 
+// TODO: find deployment-compatible way to read a config file
+const WEBSOCKET_SERVER = 'wss://websockets-connect4.highball.org;
+
+function getWebSocketServer() {
+  // if running on localhost assume ws server is listening on port 8001
+  if (window.location.host.includes("localhost")) {
+    return "ws://localhost:8001/";
+  } else {
+    return WEBSOCKET_SERVER;
+    //throw new Error(`Unsupported host: ${window.location.host}`);
+  }
+}
 
 window.addEventListener("DOMContentLoaded", () => {
   // Initialize the UI.
