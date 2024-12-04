@@ -14,7 +14,8 @@ kenneth@x1:~/git/websockets-connect4 (main)$ source ./venv3.11/bin/activate
 (venv3.11) kenneth@x1:~/git/websockets-connect4 (main)$ which pip
 (venv3.11) kenneth@x1:~/git/websockets-connect4 (main)$ pip install -r requirements.txt
 ```
-The only requirement for the python server is `websockets`
+The only requirement for the python server is `websockets`, `requirements.txt`
+also lists some testing & dev tooling.
 
 # run localhost dev environment
 
@@ -40,10 +41,22 @@ terminals to serving the dev env, start it with:
 ```sh
 kenneth@x1:~/git/websockets-connect4 (main)$ screen -c ./devserv.screenrc
 ```
+Note, the screen config takres care of activating the venv when required (and
+the path to the `venv3.11` directory created above is hardcoded in the config)
+
 Use `Ctrl-a :quit` to exit a screen session, `Ctrl-a d` to detach, etc.  See
 the manual at https://www.gnu.org/software/screen/manual/screen.html
 
+# testing
+Currently there are just a few doctests for the Python code
 
-
-
+Make sure the venv is activated and the correct pytest is found
+```sh
+(venv3.11) kenneth@x1:~/git/websockets-connect4 (main)$ which pytest
+/home/kenneth/git/websockets-connect4/venv3.11/bin/pytest
+```
+Run the tests
+```sh
+(venv3.11) kenneth@x1:~/git/websockets-connect4 (main)$ pytest -v --doctest-modules .
+```
 
