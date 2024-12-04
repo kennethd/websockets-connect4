@@ -1,7 +1,7 @@
 import { createBoard, playMove } from "./connect4.js";
 
 // TODO: find deployment-compatible way to read a config file
-const WEBSOCKET_SERVER = 'wss://websockets-connect4.highball.org;
+const WEBSOCKET_SERVER = 'wss://websockets-connect4.highball.org';
 
 function getWebSocketServer() {
   // if running on localhost assume ws server is listening on port 8001
@@ -18,7 +18,9 @@ window.addEventListener("DOMContentLoaded", () => {
   const board = document.querySelector(".board");
   createBoard(board);
   // Open the WebSocket connection and register event handlers.
-  const websocket = new WebSocket("ws://localhost:8001/");
+  const serverUrl = getWebSocketServer();
+  console.log("connecting to " + serverUrl);
+  const websocket = new WebSocket(serverUrl);
   initGame(websocket);
   receiveMoves(board, websocket);
   sendMoves(board, websocket);

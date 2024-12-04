@@ -1,6 +1,6 @@
-# to get out of screen, use Ctrl-a :quit 
+# to get out of screen, use Ctrl-a :quit
 
-### adjusted from example /usr/share/doc/screen/screenrc 
+### adjusted from example /usr/share/doc/screen/examples/screenrc
 # no annoying audible bell, please
 vbell on
 # detach on hangup
@@ -18,8 +18,8 @@ defscrollback 10000
 zombie "^["
 # enable support for the "alternate screen" capability in all windows
 #altscreen on
-msgminwait 3 
-nethack on 
+msgminwait 3
+nethack on
 
 hardstatus alwayslastline "%{.cb}%-W%{.rW}%50L> %n %t %{-}%+W%L<%-37=%{+b}%{.bc} %D %Y-%m-%d %{.bY}%c%{-b} %{.bc}%l "
 # blue on cyan.............^^^^^^
@@ -45,11 +45,12 @@ hardstatus alwayslastline "%{.cb}%-W%{.rW}%50L> %n %t %{-}%+W%L<%-37=%{+b}%{.bc}
 
 sessionname connect4
 chdir $HOME/git/websockets-connect4
-screen -t connect4-server
-stuff ". ./venv3.11/bin/activate && ./app.py \15"
+screen -t connect4-server 0 bash -c '. ./venv3.11/bin/activate && ./app.py'
 split
 focus down
-screen -t http-server
-stuff "python -m http.server \15"
-focus
+screen -t http-server 1 python -m http.server
+#split
+#focus down
+#screen -t bash 2 bash
+focus top
 

@@ -33,3 +33,17 @@ Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
 For development, you will want both to run in the foreground, so leave those
 running in separate terminals.
 
+## OPTIONAL: serve dev env using GNU screen
+
+A GNU screen config file is included if it annoys you to have to dedicate two
+terminals to serving the dev env, start it with:
+```sh
+kenneth@x1:~/git/websockets-connect4 (main)$ screen -c ./devserv.screenrc
+```
+Use `Ctrl-a :quit` to exit a screen session, `Ctrl-a d` to detach, etc.  See
+the manual at https://www.gnu.org/software/screen/manual/screen.html
+
+
+
+
+
