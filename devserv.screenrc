@@ -1,0 +1,55 @@
+# to get out of screen, use Ctrl-a :quit 
+
+### adjusted from example /usr/share/doc/screen/screenrc 
+# no annoying audible bell, please
+vbell on
+# detach on hangup
+autodetach on
+# don't display the copyright page
+startup_message off
+# emulate .logout message
+pow_detach_msg "Screen session of \$LOGNAME \$:cr:\$:nl:ended."
+# make the shell in every window a login shell
+shell -$SHELL
+# set every new windows hardstatus line to somenthing descriptive
+#defhstatus "screen: ^En (^Et)"
+defscrollback 10000
+# don't kill window after the process died
+zombie "^["
+# enable support for the "alternate screen" capability in all windows
+#altscreen on
+msgminwait 3 
+nethack on 
+
+hardstatus alwayslastline "%{.cb}%-W%{.rW}%50L> %n %t %{-}%+W%L<%-37=%{+b}%{.bc} %D %Y-%m-%d %{.bY}%c%{-b} %{.bc}%l "
+# blue on cyan.............^^^^^^
+# windowlist up to current.......^^^
+# brightwhite on red................^^^^^^
+# point to position @ 50% avail area......^^^^^ (L = if trunc'ed, prefix -W with '...')
+# literal space................................^
+# current window number & title.................^^.^^
+# literal space......................................^
+# undo last color change..............................^^^^
+# windowlist after current................................^^^
+# mark end of available area.................................^^^ (L = if trunc'ed, append +W with '...')
+# anchor everything after 38 chars from right margin............^^^^^ ('=' = anchor, '-' = rmargin)
+# bold on............................................................^^^^^
+# cyan on blue............................................................^^^^^^
+# Sat 2006-10-28.................................................................^^^^^^^^^^^
+# brightyellow on blue.......................................................................^^^^^^
+# HH:MM............................................................................................^^
+# bold off...........................................................................................^^^^^
+# cyan on blue.............................................................................................^^^^^^
+# current system load............................................................................................^^
+# literal space....................................................................................................^
+
+sessionname connect4
+chdir $HOME/git/websockets-connect4
+screen -t connect4-server
+stuff ". ./venv3.11/bin/activate && ./app.py \15"
+split
+focus down
+screen -t http-server
+stuff "python -m http.server \15"
+focus
+
